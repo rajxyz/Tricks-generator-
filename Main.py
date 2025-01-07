@@ -1,7 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
-import random
 
 app = FastAPI()
 
