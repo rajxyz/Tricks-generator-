@@ -5,29 +5,32 @@ from transformers import GPT2LMHeadModel, GPT2Tokenizer
 app = FastAPI()
 
 # Load GPT-2 model and tokenizer
-model_name = "gpt2-hinglish-finetuned"  # Replace with your model name
+model_name = "gpt2"  # Change if using a custom model
 model = GPT2LMHeadModel.from_pretrained(model_name)
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
 # Data structure for request body
 class TrickRequest(BaseModel):
-    concept: str  # The concept or word (e.g., "Stomach enzymes")
-    trick_type: str  # The type of trick (e.g., Acronym, Acrostic, etc.)
+    concept: str  # The concept or topic (e.g., "Photosynthesis")
+    trick_type: str  # The type of trick (e.g., "Acronym", "Visualization")
 
-# Generate trick
+# Trick generation function
 def generate_trick(concept: str, trick_type: str) -> str:
     try:
-        # Define prompt based on trick type
+        # Trick prompts based on the selected method
         prompts = {
-            "acronym": f"Create a Hinglish acronym for: {concept}. Add humor and real-world examples.",
-            "acrostic": f"Generate a Hinglish acrostic sentence for: {concept}. Make it creative and relatable.",
-            "song_rhyme": f"Write a Hinglish rhyme to remember: {concept}. Keep it funny and creative.",
-            "visualization": f"Describe a visual trick in Hinglish to remember: {concept}.",
-            "association": f"Create a Hinglish association for: {concept}. Add humor and cultural relevance.",
+            "acronym": f"Create a meaningful acronym to remember: {concept}. Ensure it's easy to recall.",
+            "acrostic": f"Make a meaningful sentence (Acrostic) where each word starts with letters from: {concept}.",
+            "rhymes_songs": f"Write a short, catchy rhyme or song lyrics to memorize: {concept}.",
+            "visualization": f"Describe a visual scene that strongly connects with: {concept}.",
+            "method_of_loci": f"Use the Method of Loci to link {concept} with a familiar location for easy recall.",
+            "association": f"Create a strong association between {concept} and something common in daily life.",
+            "peg_system": f"Use the Peg System to remember {concept} by linking it with numbers (1 = Sun, 2 = Shoe, etc.).",
+            "key_words_method": f"Generate a Key Words Method trick to help memorize {concept} by linking keywords."
         }
-        
-        # Select appropriate prompt
-        prompt = prompts.get(trick_type.lower(), f"Generate a Hinglish trick for: {concept}.")
+
+        # Get the appropriate prompt
+        prompt = prompts.get(trick_type.lower(), f"Generate a memory trick for: {concept}.")
 
         # Generate text using GPT-2
         input_ids = tokenizer.encode(prompt, return_tensors="pt")
@@ -44,9 +47,11 @@ def generate_trick(concept: str, trick_type: str) -> str:
 # API Endpoint
 @app.post("/generate_trick/")
 def create_trick(request: TrickRequest):
-    concept = request.concept
-    trick_type = request.trick_type
-    return {"concept": concept, "trick_type": trick_type, "trick": generate_trick(concept, trick_type)}
+    return {
+        "concept": request.concept,
+        "trick_type": request.trick_type,
+        "trick": generate_trick(request.concept, request.trick_type)
+    }
 
 # Run the server
 if __name__ == "__main__":
