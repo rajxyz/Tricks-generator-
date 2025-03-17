@@ -1,12 +1,18 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
+import requests
 
 app = FastAPI()
 
-model_name = "distilgpt2"  # Chhota aur lightweight
-model = GPT2LMHeadModel.from_pretrained(model_name)
-tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+# Hugging Face Inference API URL for the "distilgpt2" model
+API_URL = "https://api-inference.huggingface.co/models/distilgpt2"
+
+# If you have an API token from Hugging Face, paste it here.
+# Sign up at https://huggingface.co and get your token from your profile settings.
+API_TOKEN = ""  # Replace with your token if available
+
+# If API_TOKEN is set, include the authorization header; otherwise, leave headers empty.
+headers = {"Authorization": f"Bearer {API_TOKEN}"} if API_TOKEN else {}
 
 class TrickRequest(BaseModel):
     concept: str
@@ -18,30 +24,26 @@ def root():
 
 @app.post("/generate_trick/")
 def create_trick(request: TrickRequest):
-    return {
-        "concept": request.concept,
-        "trick_type": request.trick_type,
-        "trick": generate_trick(request.concept, request.trick_type)
-    }
-
-def generate_trick(concept: str, trick_type: str) -> str:
     try:
         prompts = {
-            "acronym": f"Create a meaningful acronym to remember: {concept}.",
-            "acrostic": f"Make a sentence where each word starts with letters from: {concept}.",
-            "rhymes_songs": f"Write a rhyme to memorize: {concept}.",
-            "visualization": f"Describe a visual scene related to: {concept}.",
-            "method_of_loci": f"Use the Method of Loci to remember: {concept}.",
-            "association": f"Associate {concept} with something daily.",
-            "peg_system": f"Use Peg System to link with: {concept}.",
-            "key_words_method": f"Create keyword trick for: {concept}."
+            "acronym": f"Create an acronym for: {request.concept}.",
+            "acrostic": f"Make a sentence where each word starts with letters from: {request.concept}.",
+            "visualization": f"Visualize and describe: {request.concept}.",
         }
+        # Default prompt if trick_type doesn't match any key
+        prompt = prompts.get(request.trick_type.lower(), f"Memory trick for: {request.concept}.")
 
-        prompt = prompts.get(trick_type.lower(), f"Generate a memory trick for: {concept}.")
-        input_ids = tokenizer.encode(prompt, return_tensors="pt")
-        output = model.generate(input_ids, max_length=80, num_return_sequences=1, temperature=0.8, top_p=0.9)
-        trick = tokenizer.decode(output[0], skip_special_tokens=True).replace(prompt, "").strip()
-        return trick
+        # Send request to Hugging Face Inference API
+        response = requests.post(API_URL, headers=headers, json={"inputs": prompt})
+        if response.status_code != 200:
+            raise Exception("Hugging Face API error: " + response.text)
+
+        output = response.json()
+        # Assuming the response returns a list of generated outputs
+        generated_text = output[0].get("generated_text", "")
+        # Remove the prompt part from the generated text
+        trick = generated_text.replace(prompt, "").strip()
+        return {"concept": request.concept, "trick_type": request.trick_type, "trick": trick}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
