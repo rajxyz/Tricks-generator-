@@ -50,3 +50,11 @@ def create_trick(request: TrickRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# Debug endpoint to test Hugging Face API connection
+@app.get("/test_hf")
+def test_hf():
+    test_prompt = "Create a mnemonic for: Physics"
+    response = requests.post(API_URL, headers=headers, json={"inputs": test_prompt})
+    return {"status_code": response.status_code, "response": response.json()}
