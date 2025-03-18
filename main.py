@@ -1,17 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import requests
+import os
 
 app = FastAPI()
 
-# Hugging Face Inference API URL for the "distilgpt2" model
 API_URL = "https://api-inference.huggingface.co/models/distilgpt2"
-
-# If you have an API token from Hugging Face, paste it here.
-# Sign up at https://huggingface.co and get your token from your profile settings.
-API_TOKEN = ""  # Replace with your token if available
-
-# If API_TOKEN is set, include the authorization header; otherwise, leave headers empty.
+API_TOKEN = os.getenv("API_TOKEN")
 headers = {"Authorization": f"Bearer {API_TOKEN}"} if API_TOKEN else {}
 
 class TrickRequest(BaseModel):
@@ -26,24 +21,32 @@ def root():
 def create_trick(request: TrickRequest):
     try:
         prompts = {
-            "acronym": f"Create an acronym for: {request.concept}.",
-            "acrostic": f"Make a sentence where each word starts with letters from: {request.concept}.",
-            "visualization": f"Visualize and describe: {request.concept}.",
+            "acronym": f"Create a meaningful acronym to remember: {request.concept}. Ensure it's easy to recall.",
+            "acrostic": f"Make a meaningful sentence (Acrostic) where each word starts with letters from: {request.concept}.",
+            "rhymes_songs": f"Write a short, catchy rhyme or song lyrics to memorize: {request.concept}.",
+            "visualization": f"Describe a visual scene that strongly connects with: {request.concept}.",
+            "method_of_loci": f"Use the Method of Loci to link {request.concept} with a familiar location for easy recall.",
+            "association": f"Create a strong association between {request.concept} and something common in daily life.",
+            "peg_system": f"Use the Peg System to remember {request.concept} by linking it with numbers (1 = Sun, 2 = Shoe, etc.).",
+            "key_words_method": f"Generate a Key Words Method trick to help memorize {request.concept} by linking keywords.",
+            "question": f"Generate a NEET-style question based on the concept: {request.concept}.",
         }
-        # Default prompt if trick_type doesn't match any key
-        prompt = prompts.get(request.trick_type.lower(), f"Memory trick for: {request.concept}.")
 
-        # Send request to Hugging Face Inference API
+        prompt = prompts.get(request.trick_type.lower(), f"Generate a memory trick for: {request.concept}.")
+
         response = requests.post(API_URL, headers=headers, json={"inputs": prompt})
         if response.status_code != 200:
             raise Exception("Hugging Face API error: " + response.text)
 
         output = response.json()
-        # Assuming the response returns a list of generated outputs
         generated_text = output[0].get("generated_text", "")
-        # Remove the prompt part from the generated text
         trick = generated_text.replace(prompt, "").strip()
-        return {"concept": request.concept, "trick_type": request.trick_type, "trick": trick}
+
+        return {
+            "concept": request.concept,
+            "trick_type": request.trick_type,
+            "trick": trick
+        }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
