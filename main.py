@@ -1,13 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import requests
-import os
 
 app = FastAPI()
 
-API_URL = "https://api-inference.huggingface.co/models/distilgpt2"
-API_TOKEN = os.getenv("API_TOKEN")
-headers = {"Authorization": f"Bearer {API_TOKEN}"} if API_TOKEN else {}
+API_URL = "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct"
+headers = {"Authorization": f"Bearer YOUR_HF_API_TOKEN"}
 
 class TrickRequest(BaseModel):
     concept: str
@@ -15,46 +13,44 @@ class TrickRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "API is running!"}
+    return {"message": "Memory Trick Generator is running."}
 
 @app.post("/generate_trick/")
-def create_trick(request: TrickRequest):
+def generate_trick(request: TrickRequest):
     try:
         prompts = {
-            "acronym": f"Create a meaningful acronym to remember: {request.concept}. Ensure it's easy to recall.",
-            "acrostic": f"Make a meaningful sentence (Acrostic) where each word starts with letters from: {request.concept}.",
-            "rhymes_songs": f"Write a short, catchy rhyme or song lyrics to memorize: {request.concept}.",
-            "visualization": f"Describe a visual scene that strongly connects with: {request.concept}.",
-            "method_of_loci": f"Use the Method of Loci to link {request.concept} with a familiar location for easy recall.",
-            "association": f"Create a strong association between {request.concept} and something common in daily life.",
-            "peg_system": f"Use the Peg System to remember {request.concept} by linking it with numbers (1 = Sun, 2 = Shoe, etc.).",
-            "key_words_method": f"Generate a Key Words Method trick to help memorize {request.concept} by linking keywords.",
-            "question": f"Generate a NEET-style question based on the concept: {request.concept}.",
+            "acronym": f"Create a meaningful acronym using the concept: {request.concept}. It should form a word easy to remember.",
+            "acrostic": f"Make a meaningful sentence (Acrostic) using each letter of: {request.concept}. The sentence should help memorize it.",
+            "rhymes_songs": f"Write a short, catchy rhyme or song lyrics to help memorize the concept: {request.concept}.",
+            "visualization": f"Describe a strong and vivid visual image that can help recall the concept: {request.concept}.",
+            "method_of_loci": f"Use the Method of Loci technique to link the concept {request.concept} with familiar locations.",
+            "association": f"Create a strong mental association between {request.concept} and something commonly seen or used daily.",
+            "peg_system": f"Use the Peg System to link each item in {request.concept} with pegs like 1-Sun, 2-Shoe, etc.",
+            "key_words_method": f"Use the Key Words Method to simplify and help memorize the concept {request.concept} using familiar keywords.",
         }
 
-        prompt = prompts.get(request.trick_type.lower(), f"Generate a memory trick for: {request.concept}.")
+        trick_type = request.trick_type.lower()
+        if trick_type not in prompts:
+            raise HTTPException(status_code=400, detail="Invalid trick type.")
 
-        response = requests.post(API_URL, headers=headers, json={"inputs": prompt})
+        payload = {
+            "inputs": prompts[trick_type],
+            "parameters": {"max_new_tokens": 100}
+        }
+
+        response = requests.post(API_URL, headers=headers, json=payload)
+
         if response.status_code != 200:
-            raise Exception("Hugging Face API error: " + response.text)
+            raise HTTPException(status_code=500, detail="Model API Error")
 
-        output = response.json()
-        generated_text = output[0].get("generated_text", "")
-        trick = generated_text.replace(prompt, "").strip()
+        result = response.json()
+        output = result[0]["generated_text"].replace(prompts[trick_type], "").strip()
 
         return {
             "concept": request.concept,
             "trick_type": request.trick_type,
-            "trick": trick
+            "trick": output
         }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
-# Debug endpoint to test Hugging Face API connection
-@app.get("/test_hf")
-def test_hf():
-    test_prompt = "Create a mnemonic for: Physics"
-    response = requests.post(API_URL, headers=headers, json={"inputs": test_prompt})
-    return {"status_code": response.status_code, "response": response.json()}
