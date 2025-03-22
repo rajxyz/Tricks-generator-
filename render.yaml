@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: flan-t5-trick-backend
+    env: python
+    buildCommand: ""
+    startCommand: ./start.sh
+    plan: free
