@@ -1,11 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
+from transformers import pipeline
 
 app = FastAPI()
 
-# CORS setup
+# Allow CORS from anywhere
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -14,25 +14,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load smaller model
-model_id = "sshleifer/tiny-gpt2"
-tokenizer = AutoTokenizer.from_pretrained(model_id)
-model = AutoModelForCausalLM.from_pretrained(model_id)
-generator = pipeline("text-generation", model=model, tokenizer=tokenizer)
+# Load lightweight model
+generator = pipeline("text2text-generation", model="mrm8488/t5-base-finetuned-common_gen")
 
 class TrickRequest(BaseModel):
     concept: str
     trick_type: str
 
 @app.get("/")
-def root():
-    return {"message": "Tiny GPT2 Trick Generator is live!"}
+def read_root():
+    return {"message": "Creative Trick Generator is live!"}
 
 @app.post("/generate_trick/")
 def generate_trick(request: TrickRequest):
     try:
-        prompt = f"Generate a {request.trick_type} for {request.concept}:"
-        result = generator(prompt, max_new_tokens=50, do_sample=True)[0]["generated_text"]
-        return {"concept": request.concept, "trick_type": request.trick_type, "trick": result.strip()}
+        prompt = f"Generate a creative mnemonic or memory trick using {request.trick_type} for: {request.concept}"
+        output = generator(prompt, max_length=80, do_sample=True)[0]['generated_text']
+
+        return {
+            "concept": request.concept,
+            "trick_type": request.trick_type,
+            "trick": output
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
