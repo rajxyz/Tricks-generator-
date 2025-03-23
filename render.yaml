@@ -1,7 +1,9 @@
 services:
   - type: web
-    name: flan-t5-trick-backend
+    name: phi-trick-generator
     env: python
-    buildCommand: ""
-    startCommand: ./start.sh
-    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host=0.0.0.0 --port=10000"
+    envVars:
+      - key: TRANSFORMERS_CACHE
+        value: /tmp
