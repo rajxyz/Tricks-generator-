@@ -1,5 +1,6 @@
 fastapi
 uvicorn
 transformers
-torch
-protobuf>=3.20.0
+pydantic
+sentencepiece
+protobuf
