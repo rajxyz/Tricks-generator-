@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Amitabh Bachchan",
+        "image": "/static/images/amitabh.jpg",
+        "movies": ["Sholay", "Piku"],
+        "dialogue": "Rishtey mein to hum tumhare baap lagte hain!"
+    },
+    {
+        "name": "Shah Rukh Khan",
+        "image": "/static/images/srk.jpg",
+        "movies": ["Dilwale Dulhania Le Jayenge", "Chak De India"],
+        "dialogue": "Bade bade deshon mein aisi chhoti chhoti baatein hoti rehti hain!"
+    }
+]
