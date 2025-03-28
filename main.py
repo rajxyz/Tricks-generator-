@@ -1,21 +1,28 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import tricks, search
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))  # Ensure 'routes' is accessible
+
+# ✅ Import routers properly
+from routes.tricks import router as tricks_router
+from routes.search import router as search_router
 
 app = FastAPI(title="Trick Generator API")
 
 # 🔥 Enable CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Agar sirf ek domain allow karna hai toh yahan frontend URL daalna
+    allow_origins=["*"],  # Change "*" to your frontend domain if needed
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include different route modules
-app.include_router(tricks.router)
-app.include_router(search.router)
+# ✅ Include Routers
+app.include_router(tricks_router)
+app.include_router(search_router)
 
 @app.get("/")
 def home():
