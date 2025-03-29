@@ -1399,3 +1399,24 @@ Ccc, [3/29/25, 4:31 PM]
     }
   }
 ]
+
+[
+  {
+    "name": "Yash",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Yash_at_KGF_Chapter_2_Trailer_Launch.jpg",
+    "famous_movies": ["KGF: Chapter 1", "KGF: Chapter 2"],
+    "famous_dialogue": {
+      "dialogue": "Violence, violence, violence! I don't like it. I avoid... but violence likes me!",
+      "movie": "KGF: Chapter 2"
+    }
+  },
+  {
+    "name": "Yusuf Khan (Dilip Kumar)",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/86/Dilip_Kumar_in_Devdas_%281955%29.jpg",
+    "famous_movies": ["Mughal-e-Azam", "Devdas"],
+    "famous_dialogue": {
+      "dialogue": "Kaun kambakht bardaasht karne ko peeta hai?",
+      "movie": "Devdas"
+    }
+  }
+]
