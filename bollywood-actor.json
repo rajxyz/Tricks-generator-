@@ -1,4 +1,113 @@
+Ccc, [3/29/25, 4:27 PM]
+[
+  {
+    "name": "Mithun Chakraborty",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Mithun_Chakraborty.jpg",
+    "famous_movies": ["Disco Dancer", "Gunda"],
+    "famous_dialogue": {
+      "dialogue": "Jimmy Jimmy Jimmy... Aaja Aaja Aaja!",
+      "movie": "Disco Dancer"
+    }
+  },
+  {
+    "name": "Manoj Bajpayee",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Manoj_Bajpayee.jpg",
+    "famous_movies": ["Gangs of Wasseypur", "The Family Man (Series)"],
+    "famous_dialogue": {
+      "dialogue": "Baap ka, Bhai ka, Dada ka... sabka badla lega re tera Faizal!",
+      "movie": "Gangs of Wasseypur"
+    }
+  },
+  {
+    "name": "Mahesh Babu",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Mahesh_Babu.jpg",
+    "famous_movies": ["Pokiri", "Srimanthudu"],
+    "famous_dialogue": {
+      "dialogue": "Mind lo fix ayithe blind ga velipotha!",
+      "movie": "Pokiri"
+    }
+  },
+  {
+    "name": "R. Madhavan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/R_Madhavan.jpg",
+    "famous_movies": ["Tanu Weds Manu", "3 Idiots"],
+    "famous_dialogue": {
+      "dialogue": "Success ke peeche mat bhaago, excellence ka peecha karo, success jhak maarke tumhare peeche aayegi!",
+      "movie": "3 Idiots"
+    }
+  },
+  {
+    "name": "Manoj Kumar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Manoj_Kumar.jpg",
+    "famous_movies": ["Upkar", "Kranti"],
+    "famous_dialogue": {
+      "dialogue": "Mere desh ki dharti sona ugle, ugle heere moti...",
+      "movie": "Upkar"
+    }
+  }
+]
 
+
+[
+  {
+    "name": "Nana Patekar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Nana_Patekar.jpg",
+    "famous_movies": ["Krantiveer", "Welcome"],
+    "famous_dialogue": {
+      "dialogue": "Ek machhar sala aadmi ko hijda bana deta hai!",
+      "movie": "Yeshwant"
+    }
+  },
+  {
+    "name": "Nawazuddin Siddiqui",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/40/Nawazuddin_Siddiqui_Cannes_2013.jpg",
+    "famous_movies": ["Gangs of Wasseypur", "Sacred Games (Series)"],
+    "famous_dialogue": {
+      "dialogue": "Kabhi kabhi lagta hai apun hi bhagwan hai!",
+      "movie": "Sacred Games"
+    }
+  },
+  {
+    "name": "Neil Nitin Mukesh",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Neil_Nitin_Mukesh.jpg",
+    "famous_movies": ["Johnny Gaddaar", "New York"],
+    "famous_dialogue": {
+      "dialogue": "Main is game ka sabse purana player hoon.",
+      "movie": "Johnny Gaddaar"
+    }
+  },
+  {
+    "name": "Nagarjuna",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Nagarjuna_Actor.jpg",
+    "famous_movies": ["Shiva", "Manam"],
+    "famous_dialogue": {
+      "dialogue": "Shiva... Shiva naam sunte hi logon ka paseena nikal jata hai!",
+      "movie": "Shiva"
+    }
+  }
+]
+
+Ccc, [3/29/25, 4:30 PM]
+[
+  {
+    "name": "Om Puri",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/OmPuri01.jpg",
+    "famous_movies": ["Ardh Satya", "Hera Pheri"],
+    "famous_dialogue": {
+      "dialogue": "Sirf chaubees ghante hain tere paas.",
+      "movie": "Ardh Satya"
+    }
+  },
+  {
+    "name": "Omi Vaidya",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Omi_Vaidya.jpg",
+    "famous_movies": ["3 Idiots", "Players"],
+    "famous_dialogue": {
+      "dialogue": "Jahanpanah! Tussi great ho... Tohfa kabool karo!",
+      "movie": "3 Idiots"
+    }
+  }
+]
 [
   {
     "name": "Amitabh Bachchan",
@@ -925,6 +1034,116 @@ Hisar (Haryana), [3/29/25, 4:26 PM]
     "famous_dialogue": {
       "dialogue": "Watan ke aage kuch nahi!",
       "movie": "Paltan"
+    }
+  }
+]
+Ccc, [3/29/25, 4:27 PM]
+[
+  {
+    "name": "Mithun Chakraborty",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Mithun_Chakraborty.jpg",
+    "famous_movies": ["Disco Dancer", "Gunda"],
+    "famous_dialogue": {
+      "dialogue": "Jimmy Jimmy Jimmy... Aaja Aaja Aaja!",
+      "movie": "Disco Dancer"
+    }
+  },
+  {
+    "name": "Manoj Bajpayee",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Manoj_Bajpayee.jpg",
+    "famous_movies": ["Gangs of Wasseypur", "The Family Man (Series)"],
+    "famous_dialogue": {
+      "dialogue": "Baap ka, Bhai ka, Dada ka... sabka badla lega re tera Faizal!",
+      "movie": "Gangs of Wasseypur"
+    }
+  },
+  {
+    "name": "Mahesh Babu",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Mahesh_Babu.jpg",
+    "famous_movies": ["Pokiri", "Srimanthudu"],
+    "famous_dialogue": {
+      "dialogue": "Mind lo fix ayithe blind ga velipotha!",
+      "movie": "Pokiri"
+    }
+  },
+  {
+    "name": "R. Madhavan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/R_Madhavan.jpg",
+    "famous_movies": ["Tanu Weds Manu", "3 Idiots"],
+    "famous_dialogue": {
+      "dialogue": "Success ke peeche mat bhaago, excellence ka peecha karo, success jhak maarke tumhare peeche aayegi!",
+      "movie": "3 Idiots"
+    }
+  },
+  {
+    "name": "Manoj Kumar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Manoj_Kumar.jpg",
+    "famous_movies": ["Upkar", "Kranti"],
+    "famous_dialogue": {
+      "dialogue": "Mere desh ki dharti sona ugle, ugle heere moti...",
+      "movie": "Upkar"
+    }
+  }
+]
+
+
+[
+  {
+    "name": "Nana Patekar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Nana_Patekar.jpg",
+    "famous_movies": ["Krantiveer", "Welcome"],
+    "famous_dialogue": {
+      "dialogue": "Ek machhar sala aadmi ko hijda bana deta hai!",
+      "movie": "Yeshwant"
+    }
+  },
+  {
+    "name": "Nawazuddin Siddiqui",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/40/Nawazuddin_Siddiqui_Cannes_2013.jpg",
+    "famous_movies": ["Gangs of Wasseypur", "Sacred Games (Series)"],
+    "famous_dialogue": {
+      "dialogue": "Kabhi kabhi lagta hai apun hi bhagwan hai!",
+      "movie": "Sacred Games"
+    }
+  },
+  {
+    "name": "Neil Nitin Mukesh",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Neil_Nitin_Mukesh.jpg",
+    "famous_movies": ["Johnny Gaddaar", "New York"],
+    "famous_dialogue": {
+      "dialogue": "Main is game ka sabse purana player hoon.",
+      "movie": "Johnny Gaddaar"
+    }
+  },
+  {
+    "name": "Nagarjuna",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Nagarjuna_Actor.jpg",
+    "famous_movies": ["Shiva", "Manam"],
+    "famous_dialogue": {
+      "dialogue": "Shiva... Shiva naam sunte hi logon ka paseena nikal jata hai!",
+      "movie": "Shiva"
+    }
+  }
+]
+
+Ccc, [3/29/25, 4:30 PM]
+[
+  {
+    "name": "Om Puri",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/OmPuri01.jpg",
+    "famous_movies": ["Ardh Satya", "Hera Pheri"],
+    "famous_dialogue": {
+      "dialogue": "Sirf chaubees ghante hain tere paas.",
+      "movie": "Ardh Satya"
+    }
+  },
+  {
+    "name": "Omi Vaidya",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Omi_Vaidya.jpg",
+    "famous_movies": ["3 Idiots", "Players"],
+    "famous_dialogue": {
+      "dialogue": "Jahanpanah! Tussi great ho... Tohfa kabool karo!",
+      "movie": "3 Idiots"
     }
   }
 ]
