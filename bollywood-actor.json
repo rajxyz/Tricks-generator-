@@ -1387,3 +1387,15 @@ Ccc, [3/29/25, 4:31 PM]
     }
   }
 ]
+
+[
+  {
+    "name": "Waheeda Rehman (Actress, no major male actors with W)",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Waheeda_Rehman_2012.jpg",
+    "famous_movies": ["Guide", "Kaagaz Ke Phool"],
+    "famous_dialogue": {
+      "dialogue": "Aaj bhi aankhon mein basanti rang chhaya hai.",
+      "movie": "Guide"
+    }
+  }
+]
