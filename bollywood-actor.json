@@ -1298,3 +1298,33 @@ Ccc, [3/29/25, 4:31 PM]
     }
   }
 ]
+
+[
+  {
+    "name": "Tiger Shroff",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Tiger_Shroff_graces_the_GQ_100_Best_Dressed_2019.jpg",
+    "famous_movies": ["Baaghi", "War"],
+    "famous_dialogue": {
+      "dialogue": "Jo sochta hai, woh karta nahi... aur jo karta hai, woh sochta nahi.",
+      "movie": "Baaghi"
+    }
+  },
+  {
+    "name": "Tusshar Kapoor",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Tusshar_Kapoor_at_Ragini_MMS_2_trailer_launch.jpg",
+    "famous_movies": ["Golmaal", "Kyaa Kool Hai Hum"],
+    "famous_dialogue": {
+      "dialogue": "Aaaaaa....",
+      "movie": "Golmaal"
+    }
+  },
+  {
+    "name": "Tahir Raj Bhasin",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Tahir_Raj_Bhasin_%282%29.jpg",
+    "famous_movies": ["Mardaani", "Chhichhore"],
+    "famous_dialogue": {
+      "dialogue": "Bachpan se hi na, ek hi sapna tha... bada aadmi banna hai.",
+      "movie": "Mardaani"
+    }
+  }
+]
