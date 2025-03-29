@@ -1147,3 +1147,154 @@ Ccc, [3/29/25, 4:30 PM]
     }
   }
 ]
+
+Ccc, [3/29/25, 4:31 PM]
+[
+  {
+    "name": "Paresh Rawal",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Paresh_Rawal.jpg",
+    "famous_movies": ["Hera Pheri", "OMG: Oh My God!"],
+    "famous_dialogue": {
+      "dialogue": "Utha le re baba... mujhe nahi re, in dono ko utha le!",
+      "movie": "Hera Pheri"
+    }
+  },
+  {
+    "name": "Prabhas",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Prabhas_at_Baahubali_trailer_launch.jpg",
+    "famous_movies": ["Baahubali: The Beginning", "Saaho"],
+    "famous_dialogue": {
+      "dialogue": "Mera vachan hi mera shasan hai!",
+      "movie": "Baahubali: The Beginning"
+    }
+  },
+  {
+    "name": "Pankaj Tripathi",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Pankaj_Tripathi_at_Special_Screening_of_Netflix_Original_Film_%E2%80%98Drive%E2%80%99_%282%29.jpg",
+    "famous_movies": ["Mirzapur (Series)", "Mimi"],
+    "famous_dialogue": {
+      "dialogue": "Balidan dena hoga!",
+      "movie": "Mirzapur"
+    }
+  },
+  {
+    "name": "Pulkit Samrat",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Pulkit_Samrat_at_Fukrey_Returns_promotion.jpg",
+    "famous_movies": ["Fukrey", "Sanam Re"],
+    "famous_dialogue": {
+      "dialogue": "Launde, Bholi punjaban kaun hai?",
+      "movie": "Fukrey"
+    }
+  }
+]
+
+Ccc, [3/29/25, 4:31 PM]
+[
+  {
+    "name": "Qayoom Khan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/en/a/a6/Qayoom_Khan.jpg",
+    "famous_movies": ["Khuda Gawah", "Sarfarosh"],
+    "famous_dialogue": {
+      "dialogue": "Aakhir main jeet sach ki hoti hai!",
+      "movie": "Sarfarosh"
+    }
+  }
+]
+
+Ccc, [3/29/25, 4:31 PM]
+[
+  {
+    "name": "Rajinikanth",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Superstar_Rajinikanth.jpg",
+    "famous_movies": ["Sivaji", "Robot"],
+    "famous_dialogue": {
+      "dialogue": "En vazhi thani vazhi!",
+      "movie": "Sivaji"
+    }
+  },
+  {
+    "name": "Ranbir Kapoor",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Ranbir_Kapoor_promoting_Tamasha.jpg",
+    "famous_movies": ["Sanju", "Barfi!"],
+    "famous_dialogue": {
+      "dialogue": "Main pagal hoon, magar tumse bhi zyada.",
+      "movie": "Sanju"
+    }
+  },
+  {
+    "name": "Ranveer Singh",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Ranveer_Singh_promoting_Bajirao_Mastani.jpg",
+    "famous_movies": ["Padmaavat", "Gully Boy"],
+    "famous_dialogue": {
+      "dialogue": "Apna time aayega!",
+      "movie": "Gully Boy"
+    }
+  },
+  {
+    "name": "Rajkummar Rao",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Rajkummar_Rao_promoting_Shaadi_Me_Zaroor_Aana.jpg",
+    "famous_movies": ["Stree", "Newton"],
+    "famous_dialogue": {
+      "dialogue": "O stree, kal aana!",
+      "movie": "Stree"
+    }
+  },
+  {
+    "name": "Riteish Deshmukh",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Riteish_Deshmukh.jpg",
+    "famous_movies": ["Housefull", "Ek Villain"],
+    "famous_dialogue": {
+      "dialogue": "Aye, kya mast joke mara re!",
+      "movie": "Housefull"
+    }
+  }
+]
+
+Ccc, [3/29/25, 4:31 PM]
+[
+  {
+    "name": "Shah Rukh Khan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/86/Shah_Rukh_Khan_graces_GQ_Men_of_the_Year_awards_2016_%28cropped%29.jpg",
+    "famous_movies": ["Dilwale Dulhania Le Jayenge", "Chak De! India"],
+    "famous_dialogue": {
+      "dialogue": "Bade bade deshon mein aisi chhoti chhoti baatein hoti rehti hain.",
+      "movie": "Dilwale Dulhania Le Jayenge"
+    }
+  },
+  {
+    "name": "Salman Khan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Salman_Khan_promoting_Bharat_in_2019.jpg",
+    "famous_movies": ["Bajrangi Bhaijaan", "Sultan"],
+    "famous_dialogue": {
+      "dialogue": "Ek baar jo maine commitment kar di, uske baad to main khud ki bhi nahi sunta!",
+      "movie": "Wanted"
+    }
+  },
+  {
+    "name": "Saif Ali Khan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Saif_Ali_Khan.jpg",
+    "famous_movies": ["Omkara", "Dil Chahta Hai"],
+    "famous_dialogue": {
+      "dialogue": "Beta, tumse na ho payega!",
+      "movie": "Omkara"
+    }
+  },
+  {
+    "name": "Sanjay Dutt",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Sanjay_Dutt.jpg",
+    "famous_movies": ["Munna Bhai M.B.B.S.", "Vaastav"],
+    "famous_dialogue": {
+      "dialogue": "Jadoo ki jhappi de de!",
+      "movie": "Munna Bhai M.B.B.S."
+    }
+  },
+  {
+    "name": "Sushant Singh Rajput",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Sushant_Singh_Rajput_at_the_trailer_launch_of_M.S._Dhoni_-_The_Untold_Story.jpg",
+    "famous_movies": ["M.S. Dhoni: The Untold Story", "Chhichhore"],
+    "famous_dialogue": {
+      "dialogue": "Mujhe ek chance do, main proof karke dikhaunga.",
+      "movie": "M.S. Dhoni: The Untold Story"
+    }
+  }
+]
