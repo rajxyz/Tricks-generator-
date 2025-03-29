@@ -48,3 +48,56 @@
     }
   }
 ]
+[
+  {
+    "name": "Deepika Padukone",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/05/Deepika_Padukone_Cannes_2022_%28cropped%29.jpg",
+    "famous_movies": ["Padmaavat", "Chennai Express"],
+    "famous_dialogue": {
+      "dialogue": "Keh diya na, bas keh diya!",
+      "movie": "Chennai Express"
+    }
+  },
+  {
+    "name": "Disha Patani",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Disha_Patani_snapped_at_Airport.jpg",
+    "famous_movies": ["M.S. Dhoni: The Untold Story", "Baaghi 2"],
+    "famous_dialogue": {
+      "dialogue": "Humari zindagi ka ek hi rule hai... no rules!",
+      "movie": "Baaghi 2"
+    }
+  }
+]
+
+[
+  {
+    "name": "Farah Naaz",
+    "image_url": "https://upload.wikimedia.org/wikipedia/en/7/73/Farah_Naaz_Actress.jpg",
+    "famous_movies": ["Naseeb Apna Apna", "Yateem"],
+    "famous_dialogue": {
+      "dialogue": "Mohabbat kabhi bhi, kisi se bhi ho sakti hai!",
+      "movie": "Naseeb Apna Apna"
+    }
+  }
+]
+
+[
+  {
+    "name": "Genelia D'Souza",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Genelia_at_Jaane_Tu_Ya_Jaane_Na_premiere.jpg",
+    "famous_movies": ["Jaane Tu... Ya Jaane Na", "Force"],
+    "famous_dialogue": {
+      "dialogue": "Pata hai kya? Mujhe tumse pyaar ho gaya hai!",
+      "movie": "Jaane Tu... Ya Jaane Na"
+    }
+  },
+  {
+    "name": "Gauahar Khan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Gauahar_Khan_graces_OTTplay_Awards_2022_%2802%29.jpg",
+    "famous_movies": ["Rocket Singh: Salesman of the Year", "Ishaqzaade"],
+    "famous_dialogue": {
+      "dialogue": "Zindagi mein kuch bhi ho sakta hai!",
+      "movie": "Ishaqzaade"
+    }
+  }
+]
