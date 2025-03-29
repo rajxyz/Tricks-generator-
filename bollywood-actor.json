@@ -463,4 +463,468 @@ Hisar (Haryana), [3/29/25, 4:26 PM]
     }
   }
       ]
+   Hisar (Haryana), [3/29/25, 4:17 PM]
+[
+  {
+    "name": "Amitabh Bachchan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Amitabh_Bachchan_2013.jpg",
+    "famous_movies": ["Sholay", "Deewar"],
+    "famous_dialogue": {
+      "dialogue": "Rishtey mein to hum tumhare baap lagte hain, naam hai Shahenshah!",
+      "movie": "Shahenshah"
+    }
+  },
+  {
+    "name": "Aamir Khan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Aamir_Khan%2C_2017_%28cropped%29.jpg",
+    "famous_movies": ["3 Idiots", "Dangal"],
+    "famous_dialogue": {
+      "dialogue": "All is well!",
+      "movie": "3 Idiots"
+    }
+  },
+  {
+    "name": "Akshay Kumar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Akshay_Kumar.jpg",
+    "famous_movies": ["Hera Pheri", "Kesari"],
+    "famous_dialogue": {
+      "dialogue": "Utha le re baba… mereko nahi re, in dono ko utha le!",
+      "movie": "Hera Pheri"
+    }
+  },
+  {
+    "name": "Ajay Devgn",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Ajay_Devgn_graces_the_success_bash_of_Singham_%282%29.jpg",
+    "famous_movies": ["Singham", "Tanhaji"],
+    "famous_dialogue": {
+      "dialogue": "Aata majhi satakli!",
+      "movie": "Singham"
+    }
+  },
+  {
+    "name": "Anil Kapoor",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Anil_Kapoor_at_24_game_launch.jpg",
+    "famous_movies": ["Mr. India", "Nayak"],
+    "famous_dialogue": {
+      "dialogue": "Ek din ka CM banne ka mauka do!",
+      "movie": "Nayak"
+    }
+  },
+  {
+    "name": "Arjun Rampal",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Arjun_Rampal_graces_the_success_bash_of_Kai_Po_Che.jpg",
+    "famous_movies": ["Rock On!!", "Ra.One"],
+    "famous_dialogue": {
+      "dialogue": "Doston ke beech mein 'sorry' aur 'thank you' nahi hota.",
+      "movie": "Rock On!!"
+    }
+  },
+  {
+    "name": "Abhishek Bachchan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Abhishek_Bachchan_in_2014.jpg",
+    "famous_movies": ["Guru", "Dhoom"],
+    "famous_dialogue": {
+      "dialogue": "Agar business karna hai, toh bada sochna padega.",
+      "movie": "Guru"
+    }
+  }
+]
 
+Hisar (Haryana), [3/29/25, 4:17 PM]
+[
+  {
+    "name": "Bobby Deol",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Bobby_Deol_promoting_Housefull_4.jpg",
+    "famous_movies": ["Soldier", "Barsaat"],
+    "famous_dialogue": {
+      "dialogue": "Duniya mein do tarah ke log hote hain… ek jo dikhte hain aur ek jo chhupte hain!",
+      "movie": "Soldier"
+    }
+  },
+  {
+    "name": "Boman Irani",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Boman_Irani_in_2014.jpg",
+    "famous_movies": ["3 Idiots", "Munna Bhai M.B.B.S."],
+    "famous_dialogue": {
+      "dialogue": "Jahan paisa bolta hai, wahan sach chup rehta hai!",
+      "movie": "3 Idiots"
+    }
+  },
+  {
+    "name": "Bhumi Pednekar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Bhumi_Pednekar_snapped_at_the_Stree_success_bash_%2801%29.jpg",
+    "famous_movies": ["Dum Laga Ke Haisha", "Toilet: Ek Prem Katha"],
+    "famous_dialogue": {
+      "dialogue": "Biwi paas ho ya door, izzat toh deni hi padti hai!",
+      "movie": "Toilet: Ek Prem Katha"
+    }
+  }
+]
+
+Hisar (Haryana), [3/29/25, 4:21 PM]
+[
+  {
+    "name": "Chunky Pandey",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Chunky_Pandey.jpg",
+    "famous_movies": ["Housefull", "Tezaab"],
+    "famous_dialogue": {
+      "dialogue": "Aakhri pasta kabhi darta nahi!",
+      "movie": "Housefull"
+    }
+  },
+  {
+    "name": "Chiranjeevi",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Chiranjeevi_at_MEIL_Awards.jpg",
+    "famous_movies": ["Indra", "Sye Raa Narasimha Reddy"],
+    "famous_dialogue": {
+      "dialogue": "Tagore ek naam nahi, soch hai!",
+      "movie": "Tagore"
+    }
+  },
+  {
+    "name": "Chetan Pandit",
+    "image_url": "https://m.media-amazon.com/images/M/MV5BMTk4OTM4NDQzNV5BMl5BanBnXkFtZTcwMzk5NzEwMw@@._V1_FMjpg_UX1000_.jpg",
+    "famous_movies": ["Swades", "Gangajal"],
+    "famous_dialogue": {
+      "dialogue": "Desh sirf mitti ka tukda nahi hota, uski raksha karna farz hota hai!",
+      "movie": "Swades"
+    }
+  }
+]
+
+Hisar (Haryana), [3/29/25, 4:21 PM]
+[
+  {
+    "name": "Dharmendra",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Dharmendra_makes_an_appearance_for_his_Sunny_Sound_Studio.jpg",
+    "famous_movies": ["Sholay", "Yamla Pagla Deewana"],
+    "famous_dialogue": {
+      "dialogue": "Basanti, in kutton ke samne mat nachna!",
+      "movie": "Sholay"
+    }
+  },
+  {
+    "name": "Dino Morea",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Dino_Morea_graces_Barakhaa_music_launch_%28cropped%29.jpg",
+    "famous_movies": ["Raaz", "Gunaah"],
+    "famous_dialogue": {
+      "dialogue": "Kuch raaz, kabhi samne nahi aane chahiye...",
+      "movie": "Raaz"
+    }
+  },
+  {
+    "name": "Dulquer Salmaan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Dulquer_Salmaan_at_Karwaan_screening.jpg",
+    "famous_movies": ["Karwaan", "Sita Ramam"],
+    "famous_dialogue": {
+      "dialogue": "Safar ka asli mazaa, manzil tak pahunchne mein nahi... raste mein hota hai.",
+      "movie": "Karwaan"
+    }
+  },
+  {
+    "name": "Dev Anand",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Dev_Anand.jpg",
+    "famous_movies": ["Guide", "Johny Mera Naam"],
+    "famous_dialogue": {
+      "dialogue": "Main zindagi ke saath, zindagi ke baad bhi jeene ka hunar rakhta hoon!",
+      "movie": "Guide"
+    }
+  }
+]
+
+
+[
+  {
+    "name": "Emraan Hashmi",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Emraan_Hashmi_promoting_Cheat_India.jpg",
+    "famous_movies": ["Murder", "Jannat"],
+    "famous_dialogue": {
+      "dialogue": "Paise kamane ke liye kabhi kabhi dil ka rishta todna padta hai!",
+      "movie": "Jannat"
+    }
+  },
+  {
+    "name": "Esha Deol",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Esha_Deol_graces_a_book_launch_event_%28cropped%29.jpg",
+    "famous_movies": ["Dhoom", "No Entry"],
+    "famous_dialogue": {
+      "dialogue": "Dhoom machale, dhoom machale!",
+      "movie": "Dhoom"
+    }
+  }
+]
+
+
+[
+  {
+    "name": "Farhan Akhtar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Farhan_Akhtar_graces_the_Special_Screening_of_%E2%80%98Gold%E2%80%99.jpg",
+    "famous_movies": ["Zindagi Na Milegi Dobara", "Bhaag Milkha Bhaag"],
+    "famous_dialogue": {
+      "dialogue": "Aaj ke baad jo bhi chala na, usse sirf bhaagna aayega, rukna nahi.",
+      "movie": "Bhaag Milkha Bhaag"
+    }
+  },
+  {
+    "name": "Fardeen Khan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Fardeen_Khan_at_Ritesh_Sidhwani%27s_birthday_bash.jpg",
+    "famous_movies": ["No Entry", "Heyy Babyy"],
+    "famous_dialogue": {
+      "dialogue": "Mard ka doosra naam hai control.",
+      "movie": "No Entry"
+    }
+  },
+  {
+    "name": "Freddy Daruwala",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/40/Freddy_Daruwala_during_the_promotion_of_his_film_Commando_2.jpg",
+    "famous_movies": ["Holiday", "Commando 2"],
+    "famous_dialogue": {
+      "dialogue": "Ek soldier sirf duty karta hai, dosti ya dushmani nahi.",
+      "movie": "Holiday"
+    }
+  }
+]
+
+Hisar (Haryana), [3/29/25, 4:24 PM]
+[
+  {
+    "name": "Govinda",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Govinda_at_the_Society_Achievers_Awards_2022_%28cropped%29.jpg",
+    "famous_movies": ["Coolie No. 1", "Hero No. 1"],
+    "famous_dialogue": {
+      "dialogue": "Aapke aane se toh bijli bhi chali gayi, aap kya cheez ho?",
+      "movie": "Coolie No. 1"
+    }
+  },
+  {
+    "name": "Gulshan Grover",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/97/Gulshan_Grover.jpg",
+    "famous_movies": ["Ram Lakhan", "Hera Pheri"],
+    "famous_dialogue": {
+      "dialogue": "Bulla rakhta hai khullam khulla!",
+      "movie": "Ram Lakhan"
+    }
+  },
+  {
+    "name": "Girish Kumar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Girish_Kumar_promotes_Ramaiya_Vastavaiya_%282%29.jpg",
+    "famous_movies": ["Ramaiya Vastavaiya", "Loveshhuda"],
+    "famous_dialogue": {
+      "dialogue": "Pyar ek baar hota hai, dobara ho toh game hoti hai.",
+      "movie": "Ramaiya Vastavaiya"
+    }
+  },
+  {
+    "name": "Gippy Grewal",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Gippy_Grewal_promotes_%27Lucknow_Central%27.jpg",
+    "famous_movies": ["Lucknow Central", "Carry On Jatta"],
+    "famous_dialogue": {
+      "dialogue": "Jatt da swag tan ajj v oh ho hai!",
+      "movie": "Carry On Jatta"
+    }
+  }
+]
+
+
+[
+  {
+    "name": "Hrithik Roshan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Hrithik_at_Rado_launch.jpg",
+    "famous_movies": ["Kaho Naa... Pyaar Hai", "War"],
+    "famous_dialogue": {
+      "dialogue": "Kya tum mujhe dekh rahi ho? Kyunki main tumhe dekh raha hoon.",
+      "movie": "Kaho Naa... Pyaar Hai"
+    }
+  },
+  {
+    "name": "Harman Baweja",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Harman_Baweja_at_%27Dishkiyaoon%27_song_launch.jpg",
+    "famous_movies": ["Love Story 2050", "Victory"],
+    "famous_dialogue": {
+      "dialogue": "Pyaar sirf ek baar hota hai, aur jab hota hai toh sabse alag hota hai.",
+      "movie": "Love Story 2050"
+    }
+  },
+  {
+    "name": "Harshvardhan Kapoor",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Harshvardhan_Kapoor_promoting_Mirzya.jpg",
+    "famous_movies": ["Mirzya", "Bhavesh Joshi Superhero"],
+    "famous_dialogue": {
+      "dialogue": "Kahaniyan sirf kitaabon mein achi lagti hain, asal zindagi mein nahi.",
+      "movie": "Mirzya"
+    }
+  }
+]
+
+Hisar (Haryana), [3/29/25, 4:24 PM]
+[
+  {
+    "name": "Hrithik Roshan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Hrithik_at_Rado_launch.jpg",
+    "famous_movies": ["Kaho Naa... Pyaar Hai", "War"],
+    "famous_dialogue": {
+      "dialogue": "Kya tum mujhe dekh rahi ho? Kyunki main tumhe dekh raha hoon.",
+      "movie": "Kaho Naa... Pyaar Hai"
+    }
+  },
+  {
+    "name": "Harman Baweja",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Harman_Baweja_at_%27Dishkiyaoon%27_song_launch.jpg",
+    "famous_movies": ["Love Story 2050", "Victory"],
+    "famous_dialogue": {
+      "dialogue": "Pyaar sirf ek baar hota hai, aur jab hota hai toh sabse alag hota hai.",
+      "movie": "Love Story 2050"
+    }
+  },
+  {
+    "name": "Harshvardhan Kapoor",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Harshvardhan_Kapoor_promoting_Mirzya.jpg",
+    "famous_movies": ["Mirzya", "Bhavesh Joshi Superhero"],
+    "famous_dialogue": {
+      "dialogue": "Kahaniyan sirf kitaabon mein achi lagti hain, asal zindagi mein nahi.",
+      "movie": "Mirzya"
+    }
+  }
+]
+
+
+[
+  {
+    "name": "Irrfan Khan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Irrfan_Khan_May_2015.jpg",
+    "famous_movies": ["Piku", "Hindi Medium"],
+    "famous_dialogue": {
+      "dialogue": "Insaan ka sapna toot jaaye toh insaan khatam ho jaata hai.",
+      "movie": "Hindi Medium"
+    }
+  },
+  {
+    "name": "Imran Khan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Imran_Khan_at_Luck_premiere.jpg",
+    "famous_movies": ["Jaane Tu... Ya Jaane Na", "Delhi Belly"],
+    "famous_dialogue": {
+      "dialogue": "Ek ladka aur ek ladki kabhi dost nahi ho sakte.",
+      "movie": "Jaane Tu... Ya Jaane Na"
+    }
+  },
+  {
+    "name": "Inder Kumar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/en/7/79/InderKumarActor.jpg",
+    "famous_movies": ["Wanted", "Khiladiyon Ka Khiladi"],
+    "famous_dialogue": {
+      "dialogue": "Agar kisi cheez ko dil se chaho, toh poori kaaynat usse tumse milane ki koshish mein lag jaati hai.",
+      "movie": "Wanted"
+    }
+  }
+]
+
+
+[
+  {
+    "name": "Jackie Shroff",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/13/Jackie_Shroff_snapped_at_BBlunt_salon_2.jpg",
+    "famous_movies": ["Hero", "Ram Lakhan"],
+    "famous_dialogue": {
+      "dialogue": "Bhidu, sab setting ka khel hai!",
+      "movie": "General Jackie Shroff Style"
+    }
+  },
+  {
+    "name": "John Abraham",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/John_Abraham_promoting_Batla_House.jpg",
+    "famous_movies": ["Dhoom", "Madras Cafe"],
+    "famous_dialogue": {
+      "dialogue": "Dhoom machale!",
+      "movie": "Dhoom"
+    }
+  },
+  {
+    "name": "Javed Jaffrey",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Javed_Jaffrey_grace_the_‘So_Ya_Think_You_Can_Dance’_press_meet_%28cropped%29.jpg",
+    "famous_movies": ["Dhamaal", "Salaam Namaste"],
+    "famous_dialogue": {
+      "dialogue": "Paisa phenk, tamasha dekh!",
+      "movie": "Dhamaal"
+    }
+  },
+  {
+    "name": "Jimmy Shergill",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Jimmy_Shergill_at_The_Missing_Stone_web_series_promotion.jpg",
+    "famous_movies": ["Mohabbatein", "Saheb, Biwi Aur Gangster"],
+    "famous_dialogue": {
+      "dialogue": "Pyaar dosti hai...",
+      "movie": "Mohabbatein"
+    }
+  }
+]
+
+Hisar (Haryana), [3/29/25, 4:25 PM]
+[
+  {
+    "name": "Kartik Aaryan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Kartik_Aaryan_promoting_Pati_Patni_Aur_Woh_in_2020.jpg",
+    "famous_movies": ["Pyaar Ka Punchnama", "Bhool Bhulaiyaa 2"],
+    "famous_dialogue": {
+      "dialogue": "Problem yeh hai ki woh ladki hai!",
+      "movie": "Pyaar Ka Punchnama"
+    }
+  },
+  {
+    "name": "Kunal Kapoor",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Kunal_Kapoor.jpg",
+    "famous_movies": ["Rang De Basanti", "Dear Zindagi"],
+    "famous_dialogue": {
+      "dialogue": "Zindagi jeene ke do hi tarike hote hain...",
+      "movie": "Rang De Basanti"
+    }
+  },
+  {
+    "name": "Kay Kay Menon",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Kay_Kay_Menon_at_Short_Film_Festival.jpg",
+    "famous_movies": ["Black Friday", "Haider"],
+    "famous_dialogue": {
+      "dialogue": "Ek baar jo maine commitment kar di...",
+      "movie": "Haider"
+    }
+  },
+  {
+    "name": "Karan Johar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Karan_Johar_promoting_Simran.jpg",
+    "famous_movies": ["Kabhi Khushi Kabhie Gham", "My Name is Khan"],
+    "famous_dialogue": {
+      "dialogue": "Bade bade deshon mein aisi chhoti chhoti baatein...",
+      "movie": "Kabhi Khushi Kabhie Gham"
+    }
+  }
+]
+
+Hisar (Haryana), [3/29/25, 4:26 PM]
+[
+  {
+    "name": "Laksh Lalwani",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Laksh_Lalwani.jpg",
+    "famous_movies": ["Dostana 2 (Upcoming)", "Porus (TV Series)"],
+    "famous_dialogue": {
+      "dialogue": "Main jo bhi karunga, poore dil se karunga.",
+      "movie": "Porus (TV Series)"
+    }
+  },
+  {
+    "name": "Lucky Ali",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Lucky_Ali.jpg",
+    "famous_movies": ["Sur (The Melody of Life)", "Kaante"],
+    "famous_dialogue": {
+      "dialogue": "Zindagi ek safar hai suhana...",
+      "movie": "Sur (The Melody of Life)"
+    }
+  },
+  {
+    "name": "Luv Sinha",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Luv_Sinha.jpg",
+    "famous_movies": ["Sadiyaan", "Paltan"],
+    "famous_dialogue": {
+      "dialogue": "Watan ke aage kuch nahi!",
+      "movie": "Paltan"
+    }
+  }
+]
