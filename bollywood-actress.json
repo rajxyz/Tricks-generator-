@@ -101,3 +101,35 @@
     }
   }
 ]
+
+[
+  {
+    "name": "Hema Malini",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Hema_Malini_graces_the_trailer_launch_of_Lata_Sabharwal%E2%80%99s_book_%E2%80%98Lime_and_Lemons%E2%80%99_%282%29.jpg",
+    "famous_movies": ["Sholay", "Seeta Aur Geeta"],
+    "famous_dialogue": {
+      "dialogue": "Basanti, inn kutton ke saamne mat naachna!",
+      "movie": "Sholay"
+    }
+  },
+  {
+    "name": "Hansika Motwani",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Hansika_Motwani_at_SIIMA_2018.jpg",
+    "famous_movies": ["Koi... Mil Gaya", "Aap Ka Suroor"],
+    "famous_dialogue": {
+      "dialogue": "Main bhi tumse pyaar karti hoon!",
+      "movie": "Aap Ka Suroor"
+    }
+  }
+]
+[
+  {
+    "name": "Ileana D'Cruz",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/44/Ileana_D%27Cruz_promoting_Mubarakan.jpg",
+    "famous_movies": ["Barfi!", "Rustom"],
+    "famous_dialogue": {
+      "dialogue": "Koi pyaar kare toh tumse kare, tum jaise ho waise kare!",
+      "movie": "Barfi!"
+    }
+  }
+]
