@@ -1,1 +1,50 @@
+[
+  {
+    "name": "Aishwarya Rai Bachchan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/Aishwarya_Rai_Cannes_2018_%28cropped%29.jpg",
+    "famous_movies": ["Devdas", "Jodhaa Akbar"],
+    "famous_dialogue": {
+      "dialogue": "Kaun kambakht bardaasht karne ko peeta hai?",
+      "movie": "Devdas"
+    }
+  },
+  {
+    "name": "Alia Bhatt",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Alia_Bhatt_promoting_Raazi.jpg",
+    "famous_movies": ["Raazi", "Gangubai Kathiawadi"],
+    "famous_dialogue": {
+      "dialogue": "Ghar mein ghus ke marenge!",
+      "movie": "Raazi"
+    }
+  },
+  {
+    "name": "Anushka Sharma",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Anushka_Sharma_graces_the_launch_of_Filmfare_OTT_Awards_2022_%2804%29.jpg",
+    "famous_movies": ["PK", "NH10"],
+    "famous_dialogue": {
+      "dialogue": "Bhagwan kaun hai... kaun nahi, yeh toh pata nahi, par bhagwan kahaan hai, yeh mujhe zaroor pata hai!",
+      "movie": "PK"
+    }
+  }
+]
 
+[
+  {
+    "name": "Bhumi Pednekar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Bhumi_Pednekar_promoting_Govinda_Naam_Mera.jpg",
+    "famous_movies": ["Dum Laga Ke Haisha", "Toilet: Ek Prem Katha"],
+    "famous_dialogue": {
+      "dialogue": "Mujhe padhna hai, apni zindagi banana hai!",
+      "movie": "Toilet: Ek Prem Katha"
+    }
+  },
+  {
+    "name": "Bipasha Basu",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Bipasha_Basu_promotes_Humshakals.jpg",
+    "famous_movies": ["Raaz", "Jism"],
+    "famous_dialogue": {
+      "dialogue": "Dar ke aage jeet hai!",
+      "movie": "Raaz"
+    }
+  }
+]
