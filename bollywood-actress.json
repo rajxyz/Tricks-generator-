@@ -133,3 +133,218 @@
     }
   }
 ]
+
+[
+  {
+    "name": "Jaya Bachchan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Jaya_Bachchan_Bollywood_Actress.jpg",
+    "famous_movies": ["Kabhi Khushi Kabhie Gham", "Guddi"],
+    "famous_dialogue": {
+      "dialogue": "Agar maa ka dil dekha hota, toh kabhi aise baat na karte!",
+      "movie": "Kabhi Khushi Kabhie Gham"
+    }
+  },
+  {
+    "name": "Jacqueline Fernandez",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Jacqueline_Fernandez_at_Lakme_Fashion_Week_2020.jpg",
+    "famous_movies": ["Kick", "Judwaa 2"],
+    "famous_dialogue": {
+      "dialogue": "Mujhe hero pasand hai, villain nahi!",
+      "movie": "Kick"
+    }
+  },
+  {
+    "name": "Juhi Chawla",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Juhi_Chawla_graces_the_special_screening_of_Love_Sonia_%2810%29.jpg",
+    "famous_movies": ["Darr", "Ishq"],
+    "famous_dialogue": {
+      "dialogue": "Main toh sirf mazaak kar rahi thi!",
+      "movie": "Ishq"
+    }
+  }
+]
+[
+  {
+    "name": "Kareena Kapoor Khan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Kareena_Kapoor_at_TOIFA.jpg",
+    "famous_movies": ["Jab We Met", "Kabhi Khushi Kabhie Gham"],
+    "famous_dialogue": {
+      "dialogue": "Main apni favorite hoon!",
+      "movie": "Jab We Met"
+    }
+  },
+  {
+    "name": "Katrina Kaif",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/36/Katrina_Kaif_at_Reliance_Digital_Store_launch_%282%29.jpg",
+    "famous_movies": ["Zindagi Na Milegi Dobara", "Tiger Zinda Hai"],
+    "famous_dialogue": {
+      "dialogue": "Dosti mein no sorry, no thank you!",
+      "movie": "Zindagi Na Milegi Dobara"
+    }
+  },
+  {
+    "name": "Kangana Ranaut",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Kangana_Ranaut_promoting_Simran.jpg",
+    "famous_movies": ["Queen", "Tanu Weds Manu"],
+    "famous_dialogue": {
+      "dialogue": "London jaake bhi main wahi ghatiya si ladki rahi!",
+      "movie": "Queen"
+    }
+  },
+  {
+    "name": "Kiara Advani",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Kiara_Advani_promoting_Kabir_Singh.jpg",
+    "famous_movies": ["Kabir Singh", "Shershaah"],
+    "famous_dialogue": {
+      "dialogue": "Mujhse na ho payega!",
+      "movie": "Kabir Singh"
+    }
+  }
+]
+[
+  {
+    "name": "Lara Dutta",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Lara_Dutta_at_The_Fame_Game_screening.jpg",
+    "famous_movies": ["Partner", "Andaaz"],
+    "famous_dialogue": {
+      "dialogue": "Main tumse sach mein pyaar karti hoon!",
+      "movie": "Andaaz"
+    }
+  },
+  {
+    "name": "Lisa Haydon",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Lisa_Haydon_Lakme_Fashion_Week_2018_%28cropped%29.jpg",
+    "famous_movies": ["Queen", "Housefull 3"],
+    "famous_dialogue": {
+      "dialogue": "Chalo masti karte hain!",
+      "movie": "Queen"
+    }
+  }
+]
+
+[
+  {
+    "name": "Madhuri Dixit",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Madhuri_Dixit_in_2020.jpg",
+    "famous_movies": ["Dil To Pagal Hai", "Hum Aapke Hain Koun..!"],
+    "famous_dialogue": {
+      "dialogue": "Mohabbat ek ehsaas hai, jo dil ke bohot kareeb hota hai!",
+      "movie": "Dil To Pagal Hai"
+    }
+  },
+  {
+    "name": "Meena Kumari",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Meena_Kumari_in_Baiju_Bawra.jpg",
+    "famous_movies": ["Pakeezah", "Sahib Bibi Aur Ghulam"],
+    "famous_dialogue": {
+      "dialogue": "Aapke paon dekhe, bahut haseen hain!",
+      "movie": "Pakeezah"
+    }
+  },
+  {
+    "name": "Manisha Koirala",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Manisha_Koirala_graces_the_launch_of_%E2%80%98Free_Launch%E2%80%99_%2814%29.jpg",
+    "famous_movies": ["Bombay", "Dil Se"],
+    "famous_dialogue": {
+      "dialogue": "Mujhe zindagi jeene do!",
+      "movie": "Dil Se"
+    }
+  }
+]
+
+[
+  {
+    "name": "Nargis",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Nargis_1950s.jpg",
+    "famous_movies": ["Mother India", "Awara"],
+    "famous_dialogue": {
+      "dialogue": "Duniya mein maa ka darja sabse upar hota hai!",
+      "movie": "Mother India"
+    }
+  },
+  {
+    "name": "Neetu Kapoor",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Neetu_Kapoor_at_Jagran_Film_Festival_2022.jpg",
+    "famous_movies": ["Kabhi Kabhie", "Amar Akbar Anthony"],
+    "famous_dialogue": {
+      "dialogue": "Pyaar kabhi purana nahi hota!",
+      "movie": "Kabhi Kabhie"
+    }
+  },
+  {
+    "name": "Nushrratt Bharuccha",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Nushrat_Bharucha_graces_the_trailer_launch_of_Hurdang.jpg",
+    "famous_movies": ["Pyaar Ka Punchnama", "Sonu Ke Titu Ki Sweety"],
+    "famous_dialogue": {
+      "dialogue": "Ladkiyan sirf paisa dekh kar pyaar karti hain!",
+      "movie": "Pyaar Ka Punchnama"
+    }
+  }
+]
+
+[
+  {
+    "name": "Qurratulain Hyder (Old Actress)",
+    "image_url": "https://upload.wikimedia.org/wikipedia/en/8/8f/Qurratulain_Hyder.jpg",
+    "famous_movies": ["Rarely Acted"],
+    "famous_dialogue": {
+      "dialogue": "Zindagi ek kahani hai jo khud likhni padti hai!",
+      "movie": "General Quote"
+    }
+  }
+]
+
+[
+  {
+    "name": "Rani Mukerji",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/Rani_Mukerji_promoting_Mardaani.jpg",
+    "famous_movies": ["Black", "Mardaani"],
+    "famous_dialogue": {
+      "dialogue": "Mujhe aaj tak koi nahi hara paya!",
+      "movie": "Mardaani"
+    }
+  },
+  {
+    "name": "Rekha",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/36/Rekha_2020.jpg",
+    "famous_movies": ["Umrao Jaan", "Silsila"],
+    "famous_dialogue": {
+      "dialogue": "In aankhon ki masti ke, mastaane hazaaron hain!",
+      "movie": "Umrao Jaan"
+    }
+  }
+]
+
+[
+  {
+    "name": "Oindrila Sen",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Oindrila_Sen.jpg",
+    "famous_movies": ["Magic", "Kakababur Protyaborton"],
+    "famous_dialogue": {
+      "dialogue": "Pyaar mein koi shartein nahi hoti!",
+      "movie": "Magic"
+    }
+  }
+]
+
+
+[
+  {
+    "name": "Priyanka Chopra",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Priyanka_Chopra_at_Baywatch_promotion.jpg",
+    "famous_movies": ["Fashion", "Bajirao Mastani"],
+    "famous_dialogue": {
+      "dialogue": "Aaj bhi maharani ke paas sirf ek dil hai!",
+      "movie": "Bajirao Mastani"
+    }
+  },
+  {
+    "name": "Parineeti Chopra",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Parineeti_Chopra_graces_the_launch_of_Aptech_Anthem.jpg",
+    "famous_movies": ["Ishaqzaade", "Hasee Toh Phasee"],
+    "famous_dialogue": {
+      "dialogue": "Jungli billi hoon main!",
+      "movie": "Ishaqzaade"
+    }
+  }
+]
