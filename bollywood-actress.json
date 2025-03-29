@@ -348,3 +348,50 @@
     }
   }
 ]
+
+[
+  {
+    "name": "Vidya Balan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/81/Vidya_Balan_promotes_Tumhari_Sulu.jpg",
+    "famous_movies": ["Kahaani", "The Dirty Picture"],
+    "famous_dialogue": {
+      "dialogue": "Entertainment... Entertainment... Entertainment!",
+      "movie": "The Dirty Picture"
+    }
+  }
+]
+
+[
+  {
+    "name": "Waheeda Rehman",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Waheeda_Rehman_2012.jpg",
+    "famous_movies": ["Guide", "Pyaasa"],
+    "famous_dialogue": {
+      "dialogue": "Aaj bhi mere mann mein kahin ek udaasi si hai!",
+      "movie": "Guide"
+    }
+  }
+]
+[
+  {
+    "name": "Yami Gautam",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/Yami_Gautam_at_Lakme_Fashion_Week_2017.jpg",
+    "famous_movies": ["Vicky Donor", "Kaabil"],
+    "famous_dialogue": {
+      "dialogue": "Suno na... ek baat kahun?",
+      "movie": "Vicky Donor"
+    }
+  }
+]
+
+[
+  {
+    "name": "Zeenat Aman",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/85/Zeenat_Aman_graces_100th_show_of_Tumhari_Amrita.jpg",
+    "famous_movies": ["Satyam Shivam Sundaram", "Don"],
+    "famous_dialogue": {
+      "dialogue": "Arre Deewano, mujhe pehchano!",
+      "movie": "Don"
+    }
+  }
+]
