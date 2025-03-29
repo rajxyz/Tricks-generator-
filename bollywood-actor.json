@@ -1328,3 +1328,23 @@ Ccc, [3/29/25, 4:31 PM]
     }
   }
 ]
+[
+  {
+    "name": "Utkarsh Sharma",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Utkarsh_Sharma.jpg",
+    "famous_movies": ["Gadar 2", "Genius"],
+    "famous_dialogue": {
+      "dialogue": "Tiranga lekar aaye the, Tiranga lekar jayenge!",
+      "movie": "Gadar 2"
+    }
+  },
+  {
+    "name": "Uday Chopra",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Uday_Chopra_at_Dhoom_3_promo_event.jpg",
+    "famous_movies": ["Dhoom", "Mohabbatein"],
+    "famous_dialogue": {
+      "dialogue": "Dhoom machale!",
+      "movie": "Dhoom"
+    }
+  }
+]
