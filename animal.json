@@ -234,3 +234,97 @@
     "fun_fact": "Kingfishers have excellent vision and can see underwater."
   }
 ]
+
+[
+  {
+    "name": "Lion",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg",
+    "fun_fact": "Lions are the only cats that live in groups called prides."
+  },
+  {
+    "name": "Leopard",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Leopard_africa.jpg",
+    "fun_fact": "Leopards can carry prey twice their weight up a tree to avoid scavengers."
+  },
+  {
+    "name": "Lynx",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Iberian_lynx_%28Lynx_pardinus%29.JPG",
+    "fun_fact": "Lynxes have excellent night vision, which helps them hunt in the dark."
+  },
+  {
+    "name": "Lemur",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Lemur_catta_2.jpg",
+    "fun_fact": "Lemurs communicate using scents and unique vocalizations."
+  },
+  {
+    "name": "Macaw",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Ara_macao_Luc_Viatour.jpg",
+    "fun_fact": "Macaws can mimic human speech and live up to 50 years."
+  },
+  {
+    "name": "Manatee",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Manatee_02.jpg",
+    "fun_fact": "Manatees are known as 'sea cows' because they graze on underwater plants."
+  },
+  {
+    "name": "Meerkat",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Meerkat_%28Suricata_suricatta%29_Tswalu.jpg",
+    "fun_fact": "Meerkats work together in groups, taking turns as lookouts for predators."
+  },
+  {
+    "name": "Moose",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Moose_superior.jpg",
+    "fun_fact": "Moose can close their nostrils to keep water out when swimming."
+  },
+  {
+    "name": "Numbat",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/06/Numbat_%28Myrmecobius_fasciatus%29_perth_zoo.jpg",
+    "fun_fact": "Numbats eat up to 20,000 termites a day using their long tongues."
+  },
+  {
+    "name": "Narwhal",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Narwhals_breach.jpg",
+    "fun_fact": "Narwhals are known as the 'unicorns of the sea' because of their long, spiral tusk."
+  },
+  {
+    "name": "Newt",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Redspotted_newt.jpg",
+    "fun_fact": "Newts can regenerate lost limbs, tails, and even parts of their heart!"
+  },
+  {
+    "name": "Ocelot",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/70/Ocelot_in_Costa_Rica_by_Rainbirder.jpg",
+    "fun_fact": "Ocelots have unique fur patterns, making them almost impossible to spot in the wild."
+  },
+  {
+    "name": "Orangutan",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Orangutan_bukit_lawang_2006.jpg",
+    "fun_fact": "Orangutans are highly intelligent and can use tools to gather food."
+  },
+  {
+    "name": "Otter",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Otter_in_Glacier_Bay.jpg",
+    "fun_fact": "Otters hold hands while sleeping to stay together and avoid drifting away."
+  },
+  {
+    "name": "Panda",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Grosser_Panda.JPG",
+    "fun_fact": "Pandas eat almost exclusively bamboo, consuming up to 40 pounds a day."
+  },
+  {
+    "name": "Penguin",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Aptenodytes_forsteri_-Snow_Hill_Island%2C_Antarctica_-adults_and_juvenile-8.jpg",
+    "fun_fact": "Penguins can drink seawater because they have a special gland to filter out salt."
+  },
+  {
+    "name": "Porcupine",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/96/North_American_Porcupine.jpg",
+    "fun_fact": "Porcupines have around 30,000 quills that they use for self-defense."
+  },
+  {
+    "name": "Quokka",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Quokka_Rottenest_Island_1.jpg",
+    "fun_fact": "Quokkas are known as the 'happiest animals' because they always appear to be smiling."
+  }
+]
+
