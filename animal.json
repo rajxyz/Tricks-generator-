@@ -1,1 +1,236 @@
 
+[
+  {
+    "name": "Aardvark",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Aardvark_%28Orycteropus_afer%29_%2825228911296%29.jpg",
+    "fun_fact": "Aardvarks use their long tongues to eat up to 50,000 ants and termites a night!"
+  },
+  {
+    "name": "Albatross",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Laysan_Albatross_RWD3.jpg",
+    "fun_fact": "Albatrosses can fly for hours without flapping their wings!"
+  },
+  {
+    "name": "Alligator",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/American_Alligator.jpg",
+    "fun_fact": "Alligators have been around since the time of dinosaurs!"
+  },
+  {
+    "name": "Antelope",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Impala_male.jpg",
+    "fun_fact": "Antelopes can run as fast as 60 mph to escape predators!"
+  },
+  {
+    "name": "Armadillo",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Nine-banded_Armadillo.jpg",
+    "fun_fact": "Armadillos can roll up into a ball to protect themselves from predators!"
+  },
+  {
+    "name": "Baboon",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Papio_anubis_%28Serengeti%2C_2009%29.jpg",
+    "fun_fact": "Baboons use over 30 different vocalizations to communicate!"
+  },
+  {
+    "name": "Bald Eagle",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Bald_Eagle_Portrait.jpg",
+    "fun_fact": "Bald eagles can see four times better than humans!"
+  },
+  {
+    "name": "Barracuda",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Barracuda_Fish.jpg",
+    "fun_fact": "Barracudas are known for their speed and sharp teeth!"
+  },
+  {
+    "name": "Bison",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/American_bison_k5680-1.jpg",
+    "fun_fact": "Bison can run up to 35 mph despite their large size!"
+  },
+  {
+    "name": "Blue Whale",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_Whale_001_body_bw.jpg",
+    "fun_fact": "The blue whale is the largest animal to have ever lived on Earth!"
+  },
+  {
+    "name": "Cheetah",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Cheetah_%28Acinonyx_jubatus%29_female_2.jpg",
+    "fun_fact": "Cheetahs are the fastest land animals, reaching speeds of 70 mph!"
+  },
+  {
+    "name": "Chimpanzee",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Bonobo-apes-sleeping.jpg",
+    "fun_fact": "Chimpanzees share about 98% of their DNA with humans!"
+  },
+  {
+    "name": "Cobra",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Naja_cobra.jpg",
+    "fun_fact": "Cobras can raise their heads and spread their hoods to scare predators!"
+  },
+  {
+    "name": "Cougar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Cougar_in_Winter.jpg",
+    "fun_fact": "Cougars can jump up to 20 feet in a single bound!"
+  },
+  {
+    "name": "Crocodile",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Crocodylus_porosus_head.jpg",
+    "fun_fact": "Crocodiles have the strongest bite force of any animal!"
+  },
+  {
+    "name": "Dingo",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Dingo_Australia.jpg",
+    "fun_fact": "Dingoes are wild dogs native to Australia!"
+  },
+  {
+    "name": "Dolphin",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Dolphins_Jumping.jpg",
+    "fun_fact": "Dolphins are highly intelligent and can recognize themselves in mirrors!"
+  },
+  {
+    "name": "Dragonfly",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Dragonfly_Flying.jpg",
+    "fun_fact": "Dragonflies can move each of their wings independently!"
+  },
+  {
+    "name": "Duck",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Male_mallard_duck.jpg",
+    "fun_fact": "Ducks have waterproof feathers!"
+  },
+  {
+    "name": "Eagle",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Eagle_Portrait.jpg",
+    "fun_fact": "Eagles have powerful talons that help them catch prey!"
+  },
+  {
+    "name": "Echidna",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/02/Short-beaked_Echidna.jpg",
+    "fun_fact": "Echidnas lay eggs even though they are mammals!"
+  },
+  {
+    "name": "Elephant",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/African_Bush_Elephant.jpg",
+    "fun_fact": "Elephants have the largest brains of any land animal!"
+  },
+  {
+    "name": "Emu",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Emu_in_Australia.jpg",
+    "fun_fact": "Emus are flightless birds but can run very fast!"
+  },
+  {
+    "name": "Falcon",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Peregrine_Falcon_in_flight.jpg",
+    "fun_fact": "The peregrine falcon is the fastest bird, reaching speeds over 240 mph!"
+  },
+  {
+    "name": "Fennec Fox",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/36/Fennec_Fox_in_Sahara.jpg",
+    "fun_fact": "Fennec foxes have large ears that help them stay cool in the desert!"
+  }
+]
+
+[
+  {
+    "name": "Giraffe",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Giraffe_standing.jpg",
+    "fun_fact": "Giraffes have the same number of neck vertebrae as humans – just seven!"
+  },
+  {
+    "name": "Gorilla",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Male_gorilla_in_SF_zoo.jpg",
+    "fun_fact": "Gorillas share about 98% of their DNA with humans!"
+  },
+  {
+    "name": "Gecko",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Gold_Dust_Day_Gecko.jpg",
+    "fun_fact": "Geckos can stick to almost any surface, even glass, due to special toe pads!"
+  },
+  {
+    "name": "Goose",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Canada_Goose_on_water.jpg",
+    "fun_fact": "Geese fly in a V-formation to conserve energy during migration."
+  },
+  {
+    "name": "Guppy",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Guppy_fish.JPG",
+    "fun_fact": "Guppies are known for their vibrant colors and ability to reproduce rapidly."
+  },
+  {
+    "name": "Hawk",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Red-tailed_Hawk_Buteo_jamaicensis_Flying_2476px.jpg",
+    "fun_fact": "Hawks have incredible vision, capable of spotting prey from great distances."
+  },
+  {
+    "name": "Hippopotamus",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Hippo_-_02.jpg",
+    "fun_fact": "Hippos can hold their breath underwater for up to five minutes."
+  },
+  {
+    "name": "Honeybee",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Apis_mellifera_Western_honey_bee.jpg",
+    "fun_fact": "Honeybees communicate by dancing to show where food is located."
+  },
+  {
+    "name": "Horse",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Horse_in_field.jpg",
+    "fun_fact": "Horses can sleep both standing up and lying down."
+  },
+  {
+    "name": "Hyena",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Spotted_hyena_%28Crocuta_crocuta%29_female.jpg",
+    "fun_fact": "Hyenas are known for their unique 'laugh,' which is actually a form of communication."
+  },
+  {
+    "name": "Iguana",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Green_iguana_Iguana_iguana.jpg",
+    "fun_fact": "Iguanas have a third 'parietal' eye on top of their head to detect predators."
+  },
+  {
+    "name": "Indian Cobra",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Indian_Cobra_%28Naja_naja%29_at_Guwahati_Zoo.jpg",
+    "fun_fact": "The Indian Cobra is famous for its ability to 'hood up' when threatened."
+  },
+  {
+    "name": "Indian Star Tortoise",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Indian_Star_Tortoise_-_Houston_Zoo.jpg",
+    "fun_fact": "Indian Star Tortoises have unique star-like patterns on their shells."
+  },
+  {
+    "name": "Indian Peafowl",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Peacock_Plumage.jpg",
+    "fun_fact": "Male peafowls display stunning feather fans to attract mates."
+  },
+  {
+    "name": "Jackal",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Golden_jackal_%28Canis_aureus%29_Photograph_By_Shantanu_Kuveskar.jpg",
+    "fun_fact": "Jackals are highly adaptable and can survive in diverse habitats."
+  },
+  {
+    "name": "Jaguar",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Jaguar_in_water.jpg",
+    "fun_fact": "Jaguars have the strongest bite force of all big cats."
+  },
+  {
+    "name": "Jellyfish",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Jelly_cc11.jpg",
+    "fun_fact": "Some species of jellyfish are biologically immortal!"
+  },
+  {
+    "name": "Kangaroo",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Red_kangaroo_arp.jpg",
+    "fun_fact": "Kangaroos can’t walk backward due to their muscular tails."
+  },
+  {
+    "name": "Koala",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
+    "fun_fact": "Koalas sleep for up to 20 hours a day!"
+  },
+  {
+    "name": "Komodo Dragon",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Komodo_dragon_%28Varanus_komodoensis%29_2.jpg",
+    "fun_fact": "Komodo dragons have venomous bites that help them hunt their prey."
+  },
+  {
+    "name": "Kingfisher",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/31/Kingfisher_alcedo_atthis.JPG",
+    "fun_fact": "Kingfishers have excellent vision and can see underwater."
+  }
+]
