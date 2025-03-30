@@ -328,3 +328,90 @@
   }
 ]
 
+[
+  {
+    "name": "Rabbit",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/71/Rabbit_in_montana.jpg",
+    "fun_fact": "Rabbits can turn their ears 180 degrees, which helps them detect predators from different directions."
+  },
+  {
+    "name": "Raccoon",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Raccoon_procyon_lotor.jpg",
+    "fun_fact": "Raccoons are highly intelligent and can remember solutions to tasks for up to three years."
+  },
+  {
+    "name": "Shark",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/White_shark.jpg",
+    "fun_fact": "Sharks have been around for over 400 million years, even before dinosaurs!"
+  },
+  {
+    "name": "Sloth",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Bradypus.jpg",
+    "fun_fact": "Sloths are so slow that algae grow on their fur, which helps them camouflage in trees."
+  },
+  {
+    "name": "Tiger",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Tiger.50.jpg",
+    "fun_fact": "A tiger's stripes are unique to each individual, just like human fingerprints."
+  },
+  {
+    "name": "Turtle",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Turtle_diving.jpg",
+    "fun_fact": "Some species of turtles can live over 100 years!"
+  },
+  {
+    "name": "Uakari",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Uakari.jpg",
+    "fun_fact": "The uakari monkey has a bright red face, which is a sign of good health and helps attract mates."
+  },
+  {
+    "name": "Urial",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Urial_sheep.jpg",
+    "fun_fact": "Urials are wild sheep found in Central Asia, known for their impressive curved horns."
+  },
+  {
+    "name": "Vampire Bat",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Vampire_bat.jpg",
+    "fun_fact": "Vampire bats are the only mammals that feed entirely on blood."
+  },
+  {
+    "name": "Vulture",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/42/Vulture.jpg",
+    "fun_fact": "Vultures help clean the environment by eating dead animals, preventing the spread of diseases."
+  },
+  {
+    "name": "Wolf",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Gray_wolf.jpg",
+    "fun_fact": "Wolves have a complex social structure and communicate using howls, body language, and scent markings."
+  },
+  {
+    "name": "Wallaby",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Wallaby.jpg",
+    "fun_fact": "Wallabies are smaller relatives of kangaroos and can leap great distances with their powerful hind legs."
+  },
+  {
+    "name": "X-ray Tetra",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/X-ray_tetra.jpg",
+    "fun_fact": "X-ray tetras have a nearly transparent body, making their skeleton visible!"
+  },
+  {
+    "name": "Yak",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Yak_in_Nepal.jpg",
+    "fun_fact": "Yaks have long, shaggy fur that helps them survive in extremely cold mountainous regions."
+  },
+  {
+    "name": "Yellowfin Tuna",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Yellowfin_Tuna.png",
+    "fun_fact": "Yellowfin tuna are one of the fastest fish in the ocean, reaching speeds of up to 50 mph."
+  },
+  {
+    "name": "Zebra",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Zebra_%28Equus_quagga%29.jpg",
+    "fun_fact": "Each zebra has a unique stripe pattern, just like a human fingerprint!"
+  },
+  {
+    "name": "Zorilla",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Zorilla.jpg",
+    "fun_fact": "Zorillas, also known as striped polecats, release a strong-smelling spray when threatened, similar to skunks."
+  }
+]
