@@ -2,7 +2,6 @@ import json
 import os
 import random
 from fastapi import APIRouter, Query
-
 router = APIRouter()
 
 # Load templates for dynamic sentence generation (stored in a separate JSON file)
