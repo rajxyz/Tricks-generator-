@@ -9,18 +9,22 @@ router = APIRouter()
 def load_templates():
     templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "templates.json")
     with open(templates_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        templates = json.load(f)
+    print("Loaded templates:", templates)  # Log templates for debugging
+    return templates
 
 # Load actor names from the actor.json file
 def load_actors(letter=None):
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
     with open(file_path, "r", encoding="utf-8") as f:
         actors = json.load(f)
-
+    
+    print("Loaded actors:", actors)  # Log actors for debugging
+    
     # Filter actors by starting letter if provided
     if letter:
         actors = [actor for actor in actors if actor.get("name", "").upper().startswith(letter.upper())]
-
+    
     return actors
 
 # Function to generate a trick sentence
@@ -29,23 +33,28 @@ def generate_trick_sentence(actors, templates):
         return "No actors found for this letter."
 
     num_actors = len(actors)
-
+    print(f"Number of actors: {num_actors}")  # Debugging the number of actors
+    
     # Select template category based on the number of actors
     template_category = f"{num_actors}_name_templates"
-
+    print(f"Template category: {template_category}")  # Debugging the template category
+    
     if template_category not in templates or not templates[template_category]:
         return "No templates available for the selected number of actors."
-
+    
     # Pick a random template from the correct category
     template = random.choice(templates[template_category])
+    print(f"Selected template: {template}")  # Debugging the selected template
 
     # Extract names
     actor_names = [actor["name"] for actor in actors]
-
-    # Substitute names
+    print(f"Actor names: {actor_names}")  # Debugging the actor names
+    
+    # Substitute names into the template
     sentence = template["template"]
     for i, name in enumerate(actor_names[:3]):  # Only use up to 3 actors
         sentence = sentence.replace(f"{{name{i+1}}}", name)
+    print(f"Generated sentence before adding rhymes: {sentence}")  # Debugging sentence before rhymes
 
     # Add rhyming words if available
     if "rhyming_words" in template and template["rhyming_words"]:
