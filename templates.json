@@ -1,0 +1,35 @@
+{
+  "1_name_templates": [
+    {
+      "template": "{name1} is a superstar, acting skills are surely bizarre!",
+      "rhyming_words": [
+        ["bizarre", "star"],
+        ["fine", "shine"]
+      ]
+    },
+    {
+      "template": "{name1} is the king, with acting as his biggest bling!",
+      "rhyming_words": [
+        ["king", "bling"],
+        ["glow", "show"]
+      ]
+    }
+  ],
+  "2_name_templates": [
+    {
+      "template": "{name1} and {name2} together make a dream team, their performances are always supreme!",
+      "rhyming_words": [
+        ["dream", "supreme"],
+        ["fire", "desire"]
+      ]
+    },
+    {
+      "template": "{name1} and {name2} bring the fun, together they're second to none!",
+      "rhyming_words": [
+        ["fun", "none"],
+        ["shine", "divine"]
+      ]
+    }
+  ]
+  // You can add templates for 3, 4, 5 names in a similar fashion
+}
