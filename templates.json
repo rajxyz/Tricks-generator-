@@ -30,6 +30,21 @@
         ["shine", "divine"]
       ]
     }
+  ],
+  "3_name_templates": [
+    {
+      "template": "{name1}, {name2}, and {name3} light up the screen, their chemistry is always seen!",
+      "rhyming_words": [
+        ["screen", "seen"],
+        ["grace", "place"]
+      ]
+    },
+    {
+      "template": "{name1}, {name2}, and {name3} bring the thrill, their performances give a chill!",
+      "rhyming_words": [
+        ["thrill", "chill"],
+        ["bright", "delight"]
+      ]
+    }
   ]
-  // You can add templates for 3, 4, 5 names in a similar fashion
 }
