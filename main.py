@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import sys
 import os
 
-sys.path.append(os.path.dirname(os.path.abspath(file)))  # Ensure 'routes' is accessible
+# ✅ Fix the NameError by using __file__
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))  # Ensure 'routes' is accessible
 
 # ✅ Import routers properly
 from routes.tricks import router as tricks_router
