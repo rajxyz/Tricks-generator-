@@ -11,13 +11,24 @@ router = APIRouter()
 actor_index = defaultdict(int)
 
 def load_templates():
-    templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "templates.json")
+    # Construct the correct path for templates.json
+    templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates.json")
+    print(f"Looking for templates.json at: {templates_path}")
+    
+    if not os.path.exists(templates_path):
+        raise FileNotFoundError(f"templates.json not found at {templates_path}")
+    
     with open(templates_path, "r", encoding="utf-8") as f:
         templates = json.load(f)
     return templates
 
 def load_actors(letter=None):
-    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bollywood-actor.json")
+    print(f"Looking for bollywood-actor.json at: {file_path}")
+    
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"bollywood-actor.json not found at {file_path}")
+    
     with open(file_path, "r", encoding="utf-8") as f:
         actors = json.load(f)
     
@@ -64,7 +75,11 @@ def get_tricks(
     type: str = Query(None, description="Type of trick (e.g., actors, cricketers)"),
     letter: str = Query(None, description="Comma-separated letters")
 ):
-    templates = load_templates()
+    try:
+        templates = load_templates()
+    except FileNotFoundError as e:
+        return {"error": str(e)}
+    
     letters = letter.upper().replace(" ", "").split(",") if letter else []
     
     if type == "actors":
@@ -75,4 +90,3 @@ def get_tricks(
     return {"message": "Invalid type selected."}
 
 app.include_router(router)
-            
