@@ -1,9 +1,8 @@
-import json 
-import os 
-import random  
-from fastapi import APIRouter
-Query from collections import defaultdict
-
+import json
+import os
+import random
+from fastapi import APIRouter, Query
+from collections import defaultdict
 router = APIRouter()
 
 Persistent actor selection tracking
