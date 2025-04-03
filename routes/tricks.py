@@ -1,6 +1,7 @@
 import json 
 import os 
-import random from fastapi import APIRouter,
+import random  
+from fastapi import APIRouter
 Query from collections import defaultdict
 
 router = APIRouter()
