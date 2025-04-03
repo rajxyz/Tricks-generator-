@@ -6,19 +6,19 @@ from collections import defaultdict
 
 router = APIRouter()
 
-# ✅ Persistent actor selection tracking
+# Persistent actor selection tracking
 actor_index = defaultdict(int)
 
 def load_templates():
     """Load templates from JSON file."""
-    templates_path = os.path.join(os.path.dirname(os.path.abspath(file)), "..", "templates.json")
+    templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "templates.json")
     with open(templates_path, "r", encoding="utf-8") as f:
         templates = json.load(f)
     return templates
 
 def load_actors(letter=None):
     """Load Bollywood actors from JSON file. Filter by letter if provided."""
-    file_path = os.path.join(os.path.dirname(os.path.abspath(file)), "..", "bollywood-actor.json")
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
     with open(file_path, "r", encoding="utf-8") as f:
         actors = json.load(f)
 
