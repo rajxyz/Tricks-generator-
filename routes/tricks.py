@@ -12,13 +12,25 @@ actor_index = defaultdict(int)
 def load_templates():
     """Load templates from JSON file."""
     templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "templates.json")
+
+    if not os.path.exists(templates_path):
+        print(f"⚠️ templates.json not found at: {templates_path}")
+        return {}
+
     with open(templates_path, "r", encoding="utf-8") as f:
         templates = json.load(f)
+    
+    print(f"✅ Loaded {len(templates)} templates.")  # Debugging
     return templates
 
 def load_actors(letter=None):
     """Load Bollywood actors from JSON file. Filter by letter if provided."""
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
+
+    if not os.path.exists(file_path):
+        print(f"⚠️ bollywood-actor.json not found at: {file_path}")
+        return []
+
     with open(file_path, "r", encoding="utf-8") as f:
         actors = json.load(f)
 
@@ -70,12 +82,19 @@ def get_tricks(
     letter: str = Query(None, description="Comma-separated letters")
 ):
     """API Endpoint to generate tricks based on user input."""
+    print(f"🟢 Request received: type={type}, letter={letter}")
+
     templates = load_templates()
     letters = letter.upper().replace(" ", "").split(",") if letter else []
 
     if type == "actors":
         actors = get_next_actors(letters)
+        print(f"🔵 Selected actors: {actors}")
+        
         trick_sentence = generate_trick_sentence(actors, templates)
+        print(f"🟣 Generated trick: {trick_sentence}")
+
         return {"trick": trick_sentence}
 
     return {"message": "Invalid type selected."}
+    
