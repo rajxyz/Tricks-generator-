@@ -1,50 +1,315 @@
 {
-  "1_name_templates": [
-    {
-      "template": "{name1} is a superstar, acting skills are surely bizarre!",
-      "rhyming_words": [
-        ["bizarre", "star"],
-        ["fine", "shine"]
-      ]
-    },
-    {
-      "template": "{name1} is the king, with acting as his biggest bling!",
-      "rhyming_words": [
-        ["king", "bling"],
-        ["glow", "show"]
-      ]
-    }
+    "Amitabh": [
+        "Style aisa jaise aaya sailaab",
+        "Acting me sabse zyada betaab",
+        "Scene banaya full zabardast",
+        "Har dialogue deta full trust",
+        "Entry hui, sab bol pade — waah kya baat!"
+    ],
+    "Aamir": [
+        "Dimag ka game, sab pe bhaari",
+        "Role play kare, full tayari",
+        "Jab scene aaye, ho jaye shor",
+        "Acting kare dil se hardcore",
+        "Smartness ka kare blast, bas no bore"
+    ],
+    "Akshay": [
+        "Action kare bina break ke",
+        "Har role fit jaise cake pe",
+        "Comedy me kare dhamal",
+        "Dialogue bole, sab ho jaye pagal",
+        "Full energy, sab pe bhaari"
+    ],
+    "Ajay": [
+        "Aankhon me fire, silence se vaar",
+        "Style dekhe sab ho jaaye yaar",
+        "Entry me baje taali",
+        "Attitude ho full khaali",
+        "Presence aisi — sab ho jaaye hairaan"
+    ],
+    "Anil": [
+        "Jalwa dikhaye bina rukke",
+        "Energy ho 24 ghante active",
+        "Style kare puri bollywood kill",
+        "Entry ho aur ho full thrill",
+        "Role milte hi — scene ho lit"
+    ],
+    "Arjun": [
+        "Dashing looks aur attitude",
+        "Dialogue bole with full dude",
+        "Aaya scene me, sab ho gaya stun",
+        "Action scenes ho full fun",
+        "Entry me lagti hai gunshot wali feel"
+    ],
+    "Abhishek": [
+        "Calm and cool with solid swag",
+        "Jab aaye, toh na ho koi lag",
+        "Style kare sabko impress",
+        "Role play — full no stress",
+        "Bas screen pe aaye — kare bless"
+    ],
+    "Bobby": [
+        "Silent killer with full power lobby",
+        "Swag leke aaye, full filmy hobby",
+        "Scene me aaye, sab bolen wow Bobby",
+        "Retro vibes leke kare dhoom",
+        "Acting kare full zoom zoom"
+    ],
+    "Boman": [
+        "Comedy timing ho sharp like sword",
+        "Dialogue delivery kare sab ko floored",
+        "Scene me aaye toh full attention",
+        "Role kare bina tension",
+        "Sab kahen — Boman tera no match"
+    ],
+    "Bhumi": [
+        "Strong roles with full zameen se jodi",
+        "Acting kare real, story ho badi",
+        "Jab aaye screen pe kare impact",
+        "Role milte hi full contact",
+        "Performance aisi — mile clap ki goonj"
+    ],
+    "Chunky": [
+        "Comedy me kare full dhamaal",
+        "Dialogue delivery ho bawaal",
+        "Entry ho sabse funny",
+        "Style me kare sabki dummy",
+        "Chunky aaye, scene ban jaye sunny"
+    ],
+    "Chiranjeevi": [
+        "South se aaye, le aaye tsunami",
+        "Dance moves kare sabko deewani",
+        "Acting ho full energy se bhari",
+        "Entry ho jaye heavy",
+        "Legendary vibe — sab kahen Chiranjeevi!"
+    ],
+    "Chetan": [
+        "Serious roles me kare kamaal",
+        "Dialogue me ho full jwala jaal",
+        "Screen presence ho solid base",
+        "Acting se jeete full case",
+        "Aaye Chetan, sab ho jaaye silent"
+    ],
+    "Dharmendra": [
+        "Akshay, Ajay aur Dharmendra — acting ka asli calendar!",
+        "Salman, Ranveer, Dharmendra — retro style ka commander!",
+        "Bobby, Sanjay, Dharmendra — bollywood ka real blender!",
+        "Govinda, Arjun aur Dharmendra — full drama ka defender!",
+        "Hrithik, Vicky aur Dharmendra — screen pe fire ka sender!"
+    ],
+    "Dino": [
+        "Arjun, Ranbir aur Dino — swag kare full filmo!",
+        "Akshay, Varun, Dino — fashion ka hero primo!",
+        "Ayushmann, Kartik, Dino — acting kare full dino!",
+        "Tiger, Emraan aur Dino — killer smile ka amino!",
+        "John, Raj aur Dino — scene banaye cinema kino!"
+    ],
+    "Dulquer": [
+        "Vicky, Rajkumar, Dulquer — charm me kare murder!",
+        "Aditya, Kunal aur Dulquer — vibe banaye thunder!",
+        "Salman, Arjun aur Dulquer — smooth game like poker!",
+        "Emraan, Abhay aur Dulquer — smile ho full upper!",
+        "Shahid, Sunny aur Dulquer — screen par kare stirrer!"
+    ],
+    "Dev": [
+        "Sunny, Varun, Dev — dialogue bole sab rave!",
+        "Ranveer, Ayush aur Dev — acting me kare wave!",
+        "John, Abhishek aur Dev — style ho full brave!",
+        "Arjun, Vicky aur Dev — scene kare full crave!"
+    ],
+    "Emraan": [
+        "Salman, Hrithik, Emraan — entry me sabka ura diya gyaan!",
+        "Varun, Arjun, Emraan — charm me kare sabko hairaan!",
+        "Ranveer, Ayush aur Emraan — romance me kare chhupa rustam ka kaam!",
+        "Shahid, Kartik aur Emraan — kiss master with swag ka plan!",
+        "Ajay, Tiger aur Emraan — acting ka badshah, sab maan!"
+    ],
+    "Esha": [
+        "Kareena, Alia aur Esha — beauty me kare sabko trasha!",
+        "Shraddha, Kiara, Esha — style me kare classy aabha!",
+        "Nora, Janhvi aur Esha — screen pe kare glamour ka tamasha!",
+        "Ananya, Kriti aur Esha — thumka de jaye jaise jhatka tasha!",
+        "Sara, Disha aur Esha — entry me lage full fashion ka bhandara!"
+    ],
+    "Farhan": [
+        "John, Arjun aur Farhan — lyrics me kare full jaan!",
+        "Shahid, Abhay aur Farhan — multitalented star ka mahan plan!",
+        "Ayushmann, Vicky, Farhan — energy me ho champion ka daan!",
+        "Hrithik, Imran aur Farhan — direction ho ya mic, sabka jaan!",
+        "Kartik, Emraan aur Farhan — vibe kare full musical swan!"
+    ],
+    "Fardeen": [
+        "Zayed, Sohail aur Fardeen — comeback pe kare scene clean!",
+        "Bobby, Dino aur Fardeen — style ho jaise silver screen sheen!",
+        "Tusshar, Abhishek aur Fardeen — acting me kare routine scene!",
+        "Akshay, Ajay aur Fardeen — full swag me kare bollywood queen!",
+        "Saif, Sanjay aur Fardeen — retro ka kare modern dream!"
+    ],
+    "Freddy": [
+        "Tiger, Varun aur Freddy — screen pe aaye like rocksteady!",
+        "Emraan, Arjun aur Freddy — thrillers ho jaaye deadly!",
+        "Abhay, Kartik aur Freddy — swag kare full ready steady!",
+        "Vicky, Ranbir aur Freddy — action me lage ho jaise jetty!",
+        "Hrithik, Ayush aur Freddy — dialogues bole ho full witty!"
+    ],
+    "Govinda": [
+        "Akshay, Arjun, Govinda — comedy me macha de dhoom dhama!",
+        "Saif, Salman aur Govinda — thumko me laaye full drama!",
+        "Shahid, Varun aur Govinda — dance floor pe sabse zyada kama!",
+        "Ayushmann, Vicky, Govinda — retro style ka full garda uda!",
+        "Kartik, Abhishek aur Govinda — acting me kare pura hungama!"
+    ],
+    "Gulshan": [
+        "Sanjay, Anil, Gulshan — villainy me kare sab pe ruling!",
+        "Emraan, John aur Gulshan — evil style me perfect fusion!",
+        "Bobby, Dino aur Gulshan — dashing entry with full confusion!",
+        "Jackie, Sohail aur Gulshan — terror kare with bold conclusion!",
+        "Suniel, Akshay aur Gulshan — naam sunte hi aaye illusion!"
+    ],
+    "Girish": [
+        "Ayush, Kartik, Girish — new-gen hero, style kare unleash!",
+        "Arjun, Imran aur Girish — charm me kare sabko please!",
+        "Vicky, Abhay aur Girish — screen pe aaye full fresh breeze!",
+        "Tiger, Varun, Girish — debut se kare acting me peace!",
+        "Pulkit, Pratik aur Girish — confident aura, no cheese!"
+    ],
+    "Gippy": [
+        "Diljit, Ammy, Gippy — Punjabi swag with full trippy!",
+        "Badshah, Raftaar aur Gippy — beat pe kare sabko zippy!",
+        "Jassie, Parmish aur Gippy — desi vibe ho ho jaaye lippy!",
+        "Yo Yo, Guru aur Gippy — mic pe kare full sippy!",
+        "Hardy, Sidhu aur Gippy — dialogue bole full hippy-dippy!"
+    ],
+    "Hrithik": [
+        "Varun, Tiger, Hrithik — dance me kare sabse zyada trick!",
+        "Shahid, Ranbir, Hrithik — entry ho jaaye full cinematic click!",
+        "Emraan, John aur Hrithik — screen pe fire, acting slick!",
+        "Arjun, Vicky, Hrithik — charm aur grace ka perfect pick!",
+        "Sidharth, Ayush aur Hrithik — greek god jaise kare sabko kick!"
+    ],
+    "Harman": [
+        "Farhan, Fardeen, Harman — thoda slow par kare full kaam!",
+        "Abhishek, Zayed aur Harman — struggle kare with pure calm!",
+        "Dino, Vivek aur Harman — entry me ho thoda sa dhyaan!",
+        "Tusshar, Imran, Harman — underrated stars ka ho gyaan!",
+        "Freddy, Neil aur Harman — talent chhupa, kare sab hairaan!"
+    ],
+    "Harshvardhan": [
+        "Vicky, Ishaan, Harshvardhan — intense acting with full mann!",
+        "Abhay, Ranveer, Harshvardhan — silent killer, no bakbak plan!",
+        "Aditya, Rajkummar, Harshvardhan — screen pe kare slow burn ka fun!",
+        "Ayushmann, Kartik, Harshvardhan — new age charm, no extra tan!",
+        "Prateik, Vivaan aur Harshvardhan — underrated star, asli dhan!"
+    ],
+    "Jackie": [
+        "Anil, Sunny, Jackie — style me sabse zyada tacky!",
+        "Sanjay, Mithun, Jackie — bollywood ka original macky!",
+        "Dharmendra, Ajay, Jackie — retro swag, full snappy!",
+        "Nana, Bobby, Jackie — dialogue me ho jaaye clappy!",
+        "Govinda, Fardeen, Jackie — desi andaaz me ho jaunty & wacky!"
+    ],
+    "John": [
+        "Hrithik, Emraan, John — body ka bane icon!",
+        "Abhishek, Akshay, John — action kare bina koi con!",
+        "Ranbir, Sidharth, John — entry ho jaaye full dawn!",
+        "Arjun, Tiger, John — fight scenes me kare bomb ka spawn!",
+        "Farhan, Saif, John — coolness ka ho full marathon!"
+    ],
+    "Jimmy": [
+        "Irrfan, Nawaz, Jimmy — silent killer, no gimmicky!",
+        "Kay Kay, Manoj, Jimmy — underrated, acting ho tricky!",
+        "Arshad, Sharman, Jimmy — charm aur grace me ho sticky!",
+        "Randeep, Rajpal, Jimmy — scene me aaye aur vibe ho trippy!",
+        "Riteish, Tusshar, Jimmy — acting me kare har script ki mimicry!"
+    ],
+    "Jisshu": [
+        "Prithviraj, Dhanush, Jisshu — style kare full tissue issue!",
+        "Vijay, Ram, Jisshu — scene ka kare full breakthrough!",
+        "Nani, Fahadh, Jisshu — South se aaye, kare screen ko woo!",
+        "Yash, Allu, Jisshu — acting smooth, no deja vu!",
+        "Suriya, Nivin, Jisshu — energy me kare audience ko chew!"
+    ],
+    "Kader": [
+        "Johnny, Paresh, Kader — comedy me sabse zyada radar!",
+        "Rajpal, Boman, Kader — old school, phir bhi swagger!",
+        "Mehmood, Asrani, Kader — timing ho tight jaise loader!",
+        "Shakti, Tiku, Kader — har line me mile laughter ka lather!",
+        "Amjad, Prem, Kader — villain bhi bole isko master!"
+    ],
+    "Kay Kay": [
+        "Manoj, Irrfan, Kay Kay — serious role ka hai gateway!",
+        "Nawaz, Jimmy, Kay Kay — acting kare bina delay!",
+        "Pankaj, Vijay, Kay Kay — dialogue bole to sab kahe “Yay!”",
+        "Jaideep, Rasika, Kay Kay — screen pe kare full ballet!",
+        "Atul, Adil, Kay Kay — underrated par kare screenplay slay!"
+    ],
+    "Kartik": [
+        "Ayushmann, Ranbir, Kartik — monologue bole, ho gaya magic!",
+        "Tiger, Varun, Kartik — charm se kare box office ka traffic!",
+        "Vicky, Sidharth, Kartik — new-gen star with comic tactic!",
+        "Ishaan, Meezan, Kartik — dance kare bina panic!",
+        "Aditya, Harsh, Kartik — hero ban gaya public ka classic!"
+    ],
+    "Kamal": [
+        "Rajni, Mohanlal, Kamal — acting me kare sab ko pagal!",
+        "Mammootty, Dhanush, Kamal — legend ka level kare scandal!",
+        "Pawan, Ajith, Kamal — screen presence ho full medal!",
+        "Suriya, Yash, Kamal — cinema ka real marvel!",
+        "Fahadh, Nivin, Kamal — craft se kare full carnival!"
+    ],
+    "Kapil": [
+        "Krishna, Sunil, Kapil — comedy me kare sabko thrill!",
+        "Bharti, Kiku, Kapil — punchlines ho jaaye grill!",
+        "Raju, Johnny, Kapil — mic uthaye to chhaye chill!",
+        "Chandan, Naveen, Kapil — sense of humor ka king skill!",
+        "Rajeev, Sumona, Kapil — stage pe lagta hai reel reel!"
+    ],
+    "Kunal (Kapoor)": [
+        "Arjun, Abhay, Kunal — acting ho deep, not banal!",
+        "Neil, Tushar, Kunal — intense eyes, kare sab
+         {
+  "Hrithik": [
+    "Varun, Tiger, Hrithik — dance me kare sabse zyada trick!",
+    "Shahid, Ranbir, Hrithik — entry ho jaaye full cinematic click!",
+    "Emraan, John aur Hrithik — screen pe fire, acting slick!",
+    "Arjun, Vicky, Hrithik — charm aur grace ka perfect pick!",
+    "Sidharth, Ayush aur Hrithik — greek god jaise kare sabko kick!"
   ],
-  "2_name_templates": [
-    {
-      "template": "{name1} and {name2} together make a dream team, their performances are always supreme!",
-      "rhyming_words": [
-        ["dream", "supreme"],
-        ["fire", "desire"]
-      ]
-    },
-    {
-      "template": "{name1} and {name2} bring the fun, together they're second to none!",
-      "rhyming_words": [
-        ["fun", "none"],
-        ["shine", "divine"]
-      ]
-    }
+  "Harman": [
+    "Farhan, Fardeen, Harman — thoda slow par kare full kaam!",
+    "Abhishek, Zayed aur Harman — struggle kare with pure calm!",
+    "Dino, Vivek aur Harman — entry me ho thoda sa dhyaan!",
+    "Tusshar, Imran, Harman — underrated stars ka ho gyaan!",
+    "Freddy, Neil aur Harman — talent chhupa, kare sab hairaan!"
   ],
-  "3_name_templates": [
-    {
-      "template": "{name1}, {name2}, and {name3} light up the screen, their chemistry is always seen!",
-      "rhyming_words": [
-        ["screen", "seen"],
-        ["grace", "place"]
-      ]
-    },
-    {
-      "template": "{name1}, {name2}, and {name3} bring the thrill, their performances give a chill!",
-      "rhyming_words": [
-        ["thrill", "chill"],
-        ["bright", "delight"]
-      ]
-    }
-  ]
-}
+  "Harshvardhan": [
+    "Vicky, Ishaan, Harshvardhan — intense acting with full mann!",
+    "Abhay, Ranveer, Harshvardhan — silent killer, no bakbak plan!",
+    "Aditya, Rajkummar, Harshvardhan — screen pe kare slow burn ka fun!",
+    "Ayushmann, Kartik, Harshvardhan — new age charm, no extra tan!",
+    "Prateik, Vivaan aur Harshvardhan — underrated star, asli dhan!"
+  ],
+  "Jackie": [
+    "Anil, Sunny, Jackie — style me sabse zyada tacky!",
+    "Sanjay, Mithun, Jackie — bollywood ka original macky!",
+    "Dharmendra, Ajay, Jackie — retro swag, full snappy!",
+    "Nana, Bobby, Jackie — dialogue me ho jaaye clappy!",
+    "Govinda, Fardeen, Jackie — desi andaaz me ho jaunty & wacky!"
+  ],
+  "John": [
+    "Hrithik, Emraan, John — body ka bane icon!",
+    "Abhishek, Akshay, John — action kare bina koi con!",
+    "Ranbir, Sidharth, John — entry ho jaaye full dawn!",
+    "Arjun, Tiger, John — fight scenes me kare bomb ka spawn!",
+    "Farhan, Saif, John — coolness ka ho full marathon!"
+  ],
+  "Jimmy": [
+    "Irrfan, Nawaz, Jimmy — silent killer, no gimmicky!",
+    "Kay Kay, Manoj, Jimmy — underrated, acting ho tricky!",
+    "Arshad, Sharman, Jimmy — charm aur grace me ho sticky!",
+    "Randeep, Rajpal, Jimmy — scene me aaye aur vibe ho trippy!",
+    "Riteish, Tusshar, Jimmy — acting me kare har script ki mimicry!"
+  ],
+  "Jisshu": [
+    "Prithviraj, Dhanush, Jisshu — style kare full tissue issue!",
+    "Vijay, Ram, Jisshu — scene ka ka mis use
