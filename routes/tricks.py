@@ -5,70 +5,80 @@ from fastapi import APIRouter, Query
 from collections import defaultdict
 
 router = APIRouter()
-actor_index = defaultdict(int)
+item_index = defaultdict(int)
 
-def load_templates():
-    """Load templates from JSON file."""
-    templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "templates.json")
+def load_templates(trick_type: str):
+    """Load templates based on type from JSON file."""
+    filename = f"{trick_type.capitalize()}-templates.json"
+    templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
 
     if not os.path.exists(templates_path):
-        print(f"Warning: templates.json not found at {templates_path}")
+        print(f"Warning: {filename} not found at {templates_path}")
         return {}
 
     with open(templates_path, "r", encoding="utf-8") as f:
         templates = json.load(f)
 
-    print(f"Loaded {len(templates)} templates.")
+    print(f"Loaded {len(templates)} templates for type: {trick_type}")
     return templates
 
-def load_actors(letter=None):
-    """Load Bollywood actors from JSON file. Filter by letter if provided."""
-    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
+def load_data(trick_type: str, letter: str):
+    """Load data (e.g., actors, cricketers) from file and filter by starting letter."""
+    file_mapping = {
+        "actors": "bollywood-actor.json",
+        "cricketers": "cricketor.json",
+        "animals": "animal.json",
+    }
+
+    filename = file_mapping.get(trick_type.lower())
+    if not filename:
+        print(f"Unsupported type: {trick_type}")
+        return []
+
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
 
     if not os.path.exists(file_path):
-        print(f"Warning: bollywood-actor.json not found at {file_path}")
+        print(f"Warning: {filename} not found at {file_path}")
         return []
 
     with open(file_path, "r", encoding="utf-8") as f:
-        actors = json.load(f)
+        data = json.load(f)
 
     if letter:
-        actors = [actor for actor in actors if actor.get("name", "").upper().startswith(letter.upper())]
+        data = [item for item in data if item.get("name", "").upper().startswith(letter.upper())]
 
-    print(f"Loaded {len(actors)} actors for letter: {letter}")
-    return actors
+    print(f"Loaded {len(data)} items for type: {trick_type}, letter: {letter}")
+    return data
 
-def get_next_actors(letters):
-    """Fetch the next available actor for each entered letter in a cyclic manner."""
-    selected_actors = []
+def get_next_items(trick_type: str, letters):
+    """Fetch the next available item (actor/cricketer/animal) for each letter."""
+    selected_items = []
     for letter in letters:
-        actors = load_actors(letter)
-        if actors:
-            index = actor_index[letter] % len(actors)  # Cycle through actors
-            selected_actors.append(actors[index])
-            actor_index[letter] += 1  # Move to next actor for next call
-    return selected_actors
+        items = load_data(trick_type, letter)
+        if items:
+            index = item_index[letter] % len(items)
+            selected_items.append(items[index])
+            item_index[letter] += 1
+    return selected_items
 
-def generate_trick_sentence(actors, templates):
-    """Generate a trick sentence using actor names and a template."""
-    if not actors:
-        return "No actors found for the entered letters."
+def generate_trick_sentence(items, templates):
+    """Generate a trick sentence using selected items and a template."""
+    if not items:
+        return "No items found for the entered letters."
 
-    num_actors = len(actors)
-    template_category = f"{min(num_actors, 3)}_name_templates"
+    num_items = len(items)
+    template_category = f"{min(num_items, 3)}_name_templates"
 
     if template_category not in templates or not templates[template_category]:
         return "No templates available."
 
     template = random.choice(templates[template_category])
-    actor_names = [f"<b>{actor['name']}</b>" for actor in actors]  # Highlight names in bold
+    item_names = [f"<b>{item['name']}</b>" for item in items]
 
-    # Replace placeholders with actor names
     sentence = template["template"]
-    for i, name in enumerate(actor_names[:3]):
+    for i, name in enumerate(item_names[:3]):
         sentence = sentence.replace(f"{{name{i+1}}}", name)
 
-    # Add rhyming words if available
     if "rhyming_words" in template and template["rhyming_words"]:
         rhyming_pair = random.choice(template["rhyming_words"])
         sentence += " " + " ".join(rhyming_pair)
@@ -77,22 +87,21 @@ def generate_trick_sentence(actors, templates):
 
 @router.get("/api/tricks")
 def get_tricks(
-    type: str = Query(None, description="Type of trick (e.g., actors, cricketers)"),
+    type: str = Query(None, description="Type of trick (e.g., actors, cricketers, animals)"),
     letter: str = Query(None, description="Comma-separated letters")
 ):
-    """API Endpoint to generate tricks based on user input."""
     print(f"Request received: type={type}, letter={letter}")
 
-    templates = load_templates()
+    if not type:
+        return {"message": "Type is required."}
+
+    templates = load_templates(type)
     letters = letter.upper().replace(" ", "").split(",") if letter else []
 
-    if type == "actors":
-        actors = get_next_actors(letters)
-        print(f"Selected actors: {actors}")
+    items = get_next_items(type, letters)
+    print(f"Selected items: {items}")
 
-        trick_sentence = generate_trick_sentence(actors, templates)
-        print(f"Generated trick: {trick_sentence}")
+    trick_sentence = generate_trick_sentence(items, templates)
+    print(f"Generated trick: {trick_sentence}")
 
-        return {"trick": trick_sentence}
-
-    return {"message": "Invalid type selected."}
+    return {"trick": trick_sentence}
