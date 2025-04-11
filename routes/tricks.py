@@ -15,8 +15,15 @@ default_lines = [
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
 
+# Mapping correct filenames
+TEMPLATE_FILE_MAP = {
+    "actors": "Actor-templates.json",
+    "cricketers": "Cricketers-templates.json",
+    "animals": "Animals-templates.json"
+}
+
 def load_templates(trick_type="actors"):
-    filename = f"{trick_type.capitalize()}-templates.json"
+    filename = TEMPLATE_FILE_MAP.get(trick_type.lower(), "templates.json")
     templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
 
     if not os.path.exists(templates_path):
@@ -27,10 +34,7 @@ def load_templates(trick_type="actors"):
         templates = json.load(f)
 
     print(f"Loaded templates for: {trick_type} -> {len(templates)} entries.")
-
-    # Convert keys to lowercase for case-insensitive matching
-    templates_lower = {key.lower(): val for key, val in templates.items()}
-    return templates_lower
+    return {key.lower(): val for key, val in templates.items()}
 
 def load_actors(letter=None):
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
@@ -88,7 +92,7 @@ def get_tricks(
 
     if type == "actors":
         actors = get_next_actors(letters)
-        print(f"Selected actors: {actors}")
+        print(f"Selected actors: {[a['name'] for a in actors]}")
 
         trick_sentence = generate_trick_sentence(actors, templates)
         print(f"Generated trick: {trick_sentence}")
