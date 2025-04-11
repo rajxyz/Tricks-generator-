@@ -34,7 +34,7 @@ def load_templates(trick_type="actors"):
         templates = json.load(f)
 
     print(f"Loaded templates for: {trick_type} -> {len(templates)} entries.")
-    return templates  # Keep original casing
+    return {key.lower(): val for key, val in templates.items()}
 
 def load_actors(letter=None):
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
@@ -69,16 +69,15 @@ def generate_trick_sentence(actors, templates):
     sentences = []
     for actor in actors:
         name = actor.get("name", "")
-        # Case-insensitive matching
-        matched_key = next((key for key in templates if key.lower() == name.lower()), None)
+        lower_name = name.lower()
 
-        if matched_key:
-            line = random.choice(templates[matched_key])
+        if lower_name in templates:
+            line = random.choice(templates[lower_name])
         else:
             line = random.choice(default_lines)
 
         sentences.append(f"<b>{name}</b>: {line}")
-
+    
     return " | ".join(sentences)
 
 @router.get("/api/tricks")
