@@ -7,8 +7,15 @@ from collections import defaultdict
 router = APIRouter()
 actor_index = defaultdict(int)
 
+# Default fallback lines if no specific template is available
+default_lines = [
+    "Iska trick abhi update nahi hua.",
+    "Agle version me iski baari aayegi.",
+    "Filhal kuch khaas nahi bola ja sakta.",
+    "Yeh abhi training me hai, ruk ja thoda!"
+]
+
 def load_templates(trick_type="actors"):
-    """Load templates from the appropriate JSON file based on trick type."""
     filename = f"{trick_type.capitalize()}-templates.json"
     templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
 
@@ -20,10 +27,12 @@ def load_templates(trick_type="actors"):
         templates = json.load(f)
 
     print(f"Loaded templates for: {trick_type} -> {len(templates)} entries.")
-    return templates
+
+    # Convert keys to lowercase for case-insensitive matching
+    templates_lower = {key.lower(): val for key, val in templates.items()}
+    return templates_lower
 
 def load_actors(letter=None):
-    """Load Bollywood actors from JSON file. Filter by starting letter if provided."""
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
 
     if not os.path.exists(file_path):
@@ -40,7 +49,6 @@ def load_actors(letter=None):
     return actors
 
 def get_next_actors(letters):
-    """Fetch the next available actor for each entered letter in a cyclic manner."""
     selected_actors = []
     for letter in letters:
         actors = load_actors(letter)
@@ -51,18 +59,20 @@ def get_next_actors(letters):
     return selected_actors
 
 def generate_trick_sentence(actors, templates):
-    """Generate trick lines using actor names and their template lines."""
     if not actors:
         return "No actors found for the entered letters."
 
     sentences = []
     for actor in actors:
         name = actor.get("name", "")
-        if name in templates:
-            line = random.choice(templates[name])
-            sentences.append(f"<b>{name}</b>: {line}")
+        lower_name = name.lower()
+
+        if lower_name in templates:
+            line = random.choice(templates[lower_name])
         else:
-            sentences.append(f"<b>{name}</b>: No trick available.")
+            line = random.choice(default_lines)
+
+        sentences.append(f"<b>{name}</b>: {line}")
     
     return " | ".join(sentences)
 
@@ -71,7 +81,6 @@ def get_tricks(
     type: str = Query("actors", description="Type of trick (e.g., actors, cricketers)"),
     letter: str = Query(None, description="Comma-separated letters")
 ):
-    """API Endpoint to generate tricks based on user input."""
     print(f"Request received: type={type}, letter={letter}")
 
     templates = load_templates(type)
