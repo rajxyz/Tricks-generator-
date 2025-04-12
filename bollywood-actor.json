@@ -1,7 +1,7 @@
 
 [
   {
-    "name": "Mithun Chakraborty",
+    "name": "Mithun",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Mithun_Chakraborty.jpg",
     "famous_movies": ["Disco Dancer", "Gunda"],
     "famous_dialogue": {
@@ -10,7 +10,7 @@
     }
   },
   {
-    "name": "Manoj Bajpayee",
+    "name": "Manoj",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Manoj_Bajpayee.jpg",
     "famous_movies": ["Gangs of Wasseypur", "The Family Man (Series)"],
     "famous_dialogue": {
@@ -19,7 +19,7 @@
     }
   },
   {
-    "name": "Mahesh Babu",
+    "name": "Mahesh",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Mahesh_Babu.jpg",
     "famous_movies": ["Pokiri", "Srimanthudu"],
     "famous_dialogue": {
@@ -37,7 +37,7 @@
     }
   },
   {
-    "name": "Manoj Kumar",
+    "name": "Manoj",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Manoj_Kumar.jpg",
     "famous_movies": ["Upkar", "Kranti"],
     "famous_dialogue": {
@@ -82,7 +82,7 @@
     }
   },
   {
-    "name": "Om Puri",
+    "name": "Om",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/OmPuri01.jpg",
     "famous_movies": ["Ardh Satya", "Hera Pheri"],
     "famous_dialogue": {
