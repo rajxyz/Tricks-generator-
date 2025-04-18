@@ -83,15 +83,15 @@ def generate_trick_sentence(actors, templates):
 @router.get("/api/tricks")
 def get_tricks(
     type: str = Query("actors", description="Type of trick (e.g., actors, cricketers)"),
-    letter: str = Query(None, description="Comma-separated letters")
+    letters: str = Query(None, description="Comma-separated letters (e.g., A,B,C)")
 ):
-    print(f"Request received: type={type}, letter={letter}")
+    print(f"Request received: type={type}, letters={letters}")
 
     templates = load_templates(type)
-    letters = letter.upper().replace(" ", "").split(",") if letter else []
+    letter_list = letters.upper().replace(" ", "").split(",") if letters else []
 
     if type == "actors":
-        actors = get_next_actors(letters)
+        actors = get_next_actors(letter_list)
         print(f"Selected actors: {[a['name'] for a in actors]}")
 
         trick_sentence = generate_trick_sentence(actors, templates)
