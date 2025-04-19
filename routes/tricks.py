@@ -55,48 +55,72 @@ def load_actors(letter=None):
 def get_next_actors(letters):
     selected_actors = []
     for letter in letters:
-        actors = load_actors(letter)
+        actors = load_actors(letter[0])  # use first letter
         if actors:
             index = actor_index[letter] % len(actors)
             selected_actors.append(actors[index])
             actor_index[letter] += 1
     return selected_actors
 
+def generate_trick_with_topic(topic, actors, templates):
+    if not actors:
+        return f"{topic}: {random.choice(default_lines)}"
+
+    names = [actor.get("name", "") for actor in actors]
+    joined_names = ", ".join(names)
+
+    last_actor = names[-1].lower()
+    if last_actor in templates:
+        line = random.choice(templates[last_actor])
+    else:
+        line = random.choice(default_lines)
+
+    return f"<b>{topic}</b>, {joined_names}: {line}"
+
 def generate_trick_sentence(actors, templates):
     if not actors:
         return "No actors found for the entered letters."
 
-    sentences = []
-    for actor in actors:
-        name = actor.get("name", "")
-        lower_name = name.lower()
+    names = [actor.get("name", "") for actor in actors]
+    combined = ", ".join(names)
 
-        if lower_name in templates:
-            line = random.choice(templates[lower_name])
-        else:
-            line = random.choice(default_lines)
+    last_actor = names[-1].lower()
+    if last_actor in templates:
+        line = random.choice(templates[last_actor])
+    else:
+        line = random.choice(default_lines)
 
-        sentences.append(f"<b>{name}</b>: {line}")
-    
-    return " | ".join(sentences)
+    return f"{combined}: {line}"
 
 @router.get("/api/tricks")
 def get_tricks(
     type: str = Query("actors", description="Type of trick (e.g., actors, cricketers)"),
-    letters: str = Query(None, description="Comma-separated letters (e.g., A,B,C)")
+    letters: str = Query(None, description="Comma-separated letters or words")
 ):
     print(f"Request received: type={type}, letters={letters}")
-
     templates = load_templates(type)
-    letter_list = letters.upper().replace(" ", "").split(",") if letters else []
+
+    input_parts = letters.split(",") if letters else []
+    input_parts = [w.strip() for w in input_parts if w.strip()]
+    if not input_parts:
+        return {"trick": "Invalid input."}
 
     if type == "actors":
-        actors = get_next_actors(letter_list)
-        print(f"Selected actors: {[a['name'] for a in actors]}")
-
-        trick_sentence = generate_trick_sentence(actors, templates)
-        print(f"Generated trick: {trick_sentence}")
-
-        return {"trick": trick_sentence}
+        if all(len(word.strip()) == 1 for word in input_parts):
+            # Letter-based
+            actors = get_next_actors(input_parts)
+            print(f"Selected actors: {[a['name'] for a in actors]}")
+            trick = generate_trick_sentence(actors, templates)
+            print(f"Generated trick: {trick}")
+            return {"trick": trick}
+        else:
+            # Word-based
+            topic = input_parts[0]
+            rest_letters = [w.strip()[0].upper() for w in input_parts[1:]]
+            actors = get_next_actors(rest_letters)
+            print(f"Word-based topic: {topic}, Letters: {rest_letters}, Actors: {[a['name'] for a in actors]}")
+            trick = generate_trick_with_topic(topic, actors, templates)
+            print(f"Generated trick: {trick}")
+            return {"trick": trick}
 
     return {"message": "Invalid type selected."}
