@@ -1,0 +1,31 @@
+{
+  "1-letter": [
+    "{Noun}.",
+    "{Verb}.",
+    "{Adjective}!"
+  ],
+  "2-letter": [
+    "{Adjective} {Noun}.",
+    "{Noun} {Verb}."
+  ],
+  "3-letter": [
+    "{Noun} {Verb} {Noun}.",
+    "{Adjective} {Noun} {Verb}.",
+    "{Noun} {Adverb} {Verb}."
+  ],
+  "4-letter": [
+    "{Noun} {Verb} {Adjective} {Noun}.",
+    "{Adjective} {Noun} {Verb} {Adverb}.",
+    "The {Adjective} {Noun} {Verb} {Noun}."
+  ],
+  "5-letter": [
+    "{Noun} and {Noun} {Verb} the {Adjective} {Noun}.",
+    "The {Adjective} {Noun} {Adverb} {Verb} {Noun}.",
+    "{Adjective} {Noun} {Verb} with {Noun} and {Noun}."
+  ],
+  "6-letter": [
+    "The {Adjective} {Noun} and the {Adjective} {Noun} {Verb} together.",
+    "{Noun} {Verb} the {Adjective} {Noun} with {Adverb} {Verb}.",
+    "In the {Noun}, {Noun} {Adverb} {Verb} the {Adjective} {Noun}."
+  ]
+}
