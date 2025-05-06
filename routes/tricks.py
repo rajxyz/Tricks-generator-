@@ -3,6 +3,7 @@ import os
 import random
 from fastapi import APIRouter, Query
 from collections import defaultdict
+from pathlib import Path
 
 router = APIRouter()
 actor_index = defaultdict(int)
@@ -55,7 +56,7 @@ def load_actors(letter=None):
 def get_next_actors(letters):
     selected_actors = []
     for letter in letters:
-        actors = load_actors(letter[0])  # use first letter
+        actors = load_actors(letter[0])
         if actors:
             index = actor_index[letter] % len(actors)
             selected_actors.append(actors[index])
@@ -92,35 +93,56 @@ def generate_trick_sentence(actors, templates):
 
     return f"{combined}: {line}"
 
+def generate_general_sentence(letters):
+    wordbank_path = Path(__file__).parent.parent / "wordbank.json"
+    if not wordbank_path.exists():
+        return "Wordbank file missing."
+
+    with open(wordbank_path, "r", encoding="utf-8") as f:
+        wordbank = json.load(f)
+
+    sentence = []
+    parts = ["Nouns", "Verbs", "Adjectives", "Adverbs"]
+    for i, letter in enumerate(letters):
+        part = parts[i % len(parts)]
+        found = None
+        for word in wordbank.get(part, []):
+            if word.lower().startswith(letter.lower()):
+                found = word
+                break
+        sentence.append(found or letter)
+
+    return " ".join(sentence) + "."
+
 @router.get("/api/tricks")
 def get_tricks(
-    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers)"),
+    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, general_sentences)"),
     letters: str = Query(None, description="Comma-separated letters or words")
 ):
     print(f"Request received: type={type}, letters={letters}")
-    templates = load_templates(type)
-
     input_parts = letters.split(",") if letters else []
     input_parts = [w.strip() for w in input_parts if w.strip()]
     if not input_parts:
         return {"trick": "Invalid input."}
 
     if type == "actors":
+        templates = load_templates(type)
         if all(len(word.strip()) == 1 for word in input_parts):
-            # Letter-based
+            # Letter-based actor trick
             actors = get_next_actors(input_parts)
-            print(f"Selected actors: {[a['name'] for a in actors]}")
             trick = generate_trick_sentence(actors, templates)
-            print(f"Generated trick: {trick}")
             return {"trick": trick}
         else:
-            # Word-based
+            # Word-based actor trick with topic
             topic = input_parts[0]
             rest_letters = [w.strip()[0].upper() for w in input_parts[1:]]
             actors = get_next_actors(rest_letters)
-            print(f"Word-based topic: {topic}, Letters: {rest_letters}, Actors: {[a['name'] for a in actors]}")
             trick = generate_trick_with_topic(topic, actors, templates)
-            print(f"Generated trick: {trick}")
             return {"trick": trick}
 
-    return {"message": "Invalid type selected."}
+    elif type == "general_sentences":
+        trick = generate_general_sentence(input_parts)
+        return {"trick": trick}
+
+    else:
+        return {"message": "Invalid type selected."}
