@@ -1,0 +1,176 @@
+import json
+from collections import defaultdict
+import string
+
+# Load the wordbank.json content (based on user message)
+wordbank = {
+    "Nouns": {
+        "A": ["Apple", "Artist", "Airport"],
+        "B": ["Book", "Bridge", "Bottle"],
+        "C": ["Car", "City", "Computer"],
+        "D": ["Dog", "Doctor", "Diamond"],
+        "E": ["Elephant", "Engine", "Earth"],
+        "F": ["Forest", "Friend", "Factory"],
+        "G": ["Garden", "Guitar", "Goal"],
+        "H": ["House", "Horse", "Hospital"],
+        "I": ["Idea", "Island", "Ice"],
+        "J": ["Jungle", "Jewel", "Journey"],
+        "K": ["King", "Key", "Kitchen"],
+        "L": ["Lion", "Library", "Lake"],
+        "M": ["Mountain", "Mirror", "Market"],
+        "N": ["Notebook", "Nurse", "Nest"],
+        "O": ["Ocean", "Office", "Orange"],
+        "P": ["Park", "Pencil", "Planet"],
+        "Q": ["Queen", "Quilt", "Quiz"],
+        "R": ["River", "Robot", "Road"],
+        "S": ["School", "Star", "Song"],
+        "T": ["Tree", "Train", "Teacher"],
+        "U": ["Umbrella", "Unicorn", "University"],
+        "V": ["Valley", "Vehicle", "Village"],
+        "W": ["Water", "Window", "World"],
+        "X": ["Xylophone", "X-ray", "Xenon"],
+        "Y": ["Yard", "Yogurt", "Youth"],
+        "Z": ["Zoo", "Zebra", "Zip"]
+    },
+    "Verbs": {
+        "A": ["Accept", "Admire", "Arrive"],
+        "B": ["Bake", "Build", "Break"],
+        "C": ["Call", "Climb", "Create"],
+        "D": ["Dance", "Drive", "Dig"],
+        "E": ["Eat", "Enjoy", "Explore"],
+        "F": ["Fly", "Fix", "Find"],
+        "G": ["Give", "Grow", "Grab"],
+        "H": ["Help", "Hope", "Hit"],
+        "I": ["Imagine", "Ignore", "Include"],
+        "J": ["Jump", "Jog", "Join"],
+        "K": ["Kick", "Keep", "Kiss"],
+        "L": ["Laugh", "Learn", "Lift"],
+        "M": ["Make", "Move", "Mix"],
+        "N": ["Name", "Notice", "Need"],
+        "O": ["Open", "Obey", "Offer"],
+        "P": ["Play", "Push", "Pull"],
+        "Q": ["Quit", "Question", "Queue"],
+        "R": ["Run", "Read", "Raise"],
+        "S": ["Sing", "Sleep", "Swim"],
+        "T": ["Talk", "Teach", "Throw"],
+        "U": ["Use", "Unlock", "Update"],
+        "V": ["Visit", "Vote", "View"],
+        "W": ["Walk", "Work", "Win"],
+        "X": ["X-ray", "Xerox", "X-out"],
+        "Y": ["Yawn", "Yell", "Yank"],
+        "Z": ["Zip", "Zoom", "Zigzag"]
+    },
+    "Adjectives": {
+        "A": ["Angry", "Amazing", "Ancient"],
+        "B": ["Big", "Brave", "Bright"],
+        "C": ["Cold", "Clean", "Cute"],
+        "D": ["Dark", "Deep", "Dull"],
+        "E": ["Easy", "Eager", "Elegant"],
+        "F": ["Fast", "Funny", "Fierce"],
+        "G": ["Good", "Gentle", "Green"],
+        "H": ["Happy", "Hungry", "Hot"],
+        "I": ["Icy", "Important", "Ideal"],
+        "J": ["Jolly", "Juicy", "Jealous"],
+        "K": ["Kind", "Keen", "Knobby"],
+        "L": ["Lazy", "Loud", "Long"],
+        "M": ["Mean", "Modern", "Massive"],
+        "N": ["Nice", "Narrow", "Noisy"],
+        "O": ["Old", "Open", "Odd"],
+        "P": ["Poor", "Polite", "Powerful"],
+        "Q": ["Quick", "Quiet", "Quaint"],
+        "R": ["Red", "Rough", "Rich"],
+        "S": ["Small", "Smart", "Soft"],
+        "T": ["Tall", "Thin", "Tired"],
+        "U": ["Ugly", "Useful", "Unique"],
+        "V": ["Vast", "Vibrant", "Vain"],
+        "W": ["Warm", "Weak", "Wide"],
+        "X": ["Xenial", "Xeric", "Xanthic"],
+        "Y": ["Young", "Yellow", "Yummy"],
+        "Z": ["Zany", "Zealous", "Zesty"]
+    },
+    "Adverbs": {
+        "A": ["Always", "Almost", "Angrily"],
+        "B": ["Badly", "Bravely", "Brightly"],
+        "C": ["Calmly", "Carefully", "Clearly"],
+        "D": ["Daily", "Deeply", "Doubtfully"],
+        "E": ["Eagerly", "Easily", "Evenly"],
+        "F": ["Fast", "Firmly", "Finally"],
+        "G": ["Gently", "Greatly", "Gratefully"],
+        "H": ["Happily", "Hungrily", "Hopelessly"],
+        "I": ["Immediately", "Intensely", "Interestingly"],
+        "J": ["Jokingly", "Joyfully", "Justly"],
+        "K": ["Knowingly", "Kindly", "Keenly"],
+        "L": ["Loudly", "Lazily", "Lightly"],
+        "M": ["Merrily", "Mostly", "Madly"],
+        "N": ["Neatly", "Never", "Normally"],
+        "O": ["Often", "Openly", "Oddly"],
+        "P": ["Proudly", "Partially", "Promptly"],
+        "Q": ["Quickly", "Quietly", "Queerly"],
+        "R": ["Rapidly", "Roughly", "Really"],
+        "S": ["Slowly", "Softly", "Suddenly"],
+        "T": ["Truly", "Thankfully", "Tensely"],
+        "U": ["Usually", "Urgently", "Upward"],
+        "V": ["Violently", "Vividly", "Visibly"],
+        "W": ["Wildly", "Warmly", "Willingly"],
+        "X": ["Xenially", "Xerically", "X-actly"],
+        "Y": ["Yearly", "Yieldingly", "Youthfully"],
+        "Z": ["Zealously", "Zestfully", "Zippily"]
+    }
+}
+
+# Add default Pronouns and Prepositions to complete all 9 parts
+additional_categories = {
+    "Pronouns": {
+        "A": ["All", "Another", "Anybody"],
+        "B": ["Both", "Better", "Before"],
+        "C": ["Each", "Either", "Everyone"],
+        "D": ["Does", "Don’t", "Did"],
+        "E": ["Everybody", "Each", "Either"],
+        "I": ["I", "It", "Its"],
+        "M": ["Me", "Mine", "My"],
+        "O": ["Our", "Ours", "One"],
+        "S": ["She", "Some", "Someone"],
+        "T": ["They", "Them", "This"],
+        "W": ["We", "Who", "What"],
+        "Y": ["You", "Your", "Yours"]
+    },
+    "Prepositions": {
+        "A": ["Above", "Across", "Against"],
+        "B": ["Before", "Behind", "Below"],
+        "D": ["During", "Despite", "Down"],
+        "F": ["From", "For", "Following"],
+        "I": ["In", "Into", "Inside"],
+        "O": ["On", "Over", "Out"],
+        "T": ["Through", "To", "Toward"],
+        "U": ["Under", "Until", "Upon"],
+        "W": ["With", "Without", "Within"]
+    },
+    "Conjunctions": {
+        "A": ["Although", "And", "As"],
+        "B": ["Because", "But", "Before"],
+        "E": ["Even though", "Either", "Else"],
+        "F": ["For", "Finally", "Further"],
+        "O": ["Or", "Otherwise", "Once"],
+        "S": ["Since", "So", "Still"],
+        "T": ["That", "Then", "Though"],
+        "W": ["While", "When", "Whereas"]
+    },
+    "Interjections": {
+        "A": ["Ah", "Aha", "Alas"],
+        "B": ["Bravo", "Bingo", "Brr"],
+        "E": ["Eh", "Eww", "Er"],
+        "H": ["Hey", "Hi", "Hello"],
+        "O": ["Oh", "Oops", "Ouch"],
+        "W": ["Wow", "Whoops", "Whew"]
+    }
+}
+
+# Merge with main wordbank
+wordbank.update(additional_categories)
+
+# Save the new extended wordbank
+wordbank_path = "/mnt/data/wordbank_extended.json"
+with open(wordbank_path, "w") as f:
+    json.dump(wordbank, f, indent=2)
+
+wordbank_path
