@@ -105,15 +105,15 @@ def generate_general_sentence(letters):
     parts = ["Nouns", "Verbs", "Adjectives", "Adverbs"]
     for i, letter in enumerate(letters):
         part = parts[i % len(parts)]
+        letter_upper = letter.upper()
         found = None
-        for word in wordbank.get(part, []):
-            if word.lower().startswith(letter.lower()):
-                found = word
-                break
+        if letter_upper in wordbank.get(part, {}):
+            words = wordbank[part][letter_upper]
+            if words:
+                found = random.choice(words)
         sentence.append(found or letter)
 
     return " ".join(sentence) + "."
-
 @router.get("/api/tricks")
 def get_tricks(
     type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, general_sentences)"),
