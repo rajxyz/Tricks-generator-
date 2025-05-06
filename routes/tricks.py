@@ -114,14 +114,17 @@ def generate_general_sentence(letters):
         sentence.append(found or letter)
 
     return " ".join(sentence) + "."
+
 @router.get("/api/tricks")
 def get_tricks(
     type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, general_sentences)"),
     letters: str = Query(None, description="Comma-separated letters or words")
 ):
     print(f"Request received: type={type}, letters={letters}")
+    
     input_parts = letters.split(",") if letters else []
     input_parts = [w.strip() for w in input_parts if w.strip()]
+    
     if not input_parts:
         return {"trick": "Invalid input."}
 
