@@ -5,6 +5,8 @@ from fastapi import APIRouter, Query
 from collections import defaultdict
 from pathlib import Path
 
+from sentence_rules import generate_grammar_sentence  # <-- NEW IMPORT
+
 router = APIRouter()
 actor_index = defaultdict(int)
 
@@ -93,6 +95,7 @@ def generate_trick_sentence(actors, templates):
 
     return f"{combined}: {line}"
 
+# UPDATED: Better sentence generation
 def generate_general_sentence(letters):
     wordbank_path = Path(__file__).parent.parent / "wordbank.json"
     if not wordbank_path.exists():
@@ -101,19 +104,7 @@ def generate_general_sentence(letters):
     with open(wordbank_path, "r", encoding="utf-8") as f:
         wordbank = json.load(f)
 
-    sentence = []
-    parts = ["Nouns", "Verbs", "Adjectives", "Adverbs"]
-    for i, letter in enumerate(letters):
-        part = parts[i % len(parts)]
-        letter_upper = letter.upper()
-        found = None
-        if letter_upper in wordbank.get(part, {}):
-            words = wordbank[part][letter_upper]
-            if words:
-                found = random.choice(words)
-        sentence.append(found or letter)
-
-    return " ".join(sentence) + "."
+    return generate_grammar_sentence(wordbank, letters)
 
 @router.get("/api/tricks")
 def get_tricks(
