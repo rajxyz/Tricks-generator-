@@ -5,7 +5,7 @@ from fastapi import APIRouter, Query
 from collections import defaultdict
 from pathlib import Path
 
-from sentence_rules import generate_grammar_sentence  # NEW IMPORT
+from sentence_rules import generate_grammar_sentence  # <-- NEW IMPORT
 
 router = APIRouter()
 actor_index = defaultdict(int)
@@ -25,11 +25,9 @@ TEMPLATE_FILE_MAP = {
     "animals": "Animals-templates.json"
 }
 
-# Load templates from file
 def load_templates(trick_type="actors"):
     filename = TEMPLATE_FILE_MAP.get(trick_type.lower(), "templates.json")
-    templates_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "..", filename)
+    templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
 
     if not os.path.exists(templates_path):
         print(f"Warning: {filename} not found at {templates_path}")
@@ -41,10 +39,8 @@ def load_templates(trick_type="actors"):
     print(f"Loaded templates for: {trick_type} -> {len(templates)} entries.")
     return {key.lower(): val for key, val in templates.items()}
 
-# Load actors based on the given letter
 def load_actors(letter=None):
-    file_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
 
     if not os.path.exists(file_path):
         print(f"Warning: bollywood-actor.json not found at {file_path}")
@@ -59,7 +55,6 @@ def load_actors(letter=None):
     print(f"Loaded {len(actors)} actors for letter: {letter}")
     return actors
 
-# Get next actors based on the given letters
 def get_next_actors(letters):
     selected_actors = []
     for letter in letters:
@@ -70,7 +65,6 @@ def get_next_actors(letters):
             actor_index[letter] += 1
     return selected_actors
 
-# Generate a trick with a specific topic
 def generate_trick_with_topic(topic, actors, templates):
     if not actors:
         return f"{topic}: {random.choice(default_lines)}"
@@ -79,11 +73,13 @@ def generate_trick_with_topic(topic, actors, templates):
     joined_names = ", ".join(names)
 
     last_actor = names[-1].lower()
-    line = templates.get(last_actor, random.choice(default_lines))
+    if last_actor in templates:
+        line = random.choice(templates[last_actor])
+    else:
+        line = random.choice(default_lines)
 
     return f"<b>{topic}</b>, {joined_names}: {line}"
 
-# Generate a trick sentence
 def generate_trick_sentence(actors, templates):
     if not actors:
         return "No actors found for the entered letters."
@@ -92,11 +88,14 @@ def generate_trick_sentence(actors, templates):
     combined = ", ".join(names)
 
     last_actor = names[-1].lower()
-    line = templates.get(last_actor, random.choice(default_lines))
+    if last_actor in templates:
+        line = random.choice(templates[last_actor])
+    else:
+        line = random.choice(default_lines)
 
     return f"{combined}: {line}"
 
-# Generate a general sentence
+# UPDATED: Better sentence generation
 def generate_general_sentence(letters):
     wordbank_path = Path(__file__).parent.parent / "wordbank.json"
     if not wordbank_path.exists():
@@ -107,27 +106,28 @@ def generate_general_sentence(letters):
 
     return generate_grammar_sentence(wordbank, letters)
 
-# API endpoint to get tricks
 @router.get("/api/tricks")
 def get_tricks(
     type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, general_sentences)"),
     letters: str = Query(None, description="Comma-separated letters or words")
 ):
     print(f"Request received: type={type}, letters={letters}")
-
+    
     input_parts = letters.split(",") if letters else []
     input_parts = [w.strip() for w in input_parts if w.strip()]
-
+    
     if not input_parts:
         return {"trick": "Invalid input."}
 
     if type == "actors":
         templates = load_templates(type)
         if all(len(word.strip()) == 1 for word in input_parts):
+            # Letter-based actor trick
             actors = get_next_actors(input_parts)
             trick = generate_trick_sentence(actors, templates)
             return {"trick": trick}
         else:
+            # Word-based actor trick with topic
             topic = input_parts[0]
             rest_letters = [w.strip()[0].upper() for w in input_parts[1:]]
             actors = get_next_actors(rest_letters)
@@ -140,4 +140,3 @@ def get_tricks(
 
     else:
         return {"message": "Invalid type selected."}
-    
