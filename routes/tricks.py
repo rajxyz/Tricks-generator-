@@ -46,7 +46,7 @@ def load_templates(trick_type="actors"):
         templates = json.load(f)
 
     print(f"Loaded templates for: {trick_type} -> {len(templates)} entries.")
-    return {key.lower(): val for key, val in templates.items()}
+    return {key.lower(): val for key, val in templates.items()}  # Making templates lowercase for case-insensitive matching
 
 def load_entities(trick_type, letter=None):
     filename = DATA_FILE_MAP.get(trick_type.lower())
@@ -63,6 +63,7 @@ def load_entities(trick_type, letter=None):
         entities = json.load(f)
 
     if letter:
+        # Make letter matching case-insensitive
         entities = [entity for entity in entities if entity.get("name", "").upper().startswith(letter.upper())]
 
     print(f"Loaded {len(entities)} {trick_type} for letter: {letter}")
@@ -85,7 +86,7 @@ def generate_trick_with_topic(topic, entities, templates):
     names = [e.get("name", "") for e in entities]
     joined_names = ", ".join(names)
 
-    last_entity = names[-1].lower()
+    last_entity = names[-1].lower()  # Convert the last entity name to lowercase for matching
     if last_entity in templates:
         line = random.choice(templates[last_entity])
     else:
@@ -100,7 +101,7 @@ def generate_trick_sentence(entities, templates):
     names = [e.get("name", "") for e in entities]
     combined = ", ".join(names)
 
-    last_name = names[-1].lower()
+    last_name = names[-1].lower()  # Convert the last name to lowercase for matching
     if last_name in templates:
         line = random.choice(templates[last_name])
     else:
