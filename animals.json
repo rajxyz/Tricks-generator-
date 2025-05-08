@@ -35,5 +35,13 @@ entities_data = {
         { "name": "Xerus" },
         { "name": "Yak" },
         { "name": "Zebra" }
+    ],
+    "actors": [
+        { "name": "Amitabh" },
+        { "name": "Brad" },
+        { "name": "Chadwick" },
+        { "name": "Daniel" }
+        # Add all actor names similarly...
     ]
+    # Add other categories here if needed
 }
