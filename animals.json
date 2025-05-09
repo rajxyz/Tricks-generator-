@@ -1,2 +1,268 @@
-[ { "name": "Aardvark", "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Aardvark_%28Orycteropus_afer%29_%2825228911296%29.jpg", "fun_fact": "Aardvarks use their long tongues to eat up to 50,000 ants and termites a night!" }, { "name": "Albatross", "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Laysan_Albatross_RWD3.jpg", "fun_fact": "Albatrosses can fly for hours without flapping their wings!" }, { "name": "Alligator", "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/American_Alligator.jpg", "fun_fact": "Alligators have been around since the time of dinosaurs!" }, { "name": "Antelope", "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Impala_male.jpg", "fun_fact": "Antelopes can run as fast as 60 mph to escape predators!" }, { "name": "Armadillo", "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Nine-banded_Armadillo.jpg", "fun_fact": "Armadillos can roll up into a ball to protect themselves from predators!" }, { "name": "Baboon", "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Papio_anubis_%28Serengeti%2C_2009%29.jpg", "fun_fact": "Baboons use over 30 different vocalizations to communicate!" }, { "name": "Bald Eagle", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Bald_Eagle_Portrait.jpg", "fun_fact": "Bald eagles can see four times better than humans!" }, { "name": "Barracuda", "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Barracuda_Fish.jpg", "fun_fact": "Barracudas are known for their speed and sharp teeth!" }, { "name": "Bison", "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/American_bison_k5680-1.jpg", "fun_fact": "Bison can run up to 35 mph despite their large size!" }, { "name": "Blue Whale", "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_Whale_001_body_bw.jpg", "fun_fact": "The blue whale is the largest animal to have ever lived on Earth!" }, { "name": "Cheetah", "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Cheetah_%28Acinonyx_jubatus%29_female_2.jpg", "fun_fact": "Cheetahs are the fastest land animals, reaching speeds of 70 mph!" }, { "name": "Chimpanzee", "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Bonobo-apes-sleeping.jpg", "fun_fact": "Chimpanzees share about 98% of their DNA with humans!" }, { "name": "Cobra", "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Naja_cobra.jpg", "fun_fact": "Cobras can raise their heads and spread their hoods to scare predators!" }, { "name": "Cougar", "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Cougar_in_Winter.jpg", "fun_fact": "Cougars can jump up to 20 feet in a single bound!" }, { "name": "Crocodile", "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Crocodylus_porosus_head.jpg", "fun_fact": "Crocodiles have the strongest bite force of any animal!" }, { "name": "Dingo", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Dingo_Australia.jpg", "fun_fact": "Dingoes are wild dogs native to Australia!" }, { "name": "Dolphin", "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Dolphins_Jumping.jpg", "fun_fact": "Dolphins are highly intelligent and can recognize themselves in mirrors!" }, { "name": "Dragonfly", "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Dragonfly_Flying.jpg", "fun_fact": "Dragonflies can move each of their wings independently!" }, { "name": "Duck", "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Male_mallard_duck.jpg", "fun_fact": "Ducks have waterproof feathers!" }, { "name": "Eagle", "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Eagle_Portrait.jpg", "fun_fact": "Eagles have powerful talons that help them catch prey!" }, { "name": "Echidna", "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/02/Short-beaked_Echidna.jpg", "fun_fact": "Echidnas lay eggs even though they are mammals!" }, { "name": "Elephant", "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/African_Bush_Elephant.jpg", "fun_fact": "Elephants have the largest brains of any land animal!" }, { "name": "Emu", "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Emu_in_Australia.jpg", "fun_fact": "Emus are flightless birds but can run very fast!" }, { "name": "Falcon", "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Peregrine_Falcon_in_flight.jpg", "fun_fact": "The peregrine falcon is the fastest bird, reaching speeds over 240 mph!" }, { "name": "Fennec Fox", "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/36/Fennec_Fox_in_Sahara.jpg", "fun_fact": "Fennec foxes have large ears that help them stay cool in the desert!" }, { "name": "Giraffe", "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Giraffe_standing.jpg", "fun_fact": "Giraffes have the same number of neck vertebrae as humans – just seven!" }, { "name": "Gorilla", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Male_gorilla_in_SF_zoo.jpg", "fun_fact": "Gorillas share about 98% of their DNA with humans!" }, { "name": "Gecko", "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Gold_Dust_Day_Gecko.jpg", "fun_fact": "Geckos can stick to almost any surface, even glass, due to special toe pads!" }, { "name": "Goose", "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Canada_Goose_on_water.jpg", "fun_fact": "Geese fly in a V-formation to conserve energy during migration." }, { "name": "Guppy", "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Guppy_fish.JPG", "fun_fact": "Guppies are known for their vibrant colors and ability to reproduce rapidly." }, { "name": "Hawk", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Red-tailed_Hawk_Buteo_jamaicensis_Flying_2476px.jpg", "fun_fact": "Hawks have incredible vision, capable of spotting prey from great distances." }, { "name": "Hippopotamus", "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Hippo_-02.jpg", "fun_fact": "Hippos can hold their breath underwater for up to five minutes." }, { "name": "Honeybee", "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Apis_mellifera_Western_honey_bee.jpg", "fun_fact": "Honeybees communicate by dancing to show where food is located." }, { "name": "Horse", "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Horse_in_field.jpg", "fun_fact": "Horses can sleep both standing up and lying down." }, { "name": "Hyena", "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Spotted_hyena%28Crocuta_crocuta%29_female.jpg", "fun_fact": "Hyenas are known for their unique 'laugh,' which is actually a form of communication." }, { "name": "Iguana", "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Green_iguana_Iguana_iguana.jpg", "fun_fact": "Iguanas have a third 'parietal' eye on top of their head to detect predators." }, { "name": "Indian Cobra", "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Indian_Cobra_%28Naja_naja%29_at_Guwahati_Zoo.jpg", "fun_fact": "The Indian Cobra is famous for its ability to 'hood up' when threatened." }, { "name": "Indian Star Tortoise", "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Indian_Star_Tortoise_-Houston_Zoo.jpg", "fun_fact": "Indian Star Tortoises have unique star-like patterns on their shells." }, { "name": "Indian Peafowl", "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Peacock_Plumage.jpg", "fun_fact": "Male peafowls display stunning feather fans to attract mates." }, { "name": "Jackal", "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Golden_jackal%28Canis_aureus%29_Photograph_By_Shantanu_Kuveskar.jpg", "fun_fact": "Jackals are highly adaptable and can survive in diverse habitats." }, { "name": "Jaguar", "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Jaguar_in_water.jpg", "fun_fact": "Jaguars have the strongest bite force of all big cats." }, { "name": "Jellyfish", "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Jelly_cc11.jpg", "fun_fact": "Some species of jellyfish are biologically immortal!" }, { "name": "Kangaroo", "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Red_kangaroo_arp.jpg", "fun_fact": "Kangaroos can’t walk backward due to their muscular tails." }, { "name": "Koala", "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg", "fun_fact": "Koalas sleep for up to 20 hours a day!" }, { "name": "Komodo Dragon", "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Komodo_dragon_%28Varanus_komodoensis%29_2.jpg", "fun_fact": "Komodo dragons have venomous bites that help them hunt their prey." }, { "name": "Kingfisher", "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/31/Kingfisher_alcedo_atthis.JPG", "fun_fact": "Kingfishers have excellent vision and can see underwater." }, { "name": "Lion", "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg", "fun_fact": "Lions are the only cats that live in groups called prides." }, { "name": "Leopard", "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Leopard_africa.jpg", "fun_fact": "Leopards can carry prey twice their weight up a tree to avoid scavengers." }, { "name": "Lynx", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Iberian_lynx_%28Lynx_pardinus%29.JPG", "fun_fact": "Lynxes have excellent night vision, which helps them hunt in the dark." }, { "name": "Lemur", "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Lemur_catta_2.jpg", "fun_fact": "Lemurs communicate using scents and unique vocalizations." }, { "name": "Macaw", "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Ara_macao_Luc_Viatour.jpg", "fun_fact": "Macaws can mimic human speech and live up to 50 years." }, { "name": "Manatee", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Manatee_02.jpg", "fun_fact": "Manatees are known as 'sea cows' because they graze on underwater plants." }, { "name": "Meerkat", "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Meerkat_%28Suricata_suricatta%29_Tswalu.jpg", "fun_fact": "Meerkats work together in groups, taking turns as lookouts for predators." }, { "name": "Moose", "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Moose_superior.jpg", "fun_fact": "Moose can close their nostrils to keep water out when swimming." }, { "name": "Numbat", "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/06/Numbat_%28Myrmecobius_fasciatus%29_perth_zoo.jpg", "fun_fact": "Numbats eat up to 20,000 termites a day using their long tongues." }, { "name": "Narwhal", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Narwhals_breach.jpg", "fun_fact": "Narwhals are known as the 'unicorns of the sea' because of their long, spiral tusk." }, { "name": "Newt", "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Redspotted_newt.jpg", "fun_fact": "Newts can regenerate lost limbs, tails, and even parts of their heart!" }, { "name": "Ocelot", "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/70/Ocelot_in_Costa_Rica_by_Rainbirder.jpg", "fun_fact": "Ocelots have unique fur patterns, making them almost impossible to spot in the wild." }, { "name": "Orangutan", "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Orangutan_bukit_lawang_2006.jpg", "fun_fact": "Orangutans are highly intelligent and can use tools to gather food." }, { "name": "Otter", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Otter_in_Glacier_Bay.jpg", "fun_fact": "Otters hold hands while sleeping to stay together and avoid drifting away." }, { "name": "Panda", "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Grosser_Panda.JPG", "fun_fact": "Pandas eat almost exclusively bamboo, consuming up to 40 pounds a day." }, { "name": "Penguin", "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Aptenodytes_forsteri_-Snow_Hill_Island%2C_Antarctica_-adults_and_juvenile-8.jpg", "fun_fact": "Penguins can drink seawater because they have a special gland to filter out salt." }, { "name": "Porcupine", "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/96/North_American_Porcupine.jpg", "fun_fact": "Porcupines have around 30,000 quills that they use for self-defense." }, { "name": "Quokka", "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Quokka_Rottenest_Island_1.jpg", "fun_fact": "Quokkas are known as the 'happiest animals' because they always appear to be smiling." }, { "name": "Rabbit", "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/71/Rabbit_in_montana.jpg", "fun_fact": "Rabbits can turn their ears 180 degrees, which helps them detect predators from different directions." }, { "name": "Raccoon", "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Raccoon_procyon_lotor.jpg", "fun_fact": "Raccoons are highly intelligent and can remember solutions to tasks for up to three years." }, { "name": "Shark", "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/White_shark.jpg", "fun_fact": "Sharks have been around for over 400 million years, even before dinosaurs!" }, { "name": "Sloth", "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Bradypus.jpg", "fun_fact": "Sloths are so slow that algae grow on their fur, which helps them camouflage in trees." }, { "name": "Tiger", "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Tiger.50.jpg", "fun_fact": "A tiger's stripes are unique to each individual, just like human fingerprints." }, { "name": "Turtle", "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Turtle_diving.jpg", "fun_fact": "Some species of turtles can live over 100 years!" }, { "name": "Uakari", "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Uakari.jpg", "fun_fact": "The uakari monkey has a bright red face, which is a sign of good health and helps attract mates." }, { "name": "Urial", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Urial_sheep.jpg", "fun_fact": "Urials are wild sheep found in Central Asia, known for their impressive curved horns." }, { "name": "Vampire Bat", "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Vampire_bat.jpg", "fun_fact": "Vampire bats are the only mammals that feed entirely on blood." }, { "name": "Vulture", "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/42/Vulture.jpg", "fun_fact": "Vultures help clean the environment by eating dead animals, preventing the spread of diseases." }, { "name": "Wolf", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Gray_wolf.jpg", "fun_fact": "Wolves have a complex social structure and communicate using howls, body language, and scent markings." }, { "name": "Wallaby", "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Wallaby.jpg", "fun_fact": "Wallabies are smaller relatives of kangaroos and can leap great distances with their powerful hind legs." }, { "name": "X-ray Tetra", "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/X-ray_tetra.jpg", "fun_fact": "X-ray tetras have a nearly transparent body, making their skeleton visible!" }, { "name": "Yak", "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Yak_in_Nepal.jpg", "fun_fact": "Yaks have long, shaggy fur that helps them survive in extremely cold mountainous regions." }, { "name": "Yellowfin Tuna", "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Yellowfin_Tuna.png", "fun_fact": "Yellowfin tuna are one of the fastest fish in the ocean, reaching speeds of up to 50 mph." }, { "name": "Zebra", "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Zebra_%28Equus_quagga%29.jpg", "fun_fact": "Each zebra has a unique stripe pattern, just like a human fingerprint!" }, { "name": "Zorilla", "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Zorilla.jpg", "fun_fact": "Zorillas, also known as striped polecats, release a strong-smelling spray when threatened, similar to skunks." } ]
-
+[
+  {
+    "name": "Ajgar",
+    "image": "Ajgar.jpg",
+    "dialogues": [
+      "Ye jangale me rahte befakar",
+      "Ye sab milker block baster"
+    ]
+  },
+  {
+    "name": "Bill",
+    "image": "Bill.jpg",
+    "dialogues": [
+      "Ye chidia ghhar me inside jali",
+      "Ye sab jangale me kudte dali -dali"
+    ]
+  },
+  {
+    "name": "Bhag",
+    "image": "Bhag.jpg",
+    "dialogues": [
+      "Aaj sabka kholunga raj",
+      "Jangal me nahi koi sharm laj"
+    ]
+  },
+  {
+    "name": "Chita",
+    "image": "Chita.jpg",
+    "dialogues": [
+      "Darake ke sabko ghmuta rahta",
+      "Dodne me sabse tej rahta"
+    ]
+  },
+  {
+    "name": "Camel",
+    "image": "Camel.jpg",
+    "dialogues": [
+      "Registan me dikhta aksahr",
+      "Ye sab nahi khate vimal"
+    ]
+  },
+  {
+    "name": "Dolphin",
+    "image": "Dolphin.jpg",
+    "dialogues": [
+      "Ye pani me rahte sab ghulmil",
+      "Rant me inko nahi aati nind"
+    ]
+  },
+  {
+    "name": "Dog",
+    "image": "Dog.jpg",
+    "dialogues": [
+      "Jor jor se rant me bhok",
+      "Katne ka hai unko shok"
+    ]
+  },
+  {
+    "name": "Elephant",
+    "image": "Elephant.jpg",
+    "dialogues": [
+      "Lagta hai inko bhi current",
+      "Hote inke bhi hai parents"
+    ]
+  },
+  {
+    "name": "Fish",
+    "image": "Fish.jpg",
+    "dialogues": [
+      "Ye sabke hai favorite dish",
+      "Sabse kardiya chidiya Ghar miss"
+    ]
+  },
+  {
+    "name": "Fox",
+    "image": "Fox.jpg",
+    "dialogues": [
+      "Ye kisi ke nahi hai dost",
+      "Ye jangle me ho gaye hai lost"
+    ]
+  },
+  {
+    "name": "Genda",
+    "image": "Genda.jpg",
+    "dialogues": [
+      "Sab dhum machahte jab bi cheda",
+      "Ye nahi khelte gilli danda"
+    ]
+  },
+  {
+    "name": "Guerrilla",
+    "image": "Guerrilla.jpg",
+    "dialogues": []
+  },
+  {
+    "name": "Hathi",
+    "image": "Hathi.jpg",
+    "dialogues": [
+      "Ye sabke hai sathi",
+      "Jangal ki hariyali bhati"
+    ]
+  },
+  {
+    "name": "Hiran",
+    "image": "Hiran.jpg",
+    "dialogues": [
+      "Milakar niptate hai vilan"
+    ]
+  },
+  {
+    "name": "Jiraf",
+    "image": "Jiraf.jpg",
+    "dialogues": [
+      "Jangal me rahate baitab",
+      "Inka sikar kiya pahanke nakab"
+    ]
+  },
+  {
+    "name": "Kabutar",
+    "image": "Kabutar.jpg",
+    "dialogues": [
+      "Ye sab udjate kahi par",
+      "Jangal me chalte udte rahte dinbhar"
+    ]
+  },
+  {
+    "name": "Kangaru",
+    "image": "Kangaru.jpg",
+    "dialogues": [
+      "Jump kare bina koi fuel",
+      "Pocket me bacha, jese school ka rule"
+    ]
+  },
+  {
+    "name": "Langur",
+    "image": "Langur.jpg",
+    "dialogues": [
+      "Jangal me khate angur",
+      "Jangal me dodte rahte bharpur"
+    ]
+  },
+  {
+    "name": "Lion",
+    "image": "Lion.jpg",
+    "dialogues": [
+      "Milkar jangal me milate nayan",
+      "Rat me dikti inko dayan"
+    ]
+  },
+  {
+    "name": "Murga",
+    "image": "Murga.jpg",
+    "dialogues": [
+      "Subah subah ye jaldi uthta",
+      "Nahi kisi se he jhukta"
+    ]
+  },
+  {
+    "name": "Nag",
+    "image": "Nag.jpg",
+    "dialogues": [
+      "Dekte hi log khate jaldi se bhag"
+    ]
+  },
+  {
+    "name": "Octopus",
+    "image": "Octopus.jpg",
+    "dialogues": [
+      "In sab me hoti hai nus",
+      "Jangal me ghut.rahe the mast"
+    ]
+  },
+  {
+    "name": "Penguin",
+    "image": "Penguin.jpg",
+    "dialogues": [
+      "Penguin rahta inside merine"
+    ]
+  },
+  {
+    "name": "Rat",
+    "image": "Rat.jpg",
+    "dialogues": [
+      "Rate ka bhar gaya pat"
+    ]
+  },
+  {
+    "name": "Rabbit",
+    "image": "Rabbit.jpg",
+    "dialogues": [
+      "Iska bhai hai mohit"
+    ]
+  },
+  {
+    "name": "Samp",
+    "image": "Samp.jpg",
+    "dialogues": [
+      "Ye to hai sabke baap",
+      "Inko dekhke log patli gali lete baap"
+    ]
+  },
+  {
+    "name": "Tendua",
+    "image": "Tendua.jpg",
+    "dialogues": [
+      "Ye kardeta lahu luha",
+      "Sabse khatarnak yahi hua"
+    ]
+  },
+  {
+    "name": "Ullu",
+    "image": "Ullu.jpg",
+    "dialogues": [
+      "Ullu bola me rat me milu"
+    ]
+  },
+  {
+    "name": "Viper",
+    "image": "Viper.jpg",
+    "dialogues": [
+      "They can't use lighter",
+      "Their future is brither"
+    ]
+  },
+  {
+    "name": "Vulture",
+    "image": "Vulture.jpg",
+    "dialogues": []
+  },
+  {
+    "name": "Wolf",
+    "image": "Wolf.jpg",
+    "dialogues": [
+      "In sabko mara tha hitler adolf"
+    ]
+  },
+  {
+    "name": "Whale",
+    "image": "Whale.jpg",
+    "dialogues": [
+      "Ab ye jayegi jail"
+    ]
+  },
+  {
+    "name": "Xerus",
+    "image": "Xerus.jpg",
+    "dialogues": [
+      "Xerus chhupa zameen ke andar",
+      "Jungle me chala karta thunder"
+    ]
+  },
+  {
+    "name": "Yak",
+    "image": "Yak.jpg",
+    "dialogues": [
+      "Ye rehta thande pahado me",
+      "Chupchap, nahi ladta fasaado me"
+    ]
+  },
+  {
+    "name": "Zebra",
+    "image": "Zebra.jpg",
+    "dialogues": [
+      "Black-white ka fashion icon",
+      "Jungle me lagta jaise runway ka don"
+    ]
+  }
+]
