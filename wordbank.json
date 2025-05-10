@@ -1155,56 +1155,7 @@
             "Round",
             "Real",
             "Rapid",
-            "Rude",
-            "Rusty",
-            "Reckless"
-        ],
-        "S": [
-            "Small",
-            "Smart",
-            "Soft",
-            "Strong",
-            "Shiny",
-            "Sharp",
-            "Scary",
-            "Silly",
-            "Sad",
-            "Sweet"
-        ],
-        "T": [
-            "Tall",
-            "Thin",
-            "Tired",
-            "Tiny",
-            "Thick",
-            "Tender",
-            "Terrific",
-            "Tasty",
-            "Tough",
-            "Timid"
-        ],
-        "U": [
-            "Ugly",
-            "Useful",
-            "Unique",
-            "Unusual",
-            "Upset",
-            "Unkind",
-            "Untidy",
-            "Unlucky",
-            "United",
-            "Urgent"
-        ],
-        "V": [
-            "Vast",
-            "Vibrant",
-            "Vain",
-            "Valuable",
-            "Visible",
-            "Victorious",
-            "Vicious",
-            "Vintage",
-            "Volatile",
+
 
     },
     "Adverbs": {
