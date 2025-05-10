@@ -27,8 +27,6 @@
     "Y": ["Yard", "Yogurt", "Youth", "Yak", "Yolk", "Yacht", "Year", "Yawn", "Yield", "Yam"],
     "Z": ["Zoo", "Zebra", "Zip", "Zone", "Zero", "Zucchini", "Zipper", "Zodiac", "Zeal", "Zenith"],
   },
-
-{
   "Verbs": {
     "A": ["Accept", "Admire", "Arrive", "Ask", "Answer", "Agree", "Announce", "Add", "Achieve", "Adjust"],
     "B": ["Bake", "Build", "Break", "Bring", "Buy", "Bounce", "Blow", "Bend", "Brush", "Breathe"],
@@ -57,8 +55,6 @@
     "Y": ["Yawn", "Yell", "Yank", "Yearn", "Yield", "Yodel", "Yoke", "Yap", "Yankee", "Yowl"],
     "Z": ["Zip", "Zoom", "Zigzag", "Zap", "Zero", "Zing", "Zest", "Zone", "Zebra", "Zonk"],
   },
-
-{
   "Adjectives": {
     "A": ["Angry", "Amazing", "Ancient", "Alive", "Able", "Agile", "Artistic", "Awful", "Adorable", "Aggressive"],
     "B": ["Big", "Brave", "Bright", "Blue", "Bitter", "Busy", "Broken", "Bold", "Beautiful", "Blind"],
@@ -87,8 +83,6 @@
     "Y": ["Young", "Yellow", "Yummy", "Yearly", "Youthful", "Yucky", "Yawning", "Yielding", "Yare", "Yonder"],
     "Z": ["Zany", "Zealous", "Zesty", "Zonal", "Zero", "Zigzag", "Zippy", "Zoological", "Zen", "Zebra-striped"],
   },
-
-{
   "Adverbs": {
     "A": ["Always", "Almost", "Angrily", "Anxiously", "Awkwardly", "Accidentally", "Actually", "Alone", "Abnormally", "Actively"],
     "B": ["Badly", "Bravely", "Brightly", "Boldly", "Beautifully", "Barely", "Briefly", "Busily", "Blindly", "Bluntly"],
