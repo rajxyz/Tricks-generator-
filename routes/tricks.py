@@ -5,7 +5,8 @@ from fastapi import APIRouter, Query
 from collections import defaultdict
 from pathlib import Path
 
-from sentence_rules import generate_grammar_sentence  # Assume this exists
+from sentence_rules import generate_grammar_sentence  # English grammar function
+from sentence_rules_hinglish import generate_grammar_sentence_hinglish  # Hinglish grammar function
 
 router = APIRouter()
 entity_index = defaultdict(int)
@@ -46,7 +47,7 @@ def load_templates(trick_type="actors"):
         templates = json.load(f)
 
     print(f"Loaded templates for: {trick_type} -> {len(templates)} entries.")
-    return {key.lower(): val for key, val in templates.items()}  # Making templates lowercase for case-insensitive matching
+    return {key.lower(): val for key, val in templates.items()}
 
 def load_entities(trick_type, letter=None):
     filename = DATA_FILE_MAP.get(trick_type.lower())
@@ -63,7 +64,6 @@ def load_entities(trick_type, letter=None):
         entities = json.load(f)
 
     if letter:
-        # Make letter matching case-insensitive
         entities = [entity for entity in entities if entity.get("name", "").upper().startswith(letter.upper())]
 
     print(f"Loaded {len(entities)} {trick_type} for letter: {letter}")
@@ -86,7 +86,7 @@ def generate_trick_with_topic(topic, entities, templates):
     names = [e.get("name", "") for e in entities]
     joined_names = ", ".join(names)
 
-    last_entity = names[-1].lower()  # Convert the last entity name to lowercase for matching
+    last_entity = names[-1].lower()
     if last_entity in templates:
         line = random.choice(templates[last_entity])
     else:
@@ -101,7 +101,7 @@ def generate_trick_sentence(entities, templates):
     names = [e.get("name", "") for e in entities]
     combined = ", ".join(names)
 
-    last_name = names[-1].lower()  # Convert the last name to lowercase for matching
+    last_name = names[-1].lower()
     if last_name in templates:
         line = random.choice(templates[last_name])
     else:
@@ -119,9 +119,19 @@ def generate_general_sentence(letters):
 
     return generate_grammar_sentence(wordbank, letters)
 
+def generate_general_sentence_hinglish(letters):
+    wordbank_path = Path(__file__).parent.parent / "wordbank_hinglish.json"
+    if not wordbank_path.exists():
+        return "Hinglish wordbank file missing."
+
+    with open(wordbank_path, "r", encoding="utf-8") as f:
+        wordbank = json.load(f)
+
+    return generate_grammar_sentence_hinglish(wordbank, letters)
+
 @router.get("/api/tricks")
 def get_tricks(
-    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals, general_sentences)"),
+    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals, general_sentences, general_sentences_hinglish)"),
     letters: str = Query(None, description="Comma-separated letters or words")
 ):
     print(f"Request received: type={type}, letters={letters}")
@@ -148,6 +158,10 @@ def get_tricks(
 
     elif type == "general_sentences":
         trick = generate_general_sentence(input_parts)
+        return {"trick": trick}
+
+    elif type == "general_sentences_hinglish":
+        trick = generate_general_sentence_hinglish(input_parts)
         return {"trick": trick}
 
     return {"message": "Invalid type selected."}
