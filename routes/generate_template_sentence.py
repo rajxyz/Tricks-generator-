@@ -1,14 +1,11 @@
-# generate_templates_sentence.py
-
-import json
 import random
 
-def load_templates(path):
-    with open(path, 'r') as f:
-        return json.load(f)["TEMPLATES"]
+def generate_template_sentence(word_dict, templates, letters):
+    if not templates:
+        return "No templates available."
 
-def generate_sentence(word_dict, templates):
     template = random.choice(templates)
+
     return template.format(
         Article=random.choice(word_dict["articles"]),
         Adjective=random.choice(word_dict["adjectives"]),
