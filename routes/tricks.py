@@ -32,6 +32,7 @@ DATA_FILE_MAP = {
     "animals": "animals.json"
 }
 
+
 def load_templates(trick_type="actors"):
     filename = TEMPLATE_FILE_MAP.get(trick_type.lower())
     if not filename:
@@ -46,11 +47,13 @@ def load_templates(trick_type="actors"):
     with open(templates_path, "r", encoding="utf-8") as f:
         templates = json.load(f)
 
-    if trick_type == "english_template_sentences":
-        return templates["TEMPLATES"]  # Fixed for template sentence type
-
     print(f"Loaded templates for: {trick_type} -> {len(templates)} entries.")
-    return {key.lower(): val for key, val in templates.items()}
+
+    if trick_type == "english_template_sentences":
+        return templates.get("TEMPLATES", [])
+    else:
+        return {key.lower(): val for key, val in templates.items()}
+
 
 def load_entities(trick_type, letter=None):
     filename = DATA_FILE_MAP.get(trick_type.lower())
@@ -72,6 +75,7 @@ def load_entities(trick_type, letter=None):
     print(f"Loaded {len(entities)} {trick_type} for letter: {letter}")
     return entities
 
+
 def get_next_entities(trick_type, letters):
     selected = []
     for letter in letters:
@@ -82,14 +86,15 @@ def get_next_entities(trick_type, letters):
             entity_index[(trick_type, letter)] += 1
     return selected
 
+
 def generate_trick_with_topic(topic, entities, templates):
     if not entities:
         return f"{topic}: {random.choice(default_lines)}"
 
     names = [e.get("name", "") for e in entities]
     joined_names = ", ".join(names)
-
     last_entity = names[-1].lower()
+
     if last_entity in templates:
         line = random.choice(templates[last_entity])
     else:
@@ -97,20 +102,22 @@ def generate_trick_with_topic(topic, entities, templates):
 
     return f"<b>{topic}</b>, {joined_names}: {line}"
 
+
 def generate_trick_sentence(entities, templates):
     if not entities:
         return "No names found for the entered letters."
 
     names = [e.get("name", "") for e in entities]
     combined = ", ".join(names)
-
     last_name = names[-1].lower()
+
     if last_name in templates:
         line = random.choice(templates[last_name])
     else:
         line = random.choice(default_lines)
 
     return f"{combined}: {line}"
+
 
 def generate_general_sentence(letters):
     wordbank_path = Path(__file__).parent.parent / "wordbank.json"
@@ -122,6 +129,7 @@ def generate_general_sentence(letters):
 
     return generate_grammar_sentence(wordbank, letters)
 
+
 def generate_general_sentence_hinglish(letters):
     wordbank_path = Path(__file__).parent.parent / "wordbank_hinglish.json"
     if not wordbank_path.exists():
@@ -131,6 +139,7 @@ def generate_general_sentence_hinglish(letters):
         wordbank = json.load(f)
 
     return generate_grammar_sentence_hinglish(wordbank, letters)
+
 
 @router.get("/api/tricks")
 def get_tricks(
@@ -171,6 +180,7 @@ def get_tricks(
         wordbank_path = Path(__file__).parent.parent / "wordbank.json"
         if not wordbank_path.exists():
             return {"trick": "Wordbank file missing."}
+
         with open(wordbank_path, "r", encoding="utf-8") as f:
             wordbank = json.load(f)
 
