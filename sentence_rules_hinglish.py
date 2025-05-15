@@ -8,15 +8,27 @@ def generate_grammar_sentence_hinglish(wordbank, letters):
 
     for i, letter in enumerate(letters):
         category = categories[i % len(categories)]
-        words = wordbank.get(category, {}).get(letter.upper(), [])
+        words_by_letter = wordbank.get(category, {})
+        words = words_by_letter.get(letter.upper(), [])
         if words:
             selected_words[category] = random.choice(words)
         else:
-            selected_words[category] = letter
+            selected_words[category] = ""  # Better fallback
 
-    noun = selected_words.get("Nouns", "")
-    verb = selected_words.get("Verbs", "")
-    adj = selected_words.get("Adjectives", "")
-    adv = selected_words.get("Adverbs", "")
+    noun = selected_words.get("Nouns", "").strip()
+    verb = selected_words.get("Verbs", "").strip()
+    adj = selected_words.get("Adjectives", "").strip()
+    adv = selected_words.get("Adverbs", "").strip()
 
-    return f"Woh {adj} {noun} {verb} karta hai {adv}".capitalize()
+    # Build sentence parts safely
+    parts = ["Woh"]
+    if adj:
+        parts.append(adj)
+    if noun:
+        parts.append(noun)
+    if verb:
+        parts.append(verb)
+    if adv:
+        parts.append(adv)
+
+    return " ".join(parts).capitalize() + "."
