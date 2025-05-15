@@ -7,7 +7,7 @@ from pathlib import Path
 
 from sentence_rules import generate_grammar_sentence
 from sentence_rules_hinglish import generate_grammar_sentence_hinglish
-from generate_template_sentence import generate_template_sentence  # fixed import
+from generate_template_sentence import generate_template_sentence
 
 router = APIRouter()
 entity_index = defaultdict(int)
@@ -23,7 +23,7 @@ TEMPLATE_FILE_MAP = {
     "actors": "Actor-templates.json",
     "cricketers": "Cricketers-templates.json",
     "animals": "Animals-templates.json",
-    "english_template_sentences": "English-templates.json"   # added for english templates
+    "english_template_sentences": "English-templates.json"
 }
 
 DATA_FILE_MAP = {
@@ -45,6 +45,9 @@ def load_templates(trick_type="actors"):
 
     with open(templates_path, "r", encoding="utf-8") as f:
         templates = json.load(f)
+
+    if trick_type == "english_template_sentences":
+        return templates["TEMPLATES"]  # Fixed for template sentence type
 
     print(f"Loaded templates for: {trick_type} -> {len(templates)} entries.")
     return {key.lower(): val for key, val in templates.items()}
@@ -165,7 +168,6 @@ def get_tricks(
         return {"trick": trick}
 
     elif type == "english_template_sentences":
-        # Load wordbank and templates
         wordbank_path = Path(__file__).parent.parent / "wordbank.json"
         if not wordbank_path.exists():
             return {"trick": "Wordbank file missing."}
