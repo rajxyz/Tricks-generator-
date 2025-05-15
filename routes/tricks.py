@@ -155,9 +155,8 @@ def get_tricks(
             entities = get_next_entities(type, rest_letters)
             trick = generate_trick_with_topic(topic, entities, templates)
             return {"trick": trick}
-  
-    
-      elif type == "general_sentences":
+
+    elif type == "general_sentences":
         trick = generate_general_sentence(input_parts)
         return {"trick": trick}
 
@@ -165,5 +164,4 @@ def get_tricks(
         trick = generate_general_sentence_hinglish(input_parts)
         return {"trick": trick}
 
-    return {"message": "Invalid type selected."}   
-    
+    return {"message": "Invalid type selected."}
