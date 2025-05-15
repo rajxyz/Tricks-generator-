@@ -7,6 +7,7 @@ from pathlib import Path
 
 from sentence_rules import generate_grammar_sentence  # English grammar function
 from sentence_rules_hinglish import generate_grammar_sentence_hinglish  # Hinglish grammar function
+from generate_template_sentence import generate_template_sentence  # New template-based sentence generator
 
 router = APIRouter()
 entity_index = defaultdict(int)
@@ -131,7 +132,7 @@ def generate_general_sentence_hinglish(letters):
 
 @router.get("/api/tricks")
 def get_tricks(
-    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals, general_sentences, general_sentences_hinglish)"),
+    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals, general_sentences, general_sentences_hinglish, english_template_sentences)"),
     letters: str = Query(None, description="Comma-separated letters or words")
 ):
     print(f"Request received: type={type}, letters={letters}")
@@ -162,6 +163,22 @@ def get_tricks(
 
     elif type in ["general_sentences_hinglish", "hinglish_sentences"]:
         trick = generate_general_sentence_hinglish(input_parts)
+        return {"trick": trick}
+
+    elif type == "english_template_sentences":
+        templates_path = Path(__file__).parent.parent / "tamplates_english.json"
+        wordbank_path = Path(__file__).parent.parent / "wordbank.json"
+
+        if not templates_path.exists() or not wordbank_path.exists():
+            return {"trick": "Template or wordbank file missing."}
+
+        with open(templates_path, "r", encoding="utf-8") as f:
+            templates = json.load(f)
+
+        with open(wordbank_path, "r", encoding="utf-8") as f:
+            wordbank = json.load(f)
+
+        trick = generate_template_sentence(wordbank, templates, input_parts)
         return {"trick": trick}
 
     return {"message": "Invalid type selected."}
