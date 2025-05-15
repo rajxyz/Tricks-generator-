@@ -1,0 +1,59 @@
+TEMPLATES = [
+
+    # 2-Word Inputs
+    "{Article} {Adjective} {Noun}.",
+    "{Noun} {Verb}s.",
+    "The {Noun} {Verb}s.",
+
+    # 3-Word Inputs
+    "{Article} {Noun} {Verb}s.",
+    "The {Adjective} {Noun} {Verb}s.",
+    "{Noun} {Verb}s {Adverb}.",
+    "A {Adjective} {Noun} {Verb}s.",
+    "Sometimes {Noun}s {Verb} {Adverb}.",
+
+    # 4-Word Inputs
+    "{Article} {Adjective} {Noun} {Verb}s.",
+    "The {Noun} {Verb}s {Preposition} the {Noun}.",
+    "{Noun} {Verb}s the {Adjective} {Noun}.",
+    "{Adjective} {Noun}s {Verb} {Adverb}.",
+    "{Noun} can {Verb} {Adverb}.",
+    "{Article} {Noun} usually {Verb}s {Adverb}.",
+
+    # 5-Word Inputs
+    "{Article} {Adjective} {Noun} can {Verb} {Adverb}.",
+    "Sometimes, the {Adjective} {Noun} {Verb}s quickly.",
+    "The {Noun} {Verb}s {Preposition} the {Adjective} {Noun}.",
+    "{Adjective} {Noun}s often {Verb} {Adverb}.",
+    "You must {Verb} the {Noun} carefully.",
+
+    # 6-Word Inputs
+    "The {Adjective} {Noun} {Verb}s {Preposition} a {Adjective} {Noun}.",
+    "Without {Noun}, the {Adjective} {Noun} {Verb}s.",
+    "{Adverb}, the {Adjective} {Noun} {Verb}s {Preposition} the {Noun}.",
+    "Even the {Noun} {Verb}s with {Adverb}.",
+    "{Article} {Adjective} {Noun} always {Verb}s {Preposition} {Noun}.",
+
+    # 7-Word Inputs
+    "{Adjective} {Noun}s can {Verb} {Preposition} the {Adjective} {Noun}.",
+    "The {Adjective} {Noun} {Verb}s {Adverb} {Preposition} {Noun}.",
+    "{Adverb}, a {Adjective} {Noun} can {Verb} things.",
+    "{Noun}s that {Verb} too {Adverb} can fail.",
+    "{Article} {Adjective} {Noun} might {Verb} {Preposition} {Noun}s.",
+
+    # 8-Word Inputs
+    "In the {Adjective} {Noun}, we {Verb} {Adverb}.",
+    "Every {Adjective} {Noun} must {Verb} {Preposition} {Noun}s.",
+    "If the {Noun} {Verb}s, {Adjective} {Noun}s follow.",
+    "Sometimes {Noun}s {Verb} {Preposition} {Adjective} {Noun}s silently.",
+    "Often, the {Adjective} {Noun} {Verb}s too {Adverb} to stop.",
+    "No {Noun} can {Verb} {Preposition} {Adjective} {Noun}.",
+    "Each {Adjective} {Noun} should {Verb} with {Noun}s.",
+
+    # Bonus Generic
+    "{Noun} {Verb}s like a {Adjective} {Noun}.",
+    "Without {Adverb}, the {Adjective} {Noun} fails to {Verb}.",
+    "The {Noun} {Verb}s when the {Noun} {Verb}s.",
+    "A {Adjective} {Noun} will never {Verb} {Adverb}.",
+    "{Article} {Noun} {Verb}s not because it wants to, but it must."
+]
