@@ -5,14 +5,13 @@ from fastapi import APIRouter, Query
 from collections import defaultdict
 from pathlib import Path
 
-from sentence_rules import generate_grammar_sentence  # English grammar function
-from sentence_rules_hinglish import generate_grammar_sentence_hinglish  # Hinglish grammar function
-from generate_template_sentence import generate_template_sentence  # New template-based sentence generator
+from sentence_rules import generate_grammar_sentence
+from sentence_rules_hinglish import generate_grammar_sentence_hinglish
+from generate_template_sentence import generate_template_based_english_sentence
 
 router = APIRouter()
 entity_index = defaultdict(int)
 
-# Fallback lines
 default_lines = [
     "Iska trick abhi update nahi hua.",
     "Agle version me iski baari aayegi.",
@@ -20,7 +19,6 @@ default_lines = [
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
 
-# Template and data file mapping
 TEMPLATE_FILE_MAP = {
     "actors": "Actor-templates.json",
     "cricketers": "Cricketers-templates.json",
@@ -166,19 +164,7 @@ def get_tricks(
         return {"trick": trick}
 
     elif type == "english_template_sentences":
-        templates_path = Path(__file__).parent.parent / "tamplates_english.json"
-        wordbank_path = Path(__file__).parent.parent / "wordbank.json"
-
-        if not templates_path.exists() or not wordbank_path.exists():
-            return {"trick": "Template or wordbank file missing."}
-
-        with open(templates_path, "r", encoding="utf-8") as f:
-            templates = json.load(f)
-
-        with open(wordbank_path, "r", encoding="utf-8") as f:
-            wordbank = json.load(f)
-
-        trick = generate_template_sentence(wordbank, templates, input_parts)
+        trick = generate_template_based_english_sentence(input_parts)
         return {"trick": trick}
 
     return {"message": "Invalid type selected."}
