@@ -25,3 +25,7 @@ def generate_template_sentence(wordbank, templates, letters):
         template = template.replace(f"{{{key}}}", word_map.get(key, ""))
 
     return template.capitalize()
+
+# Add this to fix the import error
+def generate_template_based_english_sentence(wordbank, templates, letters):
+    return generate_template_sentence(wordbank, templates, letters)
