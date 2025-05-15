@@ -160,8 +160,8 @@ def get_tricks(
         trick = generate_general_sentence(input_parts)
         return {"trick": trick}
 
-    elif type == "general_sentences_hinglish":
-        trick = generate_general_sentence_hinglish(input_parts)
-        return {"trick": trick}
+    elif type in ["general_sentences_hinglish", "hinglish_sentences"]:
+    trick = generate_general_sentence_hinglish(input_parts)
+    return {"trick": trick}
 
     return {"message": "Invalid type selected."}
