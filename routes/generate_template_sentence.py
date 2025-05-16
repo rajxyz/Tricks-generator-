@@ -7,10 +7,10 @@ def generate_template_sentence(wordbank, templates, letters=None):
     sentence_template = random.choice(templates)
 
     return sentence_template.format(
-        Article=random.choice(wordbank.get("articles", ["the"])),
-        Adjective=random.choice(wordbank.get("adjectives", ["nice"])),
-        Noun=random.choice(wordbank.get("nouns", ["thing"])),
-        Verb=random.choice(wordbank.get("verbs", ["run"])),
-        Adverb=random.choice(wordbank.get("adverbs", ["quickly"])),
-        Preposition=random.choice(wordbank.get("prepositions", ["in"]))
+        Article=random.choice(wordbank["articles"]),
+        Adjective=random.choice(wordbank["adjectives"]),
+        Noun=random.choice(wordbank["nouns"]),
+        Verb=random.choice(wordbank["verbs"]),
+        Adverb=random.choice(wordbank["adverbs"]),
+        Preposition=random.choice(wordbank["prepositions"])
     )
