@@ -1,5 +1,5 @@
 {
-  "Prepositions": [
+  "prepositions": [
     "About", "Above", "Across", "After", "Against", "Along", "Amid", "Among",
     "Around", "As", "At", "Before", "Behind", "Below", "Beneath", "Beside", "Besides",
     "Between", "Beyond", "But", "By", "Concerning", "Considering", "Despite", "Down",
@@ -9,20 +9,20 @@
     "Through", "Throughout", "Till", "To", "Toward", "Towards", "Under", "Underneath",
     "Unlike", "Until", "Up", "Upon", "Versus", "Via", "With", "Within", "Without"
   ],
-  "HelpingVerbs": [
+  "helpingverbs": [
     "Am", "Are", "Be", "Been", "Being", "Can", "Could", "Did", "Do", "Does",
     "Had", "Has", "Have", "Is", "May", "Might", "Must", "Shall", "Should", 
     "Was", "Were", "Will", "Would"
   ],
-  "Conjunctions": [
+  "conjunctions": [
     "After", "Although", "And", "As", "As if", "Because", "Before", "Both", 
     "But", "Either", "Even though", "For", "If", "If only", "Lest", "Neither", 
     "Nor", "Not only", "Once", "Or", "Provided", "Rather than", "Since", 
     "So", "Supposing", "Than", "That", "Though", "Till", "Unless", "Until", 
     "When", "While", "Yet"
   ],
-  "Articles": ["A", "An", "The"],
-  "Pronouns": [
+  "articles": ["A", "An", "The"],
+  "pronouns": [
     "All", "Another", "Any", "Anybody", "Anyone", "Anything", "Both", "Each",
     "Either", "Everybody", "Everyone", "Everything", "Few", "He", "Her", "Hers",
     "Herself", "Him", "Himself", "His", "I", "It", "Its", "Itself", "Many", "Me",
@@ -33,7 +33,7 @@
     "Which", "Whichever", "Who", "Whoever", "Whom", "Whomever", "Whose", "You",
     "Your", "Yours", "Yourself", "Yourselves"
   ],
-  "Interjections": [
+  "interjections": [
     "Ah", "Aha", "Alas", "Aw", "Aww", "Bingo", "Boo", "Bravo", "Cheers", "Damn",
     "Dear me", "Eh", "Eureka", "Fiddlesticks", "Gosh", "Ha", "Haha", "Hallelujah",
     "Hey", "Hmm", "Hooray", "Huh", "Indeed", "Jeez", "Lo", "Look", "Nah", "Nope",
