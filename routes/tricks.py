@@ -6,7 +6,6 @@ from collections import defaultdict
 from pathlib import Path
 
 from sentence_rules import generate_grammar_sentence
-from sentence_rules_hinglish import generate_grammar_sentence_hinglish
 from generate_template_sentence import generate_template_sentence
 
 router = APIRouter()
