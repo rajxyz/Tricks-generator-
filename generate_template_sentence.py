@@ -7,7 +7,7 @@ def generate_template_sentence(wordbank, templates, letters=None):
     sentence_template = random.choice(templates)
 
     return sentence_template.format(
-        Article=random.choice(wordbank.get("articles", [""])),
+        Article=random.choice(wordbank.get("Articles", [""])),
         Adjective=random.choice(wordbank.get("adjectives", [""])),
         Noun=random.choice(wordbank.get("nouns", [""])),
         Verb=random.choice(wordbank.get("verbs", [""])),
