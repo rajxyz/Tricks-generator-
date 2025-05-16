@@ -6,7 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from sentence_rules import generate_grammar_sentence
-from generate_template_sentence import generate_template_sentence
+from .generate_template_sentence import generate_template_sentence
 
 router = APIRouter()
 entity_index = defaultdict(int)
