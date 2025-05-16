@@ -172,10 +172,6 @@ def get_tricks(
         trick = generate_general_sentence(input_parts)
         return {"trick": trick}
 
-    elif type in ["general_sentences_hinglish", "hinglish_sentences"]:
-        trick = generate_general_sentence_hinglish(input_parts)
-        return {"trick": trick}
-
     elif type == "english_template_sentences":
         wordbank_path = Path(__file__).parent.parent / "wordbank.json"
         if not wordbank_path.exists():
