@@ -5,7 +5,6 @@ from fastapi import APIRouter, Query
 from collections import defaultdict
 from pathlib import Path
 
-from sentence_rules import generate_grammar_sentence
 from routes.generate_template_sentence import generate_template_sentence
 
 router = APIRouter()
@@ -118,31 +117,9 @@ def generate_trick_sentence(entities, templates):
     return f"{combined}: {line}"
 
 
-def generate_general_sentence(letters):
-    wordbank_path = Path(__file__).parent.parent / "wordbank.json"
-    if not wordbank_path.exists():
-        return "Wordbank file missing."
-
-    with open(wordbank_path, "r", encoding="utf-8") as f:
-        wordbank = json.load(f)
-
-    return generate_grammar_sentence(wordbank, letters)
-
-
-def generate_general_sentence_hinglish(letters):
-    wordbank_path = Path(__file__).parent.parent / "wordbank_hinglish.json"
-    if not wordbank_path.exists():
-        return "Hinglish wordbank file missing."
-
-    with open(wordbank_path, "r", encoding="utf-8") as f:
-        wordbank = json.load(f)
-
-    return generate_grammar_sentence_hinglish(wordbank, letters)
-
-
 @router.get("/api/tricks")
 def get_tricks(
-    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals, general_sentences, general_sentences_hinglish, english_template_sentences)"),
+    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals, english_template_sentences)"),
     letters: str = Query(None, description="Comma-separated letters or words")
 ):
     print(f"Request received: type={type}, letters={letters}")
@@ -166,10 +143,6 @@ def get_tricks(
             entities = get_next_entities(type, rest_letters)
             trick = generate_trick_with_topic(topic, entities, templates)
             return {"trick": trick}
-
-    elif type == "general_sentences":
-        trick = generate_general_sentence(input_parts)
-        return {"trick": trick}
 
     elif type == "english_template_sentences":
         wordbank_path = Path(__file__).parent.parent / "wordbank.json"
