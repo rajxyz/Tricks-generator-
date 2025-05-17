@@ -166,6 +166,5 @@ def get_tricks(
 
         template = random.choice(templates)
         trick = generate_template_sentence(template, grammar_helpers, wordbank, input_parts)
-        return {"trick": trick}
 
-    return {"message": "Invalid type selected."}
+        return {"message": "Invalid type selected."}
