@@ -1,30 +1,21 @@
 import random
 import re
 
-def generate_template_sentence(wordbank, templates, input_letters):
-    if not input_letters or not templates:
-        return "Invalid input."
+def generate_template_sentence(wordbank, templates, input_parts):
+    # Choose a random template string from the templates list
+    template = random.choice(templates)  # e.g. "[article] [adjective] [noun] [verb]s."
 
-    template = random.choice(templates)
+    # Find all placeholders in the template (e.g. article, adjective, noun, verb)
+    placeholders = re.findall(r'(\w+)', template)
 
-    placeholders = re.findall(r"{(.*?)}", template)
-    filled = {}
-
-    for i, placeholder in enumerate(placeholders):
-        letter_index = i % len(input_letters)  # repeat letters if less than placeholders
-        letter = input_letters[letter_index].lower()
-
-        # Find matching words from wordbank
-        words = wordbank.get(placeholder, [])
-        matching = [w for w in words if w.lower().startswith(letter)]
-
-        if matching:
-            filled[placeholder] = random.choice(matching)
+    # For each placeholder, pick a random word from the corresponding wordbank list
+    for placeholder in placeholders:
+        if placeholder in wordbank and wordbank[placeholder]:
+            word = random.choice(wordbank[placeholder])
+            # Replace the placeholder with the selected word
+            template = template.replace(f'[{placeholder}]', word, 1)
         else:
-            filled[placeholder] = f"[{placeholder}]"
-
-    # Fill the template
-    for key, val in filled.items():
-        template = template.replace(f"{{{key}}}", val)
+            # If no word available, just replace with empty string
+            template = template.replace(f'[{placeholder}]', '', 1)
 
     return template
