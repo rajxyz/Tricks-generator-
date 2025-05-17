@@ -7,7 +7,6 @@ from typing import List
 
 app = FastAPI()
 
-# CORS (optional but useful for frontend interaction)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,14 +14,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Helper function to load a JSON file
 def load_json_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-# Sentence generation function
 def generate_template_sentence(template: str, grammar_helpers: dict, wordbank: dict, input_parts: List[str]):
-    placeholders = re.findall(r'([^]+)', template)
+    placeholders = re.findall(r'([a-z_]+)', template)
 
     for ph in placeholders:
         replacement = None
@@ -37,30 +34,36 @@ def generate_template_sentence(template: str, grammar_helpers: dict, wordbank: d
         if replacement is None:
             replacement = f"<{ph}>"
 
-        template = template.replace(f'[{ph}]', replacement)
+        template = template.replace(f'[{ph}]', replacement, 1)
 
     return template
 
-# API route
 @app.get("/api/tricks")
 def get_tricks(type: str = "english_template_sentences", letters: str = ""):
     try:
-        input_parts = letters.split(",") if letters else []
+        input_parts = letters.lower().split(",") if letters else []
 
-        # Load data files (adjust paths as needed)
+        # Load files
         templates_data = load_json_file("data/templates.json")
         grammar_helpers = load_json_file("data/grammar_helpers.json")
-        wordbank = load_json_file("data/wordbank.json")
+        grammar_helpers = {k.lower(): v for k, v in grammar_helpers.items()}
 
-        # Filter templates by type
+        raw_wordbank = load_json_file("data/wordbank.json")
+        selected_nouns = []
+        if "Nouns" in raw_wordbank:
+            for letter in input_parts:
+                nouns = raw_wordbank["Nouns"].get(letter.upper(), [])
+                selected_nouns.extend(nouns)
+
+        wordbank = {
+            "noun": selected_nouns
+        }
+
         templates = templates_data.get(type, [])
         if not templates:
             return {"error": f"No templates found for type '{type}'"}
 
-        # Choose a random template
         template = random.choice(templates)
-
-        # Generate sentence
         trick = generate_template_sentence(template, grammar_helpers, wordbank, input_parts)
 
         return {"result": trick}
