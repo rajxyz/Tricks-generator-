@@ -1,54 +1,42 @@
 import random
 import re
+import json
 
-def generate_template_sentence(wordbank, templates, input_parts):
+def load_json_file(filepath):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+def generate_template_sentence(template, grammar_helpers, wordbank, input_parts):
     """
-    Generates a sentence by selecting a template and filling placeholders with words from the wordbank.
+    template: string with placeholders like [verb], [article], etc.
+    grammar_helpers: dict with fixed word types (e.g. articles, prepositions)
+    wordbank: dict with variable word types (e.g. nouns, verbs, adjectives)
+    input_parts: list or set of word types expected in the sentence
 
-    Parameters:
-    - wordbank: dict of word types to word lists (e.g. {'verb': ['run'], 'noun': ['dog']})
-    - templates: list of sentence templates with placeholders like [verb], [noun]
-    - input_parts: list or set of word types you want to include
-
-    Returns:
-    - A generated sentence with placeholders replaced.
+    Returns a sentence with placeholders replaced by random words.
     """
-    if not templates:
-        return "No templates available."
-
-    # Pick a random template
-    template = random.choice(templates)
-
-    # Find all placeholders like [verb], [noun], etc.
+    # Find all placeholders in the template
     placeholders = re.findall(r'(\w+)', template)
 
-    # Replace each placeholder
     for ph in placeholders:
-        if ph in input_parts and ph in wordbank and wordbank[ph]:
+        replacement = None
+
+        # Replace only if in input_parts (optional, depending on your use case)
+        if ph not in input_parts:
+            continue
+
+        # Try to get replacement from grammar_helpers first (fixed words)
+        if ph in grammar_helpers and grammar_helpers[ph]:
+            replacement = random.choice(grammar_helpers[ph])
+        # Else try wordbank (variable words)
+        elif ph in wordbank and wordbank[ph]:
             replacement = random.choice(wordbank[ph])
-        else:
-            replacement = f"<{ph}>"  # fallback if no matching word
+        
+        # If no word found, put placeholder tags for debug
+        if replacement is None:
+            replacement = f"<{ph}>"
+
+        # Replace all occurrences of this placeholder
         template = template.replace(f'[{ph}]', replacement)
 
     return template
-
-
-# --- Test Example (can be removed in production) ---
-if __name__ == "__main__":
-    wordbank = {
-        "article": ["The", "A"],
-        "adjective": ["quick", "lazy"],
-        "noun": ["fox", "dog"],
-        "verb": ["jump", "run"],
-        "adverb": ["quickly", "silently"]
-    }
-
-    templates = [
-        "[article] [adjective] [noun] [verb]s.",
-        "[article] [noun] [adverb] [verb]s over the [adjective] [noun]."
-    ]
-
-    input_parts = {"article", "adjective", "noun", "verb", "adverb"}
-
-    for _ in range(5):
-        print(generate_template_sentence(wordbank, templates, input_parts))
