@@ -4,6 +4,7 @@ import json
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
+from pathlib import Path
 
 app = FastAPI()
 
@@ -22,59 +23,63 @@ def load_json_file(filepath: str) -> dict:
 
 # Sentence generation with placeholder substitution
 def generate_template_sentence(template: str, grammar_helpers: dict, wordbank: dict, input_parts: List[str]) -> str:
+    # Correct regex to find placeholders like [noun], [verb], [adjective], etc.
     placeholders = re.findall(r'([a-z_]+)', template)
 
     for ph in placeholders:
         replacement = None
 
-        # Only process placeholders that are among the user’s selected parts
-        if ph not in input_parts:
-            continue
-
-        # Choose replacement from grammar helpers or wordbank
+        # Try to get replacement from grammar helpers first
         if ph in grammar_helpers and grammar_helpers[ph]:
             replacement = random.choice(grammar_helpers[ph])
+        # Then try from wordbank
         elif ph in wordbank and wordbank[ph]:
             replacement = random.choice(wordbank[ph])
 
-        # If no replacement found, mark it as unresolved
+        # If no replacement found, show placeholder as unresolved
         if replacement is None:
             replacement = f"<{ph}>"
 
-        # Replace only the first matching occurrence to allow multiple of same type
+        # Replace only the first occurrence of this placeholder in the template
         template = template.replace(f'[{ph}]', replacement, 1)
 
     return template
 
-# API route
 @app.get("/api/tricks")
 def get_tricks(type: str = "english_template_sentences", letters: str = ""):
     try:
         input_parts = letters.lower().split(",") if letters else []
 
-        # Load data files
-        templates_data = load_json_file("data/templates.json")
-        grammar_helpers_raw = load_json_file("data/grammar_helpers.json")
+        # Adjust these paths if your JSON files are elsewhere
+        base_path = Path(__file__).parent / "data"
+        templates_path = base_path / "templates.json"
+        grammar_helpers_path = base_path / "grammar_helpers.json"
+        wordbank_path = base_path / "wordbank.json"
+
+        # Load JSON files
+        templates_data = load_json_file(str(templates_path))
+        grammar_helpers_raw = load_json_file(str(grammar_helpers_path))
+        wordbank_raw = load_json_file(str(wordbank_path))
+
+        # Normalize grammar helpers keys to lowercase
         grammar_helpers = {k.lower(): v for k, v in grammar_helpers_raw.items()}
 
-        wordbank_raw = load_json_file("data/wordbank.json")
-
-        # Build filtered wordbank based on user input letters
-        selected_nouns = []
-        if "Nouns" in wordbank_raw:
+        # Build wordbank dict with filtered words based on input letters for each category
+        wordbank = {}
+        for key in wordbank_raw:
+            words = []
             for letter in input_parts:
-                selected_nouns.extend(wordbank_raw["Nouns"].get(letter.upper(), []))
+                letter = letter.upper()
+                if letter in wordbank_raw[key]:
+                    words.extend(wordbank_raw[key][letter])
+            wordbank[key.lower()] = words
 
-        wordbank = {
-            "noun": selected_nouns
-        }
-
-        # Get templates based on type
+        # Get list of templates for this type
         templates = templates_data.get(type, [])
         if not templates:
             return {"error": f"No templates found for type '{type}'"}
 
-        # Pick random template and generate sentence
+        # Pick a random template and generate the sentence
         template = random.choice(templates)
         trick = generate_template_sentence(template, grammar_helpers, wordbank, input_parts)
 
