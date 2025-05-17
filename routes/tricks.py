@@ -148,6 +148,9 @@ def get_tricks(
         wordbank_path = Path(__file__).parent.parent / "wordbank.json"
         grammar_path = Path(__file__).parent.parent / "grammar_helpers.json"
 
+        print(f"Looking for wordbank at: {wordbank_path}")
+        print(f"Looking for grammar helpers at: {grammar_path}")
+
         if not wordbank_path.exists():
             return {"trick": "Wordbank file missing."}
         if not grammar_path.exists():
@@ -167,7 +170,6 @@ def get_tricks(
         template = random.choice(templates)
         trick = generate_template_sentence(template, grammar_helpers, wordbank, input_parts)
 
-        # **Fix here: return the generated trick instead of the invalid message**
         return {"trick": trick}
 
     else:
