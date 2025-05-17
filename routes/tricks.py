@@ -146,7 +146,7 @@ def get_tricks(
 
     elif type == "english_template_sentences":
         wordbank_path = Path(__file__).parent.parent / "wordbank.json"
-        grammar_path = Path(__file__).parent.parent / "grammar_helpers.json"
+        grammar_path = Path(__file__).parent.parent / "grammarhelpers.json"
 
         print(f"Looking for wordbank at: {wordbank_path}")
         print(f"Looking for grammar helpers at: {grammar_path}")
