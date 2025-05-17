@@ -146,29 +146,21 @@ def get_tricks(
 
     elif type == "english_template_sentences":
         wordbank_path = Path(__file__).parent.parent / "wordbank.json"
-        grammar_path = Path(__file__).parent.parent / "grammarhelpers.json"
 
         print(f"Looking for wordbank at: {wordbank_path}")
-        print(f"Looking for grammar helpers at: {grammar_path}")
 
         if not wordbank_path.exists():
             return {"trick": "Wordbank file missing."}
-        if not grammar_path.exists():
-            return {"trick": "Grammar helpers file missing."}
 
         with open(wordbank_path, "r", encoding="utf-8") as f:
             wordbank = json.load(f)
-        with open(grammar_path, "r", encoding="utf-8") as f:
-            grammar_helpers = json.load(f)
-
-        grammar_helpers = {k.lower(): v for k, v in grammar_helpers.items()}
 
         templates = load_templates("english_template_sentences")
         if not templates:
             return {"trick": "English templates file missing."}
 
         template = random.choice(templates)
-        trick = generate_template_sentence(template, grammar_helpers, wordbank, input_parts)
+        trick = generate_template_sentence(template, wordbank, input_parts)
 
         return {"trick": trick}
 
