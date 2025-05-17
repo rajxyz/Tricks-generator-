@@ -167,4 +167,8 @@ def get_tricks(
         template = random.choice(templates)
         trick = generate_template_sentence(template, grammar_helpers, wordbank, input_parts)
 
-        return {"message": "Invalid type selected."}
+        # **Fix here: return the generated trick instead of the invalid message**
+        return {"trick": trick}
+
+    else:
+        return {"trick": "Invalid type selected."}
