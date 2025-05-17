@@ -1,17 +1,22 @@
+import random
+import re
+
 def generate_template_sentence(wordbank, templates, input_letters):
     if not input_letters or not templates:
         return "Invalid input."
 
     template = random.choice(templates)
+
     placeholders = re.findall(r"{(.*?)}", template)
     filled = {}
 
     for i, placeholder in enumerate(placeholders):
-        letter = input_letters[i % len(input_letters)].upper()
-        category = placeholder.capitalize() + "s"  # e.g., noun -> Nouns
+        letter_index = i % len(input_letters)  # repeat letters if less than placeholders
+        letter = input_letters[letter_index].lower()
 
-        words_by_letter = wordbank.get(category, {})
-        matching = words_by_letter.get(letter, [])
+        # Find matching words from wordbank
+        words = wordbank.get(placeholder, [])
+        matching = [w for w in words if w.lower().startswith(letter)]
 
         if matching:
             filled[placeholder] = random.choice(matching)
