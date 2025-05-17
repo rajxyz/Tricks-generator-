@@ -133,13 +133,13 @@ def get_tricks(
     if type in ["actors", "cricketers", "animals"]:
         templates = load_templates(type)
 
-        if all(len(w.strip()) == 1 for w in input_parts):
+        if all(len(w) == 1 for w in input_parts):
             entities = get_next_entities(type, input_parts)
             trick = generate_trick_sentence(entities, templates)
             return {"trick": trick}
         else:
             topic = input_parts[0]
-            rest_letters = [w.strip()[0].upper() for w in input_parts[1:]]
+            rest_letters = [w[0].upper() for w in input_parts[1:] if w]
             entities = get_next_entities(type, rest_letters)
             trick = generate_trick_with_topic(topic, entities, templates)
             return {"trick": trick}
