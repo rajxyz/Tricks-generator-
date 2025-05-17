@@ -15,24 +15,24 @@ def generate_template_sentence(template, grammar_helpers, wordbank, input_parts)
 
     Returns a sentence with placeholders replaced by random words.
     """
-    # Find all placeholders in the template
+    # Fix placeholder regex
     placeholders = re.findall(r'(\w+)', template)
 
     for ph in placeholders:
         replacement = None
 
-        # Replace only if in input_parts (optional, depending on your use case)
+        # Replace only if in input_parts
         if ph not in input_parts:
             continue
 
-        # Try to get replacement from grammar_helpers first (fixed words)
+        # First check fixed word types (grammar_helpers)
         if ph in grammar_helpers and grammar_helpers[ph]:
             replacement = random.choice(grammar_helpers[ph])
-        # Else try wordbank (variable words)
+        # Then check wordbank (variable types)
         elif ph in wordbank and wordbank[ph]:
             replacement = random.choice(wordbank[ph])
         
-        # If no word found, put placeholder tags for debug
+        # If nothing found
         if replacement is None:
             replacement = f"<{ph}>"
 
