@@ -26,6 +26,7 @@ class TrickType(str, Enum):
     cricketers = "cricketers"
     animals = "animals"
     english_template_sentences = "english_template_sentences"
+    abbreviations = "abbreviations"  # Added new type
 
 TEMPLATE_FILE_MAP = {
     "actors": "Actor-templates.json",
@@ -37,7 +38,8 @@ TEMPLATE_FILE_MAP = {
 DATA_FILE_MAP = {
     "actors": "bollywood-actor.json",
     "cricketers": "cricketers.json",
-    "animals": "animals.json"
+    "animals": "animals.json",
+    "abbreviations": "data.json"  # Added path for abbreviations
 }
 
 def load_templates(trick_type="actors"):
@@ -71,7 +73,7 @@ def load_entities(trick_type, letter=None):
     with file_path.open("r", encoding="utf-8") as f:
         entities = json.load(f)
 
-    if letter:
+    if letter and trick_type != "abbreviations":
         entities = [e for e in entities if e.get("name", "").upper().startswith(letter.upper())]
 
     logger.info(f"Loaded {len(entities)} {trick_type} for letter '{letter}'.")
@@ -155,5 +157,19 @@ def get_tricks(
         template = random.choice(templates)
         trick = generate_template_sentence(template, wordbank, input_parts)
         return {"trick": trick}
+
+    elif type == TrickType.abbreviations:
+        entities = load_entities("abbreviations")
+        query = ''.join(input_parts).lower()
+
+        matched = [e for e in entities if e.get("abbr", "").lower() == query]
+
+        if not matched:
+            return {"trick": f"No abbreviation found for '{query.upper()}'."}
+
+        result = matched[0]
+        return {
+            "trick": f"{result['abbr']} — {result['full_form']}: {result['description']}"
+        }
 
     return {"trick": "Invalid type selected."}
