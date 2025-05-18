@@ -169,24 +169,24 @@ def get_tricks(
         return {
             "trick": f"{result['abbr']} — {result['full_form']}: {result['description']}"
         }
-     elif type == TrickType.simple_sentence:
-    if wordbank_cache is None:
-        wordbank_cache = load_wordbank_file()
 
-    template_file = TEMPLATE_FILE_MAP.get(type.value)
-    templates = load_template_sentences(template_file)  # pass actual file name
+    elif type == TrickType.simple_sentence:
+        if wordbank_cache is None:
+            wordbank_cache = load_wordbank_file()
 
-    if not templates:
-        return {"trick": "No templates found for simple_sentence."}
+        template_file = TEMPLATE_FILE_MAP.get(type.value)
+        templates = load_template_sentences(template_file)
 
-    template = random.choice(templates)
+        if not templates:
+            return {"trick": "No templates found for simple_sentence."}
 
-    sentence = generate_template_sentence(
-        template,
-        wordbank_cache,
-        [l.upper() for l in input_parts]
-    )
+        template = random.choice(templates)
+        sentence = generate_template_sentence(
+            template,
+            wordbank_cache,
+            [l.upper() for l in input_parts]
+        )
 
-    return {"trick": sentence}
+        return {"trick": sentence}
 
     return {"trick": "Invalid type selected."}
