@@ -6,8 +6,6 @@ from collections import defaultdict
 from pathlib import Path
 from enum import Enum
 
-from routes.generate_template_sentence import generate_template_sentence
-
 router = APIRouter()
 logger = logging.getLogger(__name__)
 entity_index = defaultdict(int)
@@ -25,21 +23,19 @@ class TrickType(str, Enum):
     actors = "actors"
     cricketers = "cricketers"
     animals = "animals"
-    english_template_sentences = "english_template_sentences"
-    abbreviations = "abbreviations"  # Added new type
+    abbreviations = "abbreviations"
 
 TEMPLATE_FILE_MAP = {
     "actors": "Actor-templates.json",
     "cricketers": "Cricketers-templates.json",
-    "animals": "Animals-templates.json",
-    "english_template_sentences": "English-templates.json"
+    "animals": "Animals-templates.json"
 }
 
 DATA_FILE_MAP = {
     "actors": "bollywood-actor.json",
     "cricketers": "cricketers.json",
     "animals": "animals.json",
-    "abbreviations": "data.json"  # Added path for abbreviations
+    "abbreviations": "data.json"
 }
 
 def load_templates(trick_type="actors"):
@@ -56,9 +52,7 @@ def load_templates(trick_type="actors"):
         templates = json.load(f)
 
     logger.info(f"Loaded templates for '{trick_type}' with {len(templates)} entries.")
-    return templates.get("TEMPLATES", []) if trick_type == "english_template_sentences" else {
-        key.lower(): val for key, val in templates.items()
-    }
+    return {key.lower(): val for key, val in templates.items()}
 
 def load_entities(trick_type, letter=None):
     filename = DATA_FILE_MAP.get(trick_type.lower())
@@ -138,24 +132,6 @@ def get_tricks(
             entities = get_next_entities(type.value, rest_letters)
             trick = generate_trick_with_topic(topic, entities, templates)
 
-        return {"trick": trick}
-
-    elif type == TrickType.english_template_sentences:
-        wordbank_path = BASE_DIR / "wordbank.json"
-        logger.info(f"Looking for wordbank at: {wordbank_path}")
-
-        if not wordbank_path.exists():
-            return {"trick": "Wordbank file missing."}
-
-        with wordbank_path.open("r", encoding="utf-8") as f:
-            wordbank = json.load(f)
-
-        templates = load_templates("english_template_sentences")
-        if not templates:
-            return {"trick": "English templates file missing."}
-
-        template = random.choice(templates)
-        trick = generate_template_sentence(template, wordbank, input_parts)
         return {"trick": trick}
 
     elif type == TrickType.abbreviations:
