@@ -3,25 +3,25 @@ from fastapi.middleware.cors import CORSMiddleware
 import sys
 import os
 
-# Fix the NameError by using __file__
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))  # Ensure 'routes' is accessible
+# Add current directory to sys.path to ensure routes are found
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-# Import routers properly
+# Import routers from routes package
 from routes.tricks import router as tricks_router
 from routes.search import router as search_router
 
 app = FastAPI(title="Trick Generator API")
 
-# Enable CORS Middleware
+# Configure CORS to allow all origins (adjust for production)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change "*" to your frontend domain if needed
+    allow_origins=["*"],  # Replace "*" with your allowed domains in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include Routers
+# Register routers
 app.include_router(tricks_router)
 app.include_router(search_router)
 
