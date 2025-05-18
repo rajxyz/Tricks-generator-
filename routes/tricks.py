@@ -6,8 +6,8 @@ from collections import defaultdict
 from pathlib import Path
 from enum import Enum
 
-from generate_template_sentence import (
-    generate_template_sentence,
+from routes.generate_template_sentence import (
+  generate_template_sentence,
     load_templates as load_template_sentences
 )
 
