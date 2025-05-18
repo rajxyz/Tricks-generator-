@@ -1,15 +1,18 @@
-
 import json
-import os
 import random
+import logging
 from fastapi import APIRouter, Query
 from collections import defaultdict
 from pathlib import Path
+from enum import Enum
 
 from routes.generate_template_sentence import generate_template_sentence
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 entity_index = defaultdict(int)
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 default_lines = [
     "Iska trick abhi update nahi hua.",
@@ -17,6 +20,12 @@ default_lines = [
     "Filhal kuch khaas nahi bola ja sakta.",
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
+
+class TrickType(str, Enum):
+    actors = "actors"
+    cricketers = "cricketers"
+    animals = "animals"
+    english_template_sentences = "english_template_sentences"
 
 TEMPLATE_FILE_MAP = {
     "actors": "Actor-templates.json",
@@ -31,49 +40,42 @@ DATA_FILE_MAP = {
     "animals": "animals.json"
 }
 
-
 def load_templates(trick_type="actors"):
     filename = TEMPLATE_FILE_MAP.get(trick_type.lower())
     if not filename:
         return {}
 
-    templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
-
-    if not os.path.exists(templates_path):
-        print(f"Warning: {filename} not found at {templates_path}")
+    templates_path = BASE_DIR / filename
+    if not templates_path.exists():
+        logger.warning(f"Template file not found: {templates_path}")
         return {}
 
-    with open(templates_path, "r", encoding="utf-8") as f:
+    with templates_path.open("r", encoding="utf-8") as f:
         templates = json.load(f)
 
-    print(f"Loaded templates for: {trick_type} -> {len(templates)} entries.")
-
-    if trick_type == "english_template_sentences":
-        return templates.get("TEMPLATES", [])
-    else:
-        return {key.lower(): val for key, val in templates.items()}
-
+    logger.info(f"Loaded templates for '{trick_type}' with {len(templates)} entries.")
+    return templates.get("TEMPLATES", []) if trick_type == "english_template_sentences" else {
+        key.lower(): val for key, val in templates.items()
+    }
 
 def load_entities(trick_type, letter=None):
     filename = DATA_FILE_MAP.get(trick_type.lower())
     if not filename:
         return []
 
-    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
-
-    if not os.path.exists(file_path):
-        print(f"Warning: {filename} not found at {file_path}")
+    file_path = BASE_DIR / filename
+    if not file_path.exists():
+        logger.warning(f"Entity data file not found: {file_path}")
         return []
 
-    with open(file_path, "r", encoding="utf-8") as f:
+    with file_path.open("r", encoding="utf-8") as f:
         entities = json.load(f)
 
     if letter:
-        entities = [entity for entity in entities if entity.get("name", "").upper().startswith(letter.upper())]
+        entities = [e for e in entities if e.get("name", "").upper().startswith(letter.upper())]
 
-    print(f"Loaded {len(entities)} {trick_type} for letter: {letter}")
+    logger.info(f"Loaded {len(entities)} {trick_type} for letter '{letter}'.")
     return entities
-
 
 def get_next_entities(trick_type, letters):
     selected = []
@@ -85,75 +87,65 @@ def get_next_entities(trick_type, letters):
             entity_index[(trick_type, letter)] += 1
     return selected
 
-
 def generate_trick_with_topic(topic, entities, templates):
     if not entities:
         return f"{topic}: {random.choice(default_lines)}"
 
-    names = [e.get("name", "") for e in entities]
-    joined_names = ", ".join(names)
+    names = [e.get("name", "") for e in entities if e.get("name")]
+    if not names:
+        return f"{topic}: Entity names missing or malformed."
+
     last_entity = names[-1].lower()
-
-    if last_entity in templates:
-        line = random.choice(templates[last_entity])
-    else:
-        line = random.choice(default_lines)
-
-    return f"<b>{topic}</b>, {joined_names}: {line}"
-
+    line = random.choice(templates.get(last_entity, default_lines))
+    return f"<b>{topic}</b>, {', '.join(names)}: {line}"
 
 def generate_trick_sentence(entities, templates):
     if not entities:
         return "No names found for the entered letters."
 
-    names = [e.get("name", "") for e in entities]
-    combined = ", ".join(names)
+    names = [e.get("name", "") for e in entities if e.get("name")]
+    if not names:
+        return "Entity names missing or malformed."
+
     last_name = names[-1].lower()
-
-    if last_name in templates:
-        line = random.choice(templates[last_name])
-    else:
-        line = random.choice(default_lines)
-
-    return f"{combined}: {line}"
-
+    line = random.choice(templates.get(last_name, default_lines))
+    return f"{', '.join(names)}: {line}"
 
 @router.get("/api/tricks")
 def get_tricks(
-    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals, english_template_sentences)"),
+    type: TrickType = Query(TrickType.actors, description="Type of trick"),
     letters: str = Query(None, description="Comma-separated letters or words")
 ):
-    print(f"Request received: type={type}, letters={letters}")
-    
-    input_parts = letters.split(",") if letters else []
-    input_parts = [w.strip() for w in input_parts if w.strip()]
+    logger.info(f"Request received: type={type}, letters={letters}")
+
+    input_parts = [w.strip() for w in letters.split(",")] if letters else []
+    input_parts = [w for w in input_parts if w]
 
     if not input_parts:
         return {"trick": "Invalid input."}
 
-    if type in ["actors", "cricketers", "animals"]:
-        templates = load_templates(type)
+    if type in [TrickType.actors, TrickType.cricketers, TrickType.animals]:
+        templates = load_templates(type.value)
 
         if all(len(w) == 1 for w in input_parts):
-            entities = get_next_entities(type, input_parts)
+            entities = get_next_entities(type.value, input_parts)
             trick = generate_trick_sentence(entities, templates)
-            return {"trick": trick}
         else:
             topic = input_parts[0]
             rest_letters = [w[0].upper() for w in input_parts[1:] if w]
-            entities = get_next_entities(type, rest_letters)
+            entities = get_next_entities(type.value, rest_letters)
             trick = generate_trick_with_topic(topic, entities, templates)
-            return {"trick": trick}
 
-    elif type == "english_template_sentences":
-        wordbank_path = Path(__file__).parent.parent / "wordbank.json"
+        return {"trick": trick}
 
-        print(f"Looking for wordbank at: {wordbank_path}")
+    elif type == TrickType.english_template_sentences:
+        wordbank_path = BASE_DIR / "wordbank.json"
+        logger.info(f"Looking for wordbank at: {wordbank_path}")
 
         if not wordbank_path.exists():
             return {"trick": "Wordbank file missing."}
 
-        with open(wordbank_path, "r", encoding="utf-8") as f:
+        with wordbank_path.open("r", encoding="utf-8") as f:
             wordbank = json.load(f)
 
         templates = load_templates("english_template_sentences")
@@ -162,8 +154,6 @@ def get_tricks(
 
         template = random.choice(templates)
         trick = generate_template_sentence(template, wordbank, input_parts)
-
         return {"trick": trick}
 
-    else:
-        return {"trick": "Invalid type selected."}
+    return {"trick": "Invalid type selected."}
