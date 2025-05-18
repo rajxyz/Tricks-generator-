@@ -7,7 +7,7 @@ from pathlib import Path
 from enum import Enum
 
 from routes.generate_template_sentence import (
-  generate_template_sentence,
+    generate_template_sentence,
     load_templates as load_template_sentences
 )
 
@@ -24,20 +24,18 @@ default_lines = [
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
 
-
 class TrickType(str, Enum):
     actors = "actors"
     cricketers = "cricketers"
     animals = "animals"
     abbreviations = "abbreviations"
-    simple_sentence = "simple_sentence"      # New trick type added
-
+    simple_sentence = "simple_sentence"  # New trick type added
 
 TEMPLATE_FILE_MAP = {
     "actors": "Actor-templates.json",
     "cricketers": "Cricketers-templates.json",
     "animals": "Animals-templates.json",
-    "simple_sentence": "English-templates.json"      # Template file for new trick
+    "simple_sentence": "English-templates.json"  # Template file for new trick
 }
 
 DATA_FILE_MAP = {
@@ -45,9 +43,8 @@ DATA_FILE_MAP = {
     "cricketers": "cricketers.json",
     "animals": "animals.json",
     "abbreviations": "data.json",
-    "simple_sentence": "wordbank.json"                # Wordbank file for new trick
+    "simple_sentence": "wordbank.json"  # Wordbank file for new trick
 }
-
 
 def load_templates(trick_type="actors"):
     filename = TEMPLATE_FILE_MAP.get(trick_type.lower())
@@ -64,7 +61,6 @@ def load_templates(trick_type="actors"):
 
     logger.info(f"Loaded templates for '{trick_type}' with {len(templates)} entries.")
     return {key.lower(): val for key, val in templates.items()}
-
 
 def load_entities(trick_type, letter=None):
     filename = DATA_FILE_MAP.get(trick_type.lower())
@@ -85,7 +81,6 @@ def load_entities(trick_type, letter=None):
     logger.info(f"Loaded {len(entities)} {trick_type} for letter '{letter}'.")
     return entities
 
-
 def load_wordbank_file():
     file_path = BASE_DIR / DATA_FILE_MAP["simple_sentence"]
     if not file_path.exists():
@@ -96,9 +91,7 @@ def load_wordbank_file():
         wordbank = json.load(f)
     return wordbank
 
-
 wordbank_cache = None
-
 
 def get_next_entities(trick_type, letters):
     selected = []
@@ -109,7 +102,6 @@ def get_next_entities(trick_type, letters):
             selected.append(entities[index])
             entity_index[(trick_type, letter)] += 1
     return selected
-
 
 def generate_trick_with_topic(topic, entities, templates):
     if not entities:
@@ -123,7 +115,6 @@ def generate_trick_with_topic(topic, entities, templates):
     line = random.choice(templates.get(last_entity, default_lines))
     return f"<b>{topic}</b>, {', '.join(names)}: {line}"
 
-
 def generate_trick_sentence(entities, templates):
     if not entities:
         return "No names found for the entered letters."
@@ -135,7 +126,6 @@ def generate_trick_sentence(entities, templates):
     last_name = names[-1].lower()
     line = random.choice(templates.get(last_name, default_lines))
     return f"{', '.join(names)}: {line}"
-
 
 @router.get("/api/tricks")
 def get_tricks(
@@ -181,13 +171,15 @@ def get_tricks(
         }
 
     elif type == TrickType.simple_sentence:
-
         if wordbank_cache is None:
             wordbank_cache = load_wordbank_file()
 
-        templates = load_template_sentences(type.value)
+        templates = load_template_sentences(type.value)  # returns a list of templates
 
-        template = random.choice(templates.get("templates", templates.get("TEMPLATES", [])))
+        if not templates:
+            return {"trick": "No templates found for simple_sentence."}
+
+        template = random.choice(templates)
 
         sentence = generate_template_sentence(
             template,
