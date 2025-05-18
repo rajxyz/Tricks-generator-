@@ -7,8 +7,8 @@ from pathlib import Path
 
 p = inflect.engine()
 
-# Load wordbank and templates from files
-BASE_DIR = Path(__file__).parent
+# Correct base dir to point to project root
+BASE_DIR = Path(__file__).resolve().parent
 
 def load_wordbank(filename="wordbank.json") -> dict:
     path = BASE_DIR / filename
@@ -22,25 +22,20 @@ def load_templates(filename="English-templates.json") -> List[str]:
     return data.get("TEMPLATES", [])
 
 def generate_template_sentence(template: str, wordbank: dict, input_letters: List[str]) -> str:
-    # Find all placeholders like [noun], [verb], etc.
     placeholders = re.findall(r'([a-z_]+)', template.lower())
     
-    # For each placeholder, find a replacement word from wordbank filtered by input_letters
     for ph in placeholders:
         plural = False
         key = ph
 
-        # Detect plural placeholder e.g. noun_plural or trailing 's'
         if key.endswith('_plural'):
             plural = True
-            key = key[:-7]  # remove '_plural'
+            key = key[:-7]
         elif template.lower().find(f'[{ph}]s') != -1:
             plural = True
 
-        # JSON keys are capitalized plurals like 'Nouns', 'Verbs'
         json_key = key.capitalize() + 's' if key in ['noun', 'verb', 'adjective', 'adverb'] else key
 
-        # Collect all words starting with any of input_letters in that category
         word_list = []
         for letter in input_letters:
             letter = letter.upper()
@@ -53,9 +48,7 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
         else:
             replacement = f"<{ph}>"
 
-        # Replace placeholders with or without trailing 's'
         if plural and template.lower().find(f'[{ph}]s') != -1:
-            # Replace [noun]s or similar with plural replacement
             template = re.sub(rf'{ph}s', replacement, template, 1)
         else:
             template = template.replace(f'[{ph}]', replacement, 1)
@@ -73,7 +66,6 @@ if __name__ == "__main__":
     wordbank = load_wordbank()
     templates = load_templates()
 
-    # Pick a random template and generate sentence
     chosen_template = random.choice(templates)
     sentence = generate_template_sentence(chosen_template, wordbank, input_letters)
 
