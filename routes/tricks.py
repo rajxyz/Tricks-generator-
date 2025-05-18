@@ -6,6 +6,11 @@ from collections import defaultdict
 from pathlib import Path
 from enum import Enum
 
+from generate_template_sentence import (
+    generate_template_sentence,
+    load_templates as load_template_sentences
+)
+
 router = APIRouter()
 logger = logging.getLogger(__name__)
 entity_index = defaultdict(int)
@@ -19,24 +24,30 @@ default_lines = [
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
 
+
 class TrickType(str, Enum):
     actors = "actors"
     cricketers = "cricketers"
     animals = "animals"
     abbreviations = "abbreviations"
+    simple_sentence = "simple_sentence"      # New trick type added
+
 
 TEMPLATE_FILE_MAP = {
     "actors": "Actor-templates.json",
     "cricketers": "Cricketers-templates.json",
-    "animals": "Animals-templates.json"
+    "animals": "Animals-templates.json",
+    "simple_sentence": "English-templates.json"      # Template file for new trick
 }
 
 DATA_FILE_MAP = {
     "actors": "bollywood-actor.json",
     "cricketers": "cricketers.json",
     "animals": "animals.json",
-    "abbreviations": "data.json"
+    "abbreviations": "data.json",
+    "simple_sentence": "wordbank.json"                # Wordbank file for new trick
 }
+
 
 def load_templates(trick_type="actors"):
     filename = TEMPLATE_FILE_MAP.get(trick_type.lower())
@@ -53,6 +64,7 @@ def load_templates(trick_type="actors"):
 
     logger.info(f"Loaded templates for '{trick_type}' with {len(templates)} entries.")
     return {key.lower(): val for key, val in templates.items()}
+
 
 def load_entities(trick_type, letter=None):
     filename = DATA_FILE_MAP.get(trick_type.lower())
@@ -73,6 +85,21 @@ def load_entities(trick_type, letter=None):
     logger.info(f"Loaded {len(entities)} {trick_type} for letter '{letter}'.")
     return entities
 
+
+def load_wordbank_file():
+    file_path = BASE_DIR / DATA_FILE_MAP["simple_sentence"]
+    if not file_path.exists():
+        logger.warning(f"Wordbank file not found: {file_path}")
+        return {}
+
+    with file_path.open("r", encoding="utf-8") as f:
+        wordbank = json.load(f)
+    return wordbank
+
+
+wordbank_cache = None
+
+
 def get_next_entities(trick_type, letters):
     selected = []
     for letter in letters:
@@ -82,6 +109,7 @@ def get_next_entities(trick_type, letters):
             selected.append(entities[index])
             entity_index[(trick_type, letter)] += 1
     return selected
+
 
 def generate_trick_with_topic(topic, entities, templates):
     if not entities:
@@ -95,6 +123,7 @@ def generate_trick_with_topic(topic, entities, templates):
     line = random.choice(templates.get(last_entity, default_lines))
     return f"<b>{topic}</b>, {', '.join(names)}: {line}"
 
+
 def generate_trick_sentence(entities, templates):
     if not entities:
         return "No names found for the entered letters."
@@ -107,11 +136,14 @@ def generate_trick_sentence(entities, templates):
     line = random.choice(templates.get(last_name, default_lines))
     return f"{', '.join(names)}: {line}"
 
+
 @router.get("/api/tricks")
 def get_tricks(
     type: TrickType = Query(TrickType.actors, description="Type of trick"),
     letters: str = Query(None, description="Comma-separated letters or words")
 ):
+    global wordbank_cache
+
     logger.info(f"Request received: type={type}, letters={letters}")
 
     input_parts = [w.strip() for w in letters.split(",")] if letters else []
@@ -147,5 +179,22 @@ def get_tricks(
         return {
             "trick": f"{result['abbr']} — {result['full_form']}: {result['description']}"
         }
+
+    elif type == TrickType.simple_sentence:
+
+        if wordbank_cache is None:
+            wordbank_cache = load_wordbank_file()
+
+        templates = load_template_sentences(type.value)
+
+        template = random.choice(templates.get("templates", templates.get("TEMPLATES", [])))
+
+        sentence = generate_template_sentence(
+            template,
+            wordbank_cache,
+            [l.upper() for l in input_parts]
+        )
+
+        return {"trick": sentence}
 
     return {"trick": "Invalid type selected."}
