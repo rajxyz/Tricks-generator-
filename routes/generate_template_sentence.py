@@ -7,6 +7,7 @@ from pathlib import Path
 
 p = inflect.engine()
 
+# Set base directory
 BASE_DIR = Path(__file__).resolve().parent
 
 def load_wordbank(filename="wordbank.json") -> dict:
@@ -25,6 +26,7 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
     print(f"Original template: {template}")
     print(f"Input letters: {input_letters}")
 
+    # Correct regex to detect proper placeholders like [noun]
     placeholders = re.findall(r'([a-zA-Z_]+)', template)
     print(f"Detected placeholders: {placeholders}")
 
@@ -56,8 +58,8 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
                 word = p.plural(word)
             print(f"Chosen word: {word}")
         else:
-            word = f"<{ph}>"
-            print(f"No match found, using placeholder: {word}")
+            word = f"[{ph}]"
+            print(f"No match found, keeping placeholder: {word}")
 
         template = template.replace(f"[{ph}]", word, 1)
 
@@ -67,7 +69,7 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 2:
-        print("Usage: python generate_template_sentence.py a b c ...")
+        print("Usage: python generate_template_sentence.py l t m")
         sys.exit(1)
 
     input_letters = sys.argv[1:]
