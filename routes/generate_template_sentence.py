@@ -26,10 +26,7 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
     print(f"Original template: {template}")
     print(f"Input letters: {input_letters}")
 
-    # Sanitize template to replace malformed brackets
-    template = template.replace("", "[")
-    template = template.replace("", "]")
-
+    # Detect placeholders of form [placeholder]
     placeholders = re.findall(r'([a-zA-Z_]+)', template)
     print(f"Detected placeholders: {placeholders}")
 
@@ -72,7 +69,7 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 2:
-        print("Usage: python generate_template_sentence.py l t m")
+        print("Usage: python generate_template_sentence.py <letters>")
         sys.exit(1)
 
     input_letters = sys.argv[1:]
