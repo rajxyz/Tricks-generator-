@@ -26,13 +26,13 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
     print(f"Original template: {template}")
     print(f"Input letters: {input_letters}")
 
-    # Corrected regex to match [placeholder] format
-    placeholders = re.findall(r'([a-z_]+)', template.lower())
+    # Fix: match placeholders with original case
+    placeholders = re.findall(r'([a-zA-Z_]+)', template)
     print(f"Detected placeholders: {placeholders}")
 
     for ph in placeholders:
         plural = False
-        base_ph = ph
+        base_ph = ph.lower()
 
         if base_ph.endswith('s') and base_ph[:-1] in ['noun', 'verb', 'adjective', 'adverb']:
             plural = True
@@ -61,8 +61,7 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
             word = f"<{ph}>"
             print(f"No match found, using placeholder: {word}")
 
-        # Use regex to safely replace one placeholder occurrence at a time
-        template = re.sub(rf'{ph}', word, template, count=1)
+        template = template.replace(f"[{ph}]", word, 1)
 
     print(f"Final sentence: {template}")
     return template
