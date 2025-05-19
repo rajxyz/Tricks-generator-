@@ -1,14 +1,28 @@
+import json
 import random
 import inflect
+from pathlib import Path
 
 p = inflect.engine()
+BASE_DIR = Path(__file__).resolve().parent
+
+def load_wordbank(filename="wordbank.json") -> dict:
+    path = BASE_DIR / filename
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def load_templates(filename="English-templates.json") -> list:
+    path = BASE_DIR / filename
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data.get("TEMPLATES", [])
 
 def generate_template_sentence(template: str, wordbank: dict, input_letters: list) -> str:
     print("\n--- DEBUGGING TEMPLATE GENERATION ---")
     print(f"Original template: {template}")
     print(f"Input letters: {input_letters}")
 
-    # Detect placeholders manually by scanning the template for '[...]'
+    # Detect placeholders manually
     placeholders = []
     start = 0
     while True:
@@ -28,12 +42,10 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: lis
         plural = False
         base_ph = ph
 
-        # Check if plural (ends with s and base is valid placeholder)
         if base_ph.endswith('s') and base_ph[:-1] in ['noun', 'verb', 'adjective', 'adverb']:
             plural = True
             base_ph = base_ph[:-1]
 
-        # Capitalize key as in your wordbank JSON keys
         json_key = base_ph.capitalize() + 's' if base_ph in ['noun', 'verb', 'adjective', 'adverb'] else base_ph
 
         print(f"\nHandling placeholder: {ph}")
@@ -57,7 +69,6 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: lis
             word = f"<{ph}>"
             print(f"No match found, using placeholder: {word}")
 
-        # Replace only the first occurrence of this placeholder in template
         template = template.replace(f"[{ph}]", word, 1)
 
     print(f"Final sentence: {template}")
