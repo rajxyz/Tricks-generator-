@@ -6,8 +6,11 @@ from collections import defaultdict
 from pathlib import Path
 from enum import Enum
 
-from .generate_template_sentence import generate_template_sentence,
-load_templates, load_wordbank
+from .generate_template_sentence import (
+    generate_template_sentence,
+    load_templates as load_template_sentences,
+    load_wordbank
+)
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -27,13 +30,13 @@ class TrickType(str, Enum):
     cricketers = "cricketers"
     animals = "animals"
     abbreviations = "abbreviations"
-    simple_sentence = "simple_sentence"  # New trick type added
+    simple_sentence = "simple_sentence"
 
 TEMPLATE_FILE_MAP = {
     "actors": "Actor-templates.json",
     "cricketers": "Cricketers-templates.json",
     "animals": "Animals-templates.json",
-    "simple_sentence": "English-templates.json"  # Template file for new trick
+    "simple_sentence": "English-templates.json"
 }
 
 DATA_FILE_MAP = {
@@ -41,24 +44,8 @@ DATA_FILE_MAP = {
     "cricketers": "cricketers.json",
     "animals": "animals.json",
     "abbreviations": "data.json",
-    "simple_sentence": "wordbank.json"  # Wordbank file for new trick
+    "simple_sentence": "wordbank.json"
 }
-
-def load_templates(trick_type="actors"):
-    filename = TEMPLATE_FILE_MAP.get(trick_type.lower())
-    if not filename:
-        return {}
-
-    templates_path = BASE_DIR / filename
-    if not templates_path.exists():
-        logger.warning(f"Template file not found: {templates_path}")
-        return {}
-
-    with templates_path.open("r", encoding="utf-8") as f:
-        templates = json.load(f)
-
-    logger.info(f"Loaded templates for '{trick_type}' with {len(templates)} entries.")
-    return {key.lower(): val for key, val in templates.items()}
 
 def load_entities(trick_type, letter=None):
     filename = DATA_FILE_MAP.get(trick_type.lower())
@@ -141,7 +128,7 @@ def get_tricks(
         return {"trick": "Invalid input."}
 
     if type in [TrickType.actors, TrickType.cricketers, TrickType.animals]:
-        templates = load_templates(type.value)
+        templates = load_template_sentences(type.value)
 
         if all(len(w) == 1 for w in input_parts):
             entities = get_next_entities(type.value, input_parts)
