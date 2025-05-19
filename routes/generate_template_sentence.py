@@ -26,13 +26,16 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
     print(f"Original template: {template}")
     print(f"Input letters: {input_letters}")
 
-    # Fix: match placeholders with original case
+    # Sanitize template to replace malformed brackets
+    template = template.replace("", "[")
+    template = template.replace("", "]")
+
     placeholders = re.findall(r'([a-zA-Z_]+)', template)
     print(f"Detected placeholders: {placeholders}")
 
     for ph in placeholders:
         plural = False
-        base_ph = ph.lower()
+        base_ph = ph
 
         if base_ph.endswith('s') and base_ph[:-1] in ['noun', 'verb', 'adjective', 'adverb']:
             plural = True
