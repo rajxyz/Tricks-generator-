@@ -26,6 +26,7 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
     print(f"Original template: {template}")
     print(f"Input letters: {input_letters}")
 
+    # Corrected regex to match [placeholder] format
     placeholders = re.findall(r'([a-z_]+)', template.lower())
     print(f"Detected placeholders: {placeholders}")
 
@@ -60,7 +61,8 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: Lis
             word = f"<{ph}>"
             print(f"No match found, using placeholder: {word}")
 
-        template = template.replace(f"[{ph}]", word, 1)
+        # Use regex to safely replace one placeholder occurrence at a time
+        template = re.sub(rf'{ph}', word, template, count=1)
 
     print(f"Final sentence: {template}")
     return template
