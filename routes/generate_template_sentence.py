@@ -22,39 +22,37 @@ def load_templates(filename="English-templates.json") -> List[str]:
     return data.get("TEMPLATES", [])
 
 def generate_template_sentence(template: str, wordbank: dict, input_letters: List[str]) -> str:
-    placeholders = re.findall(r'([a-z_]+)', template.lower())
-    
+    placeholders = re.findall(r'(\w+)', template)
+
     for ph in placeholders:
         plural = False
-        key = ph
+        base_ph = ph
 
-        if key.endswith('_plural'):
+        # Handle plural markers like "nouns", "verbs"
+        if base_ph.endswith('s') and base_ph[:-1] in ['noun', 'verb', 'adjective', 'adverb']:
             plural = True
-            key = key[:-7]
-        elif template.lower().find(f'[{ph}]s') != -1:
-            plural = True
+            base_ph = base_ph[:-1]
 
-        json_key = key.capitalize() + 's' if key in ['noun', 'verb', 'adjective', 'adverb'] else key
+        # Determine the wordbank key
+        json_key = base_ph.capitalize() + 's' if base_ph in ['noun', 'verb', 'adjective', 'adverb'] else base_ph
 
+        # Collect word list based on input letters
         word_list = []
         for letter in input_letters:
-            letter = letter.upper()
-            word_list.extend(wordbank.get(json_key, {}).get(letter, []))
+            word_list.extend(wordbank.get(json_key, {}).get(letter.upper(), []))
 
+        # Fallback placeholder if no word found
         if word_list:
-            replacement = random.choice(word_list)
+            word = random.choice(word_list)
             if plural:
-                replacement = p.plural(replacement)
+                word = p.plural(word)
         else:
-            replacement = f"<{ph}>"
+            word = f"<{ph}>"
 
-        if plural and template.lower().find(f'[{ph}]s') != -1:
-            template = re.sub(rf'{ph}s', replacement, template, 1)
-        else:
-            template = template.replace(f'[{ph}]', replacement, 1)
+        # Replace one occurrence at a time
+        template = template.replace(f"[{ph}]", word, 1)
 
     return template
-
 
 if __name__ == "__main__":
     import sys
