@@ -1,8 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from wikipedia import fetch_wikipedia_summary
+from .utils import fetch_wikipedia_summary
 from cache import save_to_cache
-
 router = APIRouter()
 
 class AbbrRequest(BaseModel):
