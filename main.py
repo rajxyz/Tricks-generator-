@@ -1,57 +1,32 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
-from typing import List
-import requests
-import json
-from pathlib import Path
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import sys
+import os
 
-router = APIRouter()
+# Add current directory to sys.path to ensure routes are found
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-CACHE_FILE = Path(__file__).parent.parent / "cache" / "abbreviations_cache.json"
+# Import routers from routes package
+from routes.tricks import router as tricks_router
+from routes.search import router as search_router
+from routes.wiki import router as wiki_router  # NEW: For abbreviation fetch
 
-class AbbrRequest(BaseModel):
-    terms: List[str]
+app = FastAPI(title="Trick Generator API")
 
-# Load cache from file
-def load_cache():
-    if CACHE_FILE.exists():
-        with open(CACHE_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {}
+# Configure CORS to allow all origins (adjust for production)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace "*" with your allowed domains in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# Save cache to file
-def save_cache(cache_data):
-    CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(CACHE_FILE, "w", encoding="utf-8") as f:
-        json.dump(cache_data, f, ensure_ascii=False, indent=2)
+# Register routers
+app.include_router(tricks_router)
+app.include_router(search_router)
+app.include_router(wiki_router)  # NEW
 
-def fetch_wikipedia_summary(term: str):
-    url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{term}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        return {
-            "abbr": term.upper(),
-            "full_form": data.get("title", ""),
-            "description": data.get("extract", "")
-        }
-    else:
-        return None
-
-@router.post("/fetch-abbreviations/")
-def fetch_abbreviations(request: AbbrRequest):
-    cache = load_cache()
-    results = []
-
-    for term in request.terms:
-        term_upper = term.upper()
-        if term_upper in cache:
-            results.append(cache[term_upper])
-        else:
-            data = fetch_wikipedia_summary(term)
-            if data:
-                cache[term_upper] = data
-                results.append(data)
-
-    save_cache(cache)
-    return {"fetched": results}
+@app.get("/")
+def home():
+    return {"message": "Welcome to the Trick Generator API"}
