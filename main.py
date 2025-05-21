@@ -9,6 +9,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 # Import routers from routes package
 from routes.tricks import router as tricks_router
 from routes.search import router as search_router
+from routes.wiki import router as wiki_router  # NEW
 
 app = FastAPI(title="Trick Generator API")
 
@@ -24,6 +25,7 @@ app.add_middleware(
 # Register routers
 app.include_router(tricks_router)
 app.include_router(search_router)
+app.include_router(wiki_router)  # NEW
 
 @app.get("/")
 def home():
