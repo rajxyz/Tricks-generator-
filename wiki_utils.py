@@ -1,34 +1,35 @@
-import requests
+import wikipedia
+import re
 
-def sanitize_abbreviation(term: str) -> str:
-    # Remove commas and whitespace, then capitalize properly
-    cleaned = term.replace(",", "").strip()
-    return cleaned.capitalize() if len(cleaned) > 1 else cleaned.upper()
+def fetch_abbreviation_details(term: str):
+    # Normalize input (e.g. "w,h,o" -> "WHO")
+    normalized = term.replace(",", "").replace(".", "").replace(" ", "").upper()
 
-def fetch_abbreviation_details(abbreviation: str):
-    term = sanitize_abbreviation(abbreviation)
     try:
-        response = requests.get(
-            f"https://en.wikipedia.org/api/rest_v1/page/summary/{term}"
-        )
-        data = response.json()
-        if response.status_code == 200 and "title" in data and "extract" in data:
-            # Extract only the main definition (1st sentence)
-            main_fact = data["extract"].split(".")[0] + "."
+        # Search Wikipedia using normalized term
+        search_results = wikipedia.search(normalized)
+        if not search_results:
             return {
-                "abbr": abbreviation.upper(),
-                "full_form": data["title"],
-                "description": main_fact
-            }
-        else:
-            return {
-                "abbr": abbreviation.upper(),
+                "abbr": normalized,
                 "full_form": "Not found",
-                "description": "No definition found."
+                "description": "No summary found for this abbreviation."
             }
+
+        # Use the first result as the full form
+        full_form = search_results[0]
+
+        # Get a short summary (first sentence only)
+        summary = wikipedia.summary(full_form, sentences=1)
+
+        return {
+            "abbr": normalized,
+            "full_form": full_form,
+            "description": summary
+        }
+
     except Exception as e:
         return {
-            "abbr": abbreviation.upper(),
+            "abbr": normalized,
             "full_form": "Error",
             "description": str(e)
         }
