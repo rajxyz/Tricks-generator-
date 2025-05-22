@@ -1,6 +1,7 @@
 import json
 import random
 import inflect
+import re
 from pathlib import Path
 
 p = inflect.engine()
@@ -22,21 +23,13 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: lis
     print(f"Original template: {template}")
     print(f"Input letters: {input_letters}")
 
-    # Detect placeholders manually
-    placeholders = []
-    start = 0
-    while True:
-        start = template.find('[', start)
-        if start == -1:
-            break
-        end = template.find(']', start)
-        if end == -1:
-            break
-        ph = template[start+1:end]
-        placeholders.append(ph)
-        start = end + 1
-
+    # Match placeholders like [noun], {noun}, [verbs], etc.
+    placeholders = re.findall(r"[{]([a-zA-Z_]+)[}]", template)
     print(f"Detected placeholders: {placeholders}")
+
+    if not placeholders:
+        print("No placeholders found. Returning template unchanged.")
+        return template
 
     for ph in placeholders:
         plural = False
@@ -47,7 +40,6 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: lis
             base_ph = base_ph[:-1]
 
         json_key = base_ph.capitalize() + 's' if base_ph in ['noun', 'verb', 'adjective', 'adverb'] else base_ph
-
         print(f"\nHandling placeholder: {ph}")
         print(f"Base placeholder: {base_ph}")
         print(f"Plural: {plural}")
@@ -69,7 +61,8 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: lis
             word = f"<{ph}>"
             print(f"No match found, using placeholder: {word}")
 
-        template = template.replace(f"[{ph}]", word, 1)
+        # Replace only one occurrence per placeholder
+        template = re.sub(rf"[{]{ph}[}]", word, template, count=1)
 
     print(f"Final sentence: {template}")
     return template
