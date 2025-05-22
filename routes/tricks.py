@@ -132,7 +132,8 @@ def get_tricks(
 
     if type in [TrickType.actors, TrickType.cricketers, TrickType.animals, TrickType.professions]:
         template_file = TEMPLATE_FILE_MAP.get(type.value)
-        templates = load_template_sentences(template_file)
+        template_path = BASE_DIR / template_file
+        templates = load_template_sentences(template_path)
 
         if all(len(w) == 1 for w in input_parts):
             entities = get_next_entities(type.value, input_parts)
@@ -164,7 +165,8 @@ def get_tricks(
             wordbank_cache = load_wordbank_file()
 
         template_file = TEMPLATE_FILE_MAP.get(type.value)
-        templates = load_template_sentences(template_file)
+        template_path = BASE_DIR / template_file
+        templates = load_template_sentences(template_path)
 
         if not templates:
             return {"trick": "No templates found for simple_sentence."}
