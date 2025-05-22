@@ -1,21 +1,17 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 from typing import List
-import json
-from pathlib import Path
-from wiki_utils import fetch_wikipedia_summary  # Corrected import
+from wiki_utils import fetch_abbreviation_details  # Use updated function
 
 router = APIRouter()
 
-
 class WikiRequest(BaseModel):
-    titles: List[str]
+    terms: List[str]
 
-
-@router.post("/wiki-summary")
-async def get_wiki_summary(request: WikiRequest):
-    summaries = {}
-    for title in request.titles:
-        summary = fetch_wikipedia_summary(title)
-        summaries[title] = summary
-    return summaries
+@router.post("/wiki")
+async def get_abbreviation_info(request: WikiRequest):
+    results = {}
+    for term in request.terms:
+        details = fetch_abbreviation_details(term)
+        results[term] = details
+    return results
