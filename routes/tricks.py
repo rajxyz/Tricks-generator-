@@ -31,12 +31,14 @@ class TrickType(str, Enum):
     animals = "animals"
     abbreviations = "abbreviations"
     simple_sentence = "simple_sentence"
+    professions = "professions"  # NEW CATEGORY
 
 TEMPLATE_FILE_MAP = {
     "actors": "Actor-templates.json",
     "cricketers": "Cricketers-templates.json",
     "animals": "Animals-templates.json",
-    "simple_sentence": "English-templates.json"
+    "simple_sentence": "English-templates.json",
+    "professions": "Profession-templates.json"  # NEW
 }
 
 DATA_FILE_MAP = {
@@ -44,7 +46,8 @@ DATA_FILE_MAP = {
     "cricketers": "cricketers.json",
     "animals": "animals.json",
     "abbreviations": "data.json",
-    "simple_sentence": "wordbank.json"
+    "simple_sentence": "wordbank.json",
+    "professions": "professions.json"  # NEW
 }
 
 def load_entities(trick_type, letter=None):
@@ -127,8 +130,9 @@ def get_tricks(
     if not input_parts:
         return {"trick": "Invalid input."}
 
-    if type in [TrickType.actors, TrickType.cricketers, TrickType.animals]:
-        templates = load_template_sentences(type.value)
+    if type in [TrickType.actors, TrickType.cricketers, TrickType.animals, TrickType.professions]:
+        template_file = TEMPLATE_FILE_MAP.get(type.value)
+        templates = load_template_sentences(template_file)
 
         if all(len(w) == 1 for w in input_parts):
             entities = get_next_entities(type.value, input_parts)
