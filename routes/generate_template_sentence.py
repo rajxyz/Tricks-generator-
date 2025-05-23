@@ -17,13 +17,10 @@ def load_templates(filename="English-templates.json") -> list:
         data = json.load(f)
     return data.get("TEMPLATES", [])
 
-def generate_template_sentence(template: str, wordbank: dict, input_letters: list) -> str:
-    print("\n--- DEBUGGING TEMPLATE GENERATION ---")
-    print(f"Original template: {template}")
-    print(f"Input letters: {input_letters}")
-
-    # Detect placeholders manually
+def extract_placeholders(template: str) -> list:
     placeholders = []
+
+    # Detect [placeholder]
     start = 0
     while True:
         start = template.find('[', start)
@@ -32,10 +29,29 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: lis
         end = template.find(']', start)
         if end == -1:
             break
-        ph = template[start + 1:end]
-        placeholders.append(ph)
+        placeholders.append(template[start+1:end])
         start = end + 1
 
+    # Detect {placeholder}
+    start = 0
+    while True:
+        start = template.find('{', start)
+        if start == -1:
+            break
+        end = template.find('}', start)
+        if end == -1:
+            break
+        placeholders.append(template[start+1:end])
+        start = end + 1
+
+    return placeholders
+
+def generate_template_sentence(template: str, wordbank: dict, input_letters: list) -> str:
+    print("\n--- DEBUGGING TEMPLATE GENERATION ---")
+    print(f"Original template: {template}")
+    print(f"Input letters: {input_letters}")
+
+    placeholders = extract_placeholders(template)
     print(f"Detected placeholders: {placeholders}")
 
     for ph in placeholders:
@@ -73,7 +89,9 @@ def generate_template_sentence(template: str, wordbank: dict, input_letters: lis
             word = f"<{ph}>"
             print(f"No match found, using placeholder: {word}")
 
+        # Replace both formats
         template = template.replace(f"[{ph}]", word, 1)
+        template = template.replace(f"{{{ph}}}", word, 1)
 
     print(f"Final sentence: {template}")
     return template
