@@ -12,6 +12,8 @@ from .generate_template_sentence import (
     load_wordbank
 )
 
+from .generate_fixed_lines_sentence import generate_fixed_lines_sentence
+
 router = APIRouter()
 logger = logging.getLogger(__name__)
 entity_index = defaultdict(int)
@@ -176,3 +178,24 @@ def get_tricks(
         return {"trick": f"{result['abbr']} — {result['full_form']}: {result['description']}"}
 
     return {"trick": "Invalid type selected."}
+
+# Additional endpoint to support basic generation
+@router.get("/api/trick-basic")
+def get_basic_trick(type: str, letter: str = "", name: str = ""):
+    letters = letter.split(",")
+
+    if type == "simple_sentence":
+        wordbank = load_wordbank_file()
+        templates = load_template_sentences(TEMPLATE_FILE_MAP["simple_sentence"])
+        template = random.choice(templates)
+        return {"sentence": generate_template_sentence(template, wordbank, letters)}
+
+    elif type in ["actors", "cricketers", "animals"]:
+        path = BASE_DIR / f"{type}.json"
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return {"sentence": generate_fixed_lines_sentence(name, data)}
+
+    else:
+        return {"error": "Invalid type or not implemented"}
+        
