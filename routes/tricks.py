@@ -116,6 +116,106 @@ def handle_entity_based_trick(type, input_parts):
         return generate_trick_with_topic(topic, entities, templates)
 
 # Generate sentence from templates for entity types
-def generate_trick_sentence(entities, templates):
+def generate_trick_sentence(entities, templates) 
     if not entities:
-        logger
+        logger.warning("No entities provided to generate_trick_sentence.")
+        return "No names found for the entered letters."
+
+    names = [e.get("name", "") for e in entities if e.get("name")]
+    if not names:
+        logger.warning("Entities loaded but names are missing or malformed.")
+        return "Entity names missing or malformed."
+
+    last_name = names[-1].lower()
+    line = random.choice(templates.get(last_name, default_lines))
+    logger.debug(f"Selected line: {line} for last_name: {last_name}")
+    return f"{', '.join(names)}: {line}"
+
+# Generate with topic
+def generate_trick_with_topic(topic, entities, templates):
+    if not entities:
+        logger.warning(f"No entities found for topic-based trick with topic '{topic}'")
+        return f"{topic}: {random.choice(default_lines)}"
+
+    names = [e.get("name", "") for e in entities if e.get("name")]
+    if not names:
+        logger.warning(f"Entity names missing or malformed for topic '{topic}'")
+        return f"{topic}: Entity names missing or malformed."
+
+    last_entity = names[-1].lower()
+    line = random.choice(templates.get(last_entity, default_lines))
+    logger.debug(f"Selected line for topic '{topic}': {line}")
+    return f"<b>{topic}</b>, {', '.join(names)}: {line}"
+
+# Main route
+@router.get("/api/tricks")
+def get_tricks(
+    type: TrickType = Query(TrickType.actors, description="Type of trick"),
+    letters: str = Query(None, description="Comma-separated letters or words")
+):
+    global wordbank_cache
+
+    input_parts = [w.strip() for w in letters.split(",")] if letters else []
+    input_parts = [w for w in input_parts if w]
+
+    logger.debug(f"Received type: {type}, input_parts: {input_parts}")
+
+    if not input_parts:
+        logger.warning("Invalid or empty input received.")
+        return {"trick": "Invalid input."}
+
+    if type in [TrickType.actors, TrickType.cricketers, TrickType.animals, TrickType.professions]:
+        trick = handle_entity_based_trick(type.value, input_parts)
+        return {"trick": trick}
+
+    elif type == TrickType.simple_sentence:
+        if wordbank_cache is None:
+            wordbank_cache = load_wordbank_file()
+            logger.debug("Wordbank loaded into cache.")
+        template_file = TEMPLATE_FILE_MAP.get(type.value)
+        templates = load_template_sentences(template_file)
+
+        if not templates:
+            logger.warning("No templates found for simple_sentence.")
+            return {"trick": "No templates found for simple_sentence."}
+
+        template = random.choice(templates)
+        logger.debug(f"Using template: {template}")
+        sentence = generate_template_sentence(template, wordbank_cache, [l.upper() for l in input_parts])
+        return {"trick": sentence}
+
+    elif type == TrickType.abbreviations:
+        entities = load_entities("abbreviations")
+        query = ''.join(input_parts).lower()
+        matched = [e for e in entities if e.get("abbr", "").lower() == query]
+        if not matched:
+            logger.info(f"No abbreviation matched for query: {query}")
+            return {"trick": f"No abbreviation found for '{query.upper()}'."}
+        result = matched[0]
+        return {"trick": f"{result['abbr']} — {result['full_form']}: {result['description']}"}
+
+    return {"trick": "Invalid type selected."}
+
+# Additional endpoint to support basic generation
+@router.get("/api/trick-basic")
+def get_basic_trick(type: str, letter: str = "", name: str = ""):
+    letters = letter.split(",")
+
+    if type == "simple_sentence":
+        wordbank = load_wordbank_file()
+        templates = load_template_sentences(TEMPLATE_FILE_MAP["simple_sentence"])
+        template = random.choice(templates)
+        return {"sentence": generate_template_sentence(template, wordbank, letters)}
+
+    elif type in ["actors", "cricketers", "animals"]:
+        path = BASE_DIR / f"{type}.json"
+        if not path.exists():
+            logger.warning(f"Data file missing for type: {type} at {path}")
+            return {"error": f"Data file for {type} not found."}
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return {"sentence": generate_fixed_lines_sentence(name, data)}
+
+    else:
+        logger.warning(f"Invalid or unhandled type in basic trick endpoint: {type}")
+        return {"error": "Invalid type or not implemented"}
