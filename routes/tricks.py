@@ -20,7 +20,6 @@ entity_index = defaultdict(int)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Default lines if no match is found
 default_lines = [
     "Iska trick abhi update nahi hua.",
     "Agle version me iski baari aayegi.",
@@ -28,16 +27,14 @@ default_lines = [
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
 
-# Trick types
 class TrickType(str, Enum):
     actors = "actors"
     cricketers = "cricketers"
     animals = "animals"
     abbreviations = "abbreviations"
     simple_sentence = "simple_sentence"
-    professions = "professions"  # NEW CATEGORY
+    professions = "professions"
 
-# Mapping of template and data files
 TEMPLATE_FILE_MAP = {
     "actors": "Actor-templates.json",
     "cricketers": "Cricketers-templates.json",
@@ -55,10 +52,8 @@ DATA_FILE_MAP = {
     "professions": "professions.json"
 }
 
-# Wordbank cache for sentence generation
 wordbank_cache = None
 
-# Load entity data
 def load_entities(trick_type, letter=None):
     filename = DATA_FILE_MAP.get(trick_type.lower())
     if not filename:
@@ -79,7 +74,6 @@ def load_entities(trick_type, letter=None):
     logger.debug(f"Loaded {len(entities)} entities for type '{trick_type}' with letter '{letter}'")
     return entities
 
-# Load wordbank for simple_sentence
 def load_wordbank_file():
     file_path = BASE_DIR / DATA_FILE_MAP["simple_sentence"]
     if not file_path.exists():
@@ -88,7 +82,6 @@ def load_wordbank_file():
     with file_path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
-# Get next entity based on letter
 def get_next_entities(trick_type, letters):
     selected = []
     for letter in letters:
@@ -101,22 +94,20 @@ def get_next_entities(trick_type, letters):
             logger.warning(f"No entities found for type '{trick_type}' and letter '{letter}'")
     return selected
 
-# Logic for actor/cricketer/animal/profession style tricks
 def handle_entity_based_trick(type, input_parts):
     template_file = TEMPLATE_FILE_MAP.get(type)
     templates = load_template_sentences(template_file)
 
     if all(len(w) == 1 for w in input_parts):
         entities = get_next_entities(type, input_parts)
-        return generate_trick_sentence(entities, templates)
+        return generate_trick_sentence(entities, templates, type)
     else:
         topic = input_parts[0]
         rest_letters = [w[0].upper() for w in input_parts[1:] if w]
         entities = get_next_entities(type, rest_letters)
-        return generate_trick_with_topic(topic, entities, templates)
+        return generate_trick_with_topic(topic, entities, templates, type)
 
-# Generate sentence from templates for entity types
-def generate_trick_sentence(entities, templates):
+def generate_trick_sentence(entities, templates, trick_type):
     if not entities:
         logger.warning("No entities provided to generate_trick_sentence.")
         return "No names found for the entered letters."
@@ -126,13 +117,20 @@ def generate_trick_sentence(entities, templates):
         logger.warning("Entities loaded but names are missing or malformed.")
         return "Entity names missing or malformed."
 
-    last_name = names[-1].lower()
-    line = random.choice(templates.get(last_name, default_lines))
-    logger.debug(f"Selected line: {line} for last_name: {last_name}")
+    selected_name = names[-1]
+    key_map = {k.lower(): v for k, v in templates.items()}
+    matched_line = key_map.get(selected_name.lower())
+
+    if matched_line:
+        logger.debug(f"[MATCH] Type: {trick_type} | Name: {selected_name}")
+        line = random.choice(matched_line)
+    else:
+        logger.debug(f"[FALLBACK] Type: {trick_type} | Name: {selected_name} — using default.")
+        line = random.choice(default_lines)
+
     return f"{', '.join(names)}: {line}"
 
-# Generate with topic
-def generate_trick_with_topic(topic, entities, templates):
+def generate_trick_with_topic(topic, entities, templates, trick_type):
     if not entities:
         logger.warning(f"No entities found for topic-based trick with topic '{topic}'")
         return f"{topic}: {random.choice(default_lines)}"
@@ -142,12 +140,19 @@ def generate_trick_with_topic(topic, entities, templates):
         logger.warning(f"Entity names missing or malformed for topic '{topic}'")
         return f"{topic}: Entity names missing or malformed."
 
-    last_entity = names[-1].lower()
-    line = random.choice(templates.get(last_entity, default_lines))
-    logger.debug(f"Selected line for topic '{topic}': {line}")
+    selected_name = names[-1]
+    key_map = {k.lower(): v for k, v in templates.items()}
+    matched_line = key_map.get(selected_name.lower())
+
+    if matched_line:
+        logger.debug(f"[MATCH] Topic: {topic} | Type: {trick_type} | Name: {selected_name}")
+        line = random.choice(matched_line)
+    else:
+        logger.debug(f"[FALLBACK] Topic: {topic} | Type: {trick_type} | Name: {selected_name} — using default.")
+        line = random.choice(default_lines)
+
     return f"<b>{topic}</b>, {', '.join(names)}: {line}"
 
-# Main route
 @router.get("/api/tricks")
 def get_tricks(
     type: TrickType = Query(TrickType.actors, description="Type of trick"),
@@ -196,7 +201,6 @@ def get_tricks(
 
     return {"trick": "Invalid type selected."}
 
-# Additional endpoint to support basic generation
 @router.get("/api/trick-basic")
 def get_basic_trick(type: str, letter: str = "", name: str = ""):
     letters = letter.split(",")
