@@ -1,6 +1,3 @@
-fastapi  
-uvicorn  
-pydantic  
-inflect  
-requests
-wikipedia
+fastapi
+uvicorn
+pydantic
