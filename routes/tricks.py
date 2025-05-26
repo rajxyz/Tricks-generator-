@@ -116,7 +116,7 @@ def handle_entity_based_trick(type, input_parts):
         return generate_trick_with_topic(topic, entities, templates)
 
 # Generate sentence from templates for entity types
-def generate_trick_sentence(entities, templates) 
+def generate_trick_sentence(entities, templates):
     if not entities:
         logger.warning("No entities provided to generate_trick_sentence.")
         return "No names found for the entered letters."
