@@ -77,7 +77,7 @@ def generate_trick_sentence(actors, templates):
             line = random.choice(default_lines)
 
         sentences.append(f"<b>{name}</b>: {line}")
-
+    
     return " | ".join(sentences)
 
 @router.get("/api/tricks")
