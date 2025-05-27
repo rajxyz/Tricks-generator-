@@ -27,20 +27,20 @@ def load_templates(trick_type="actors"):
     templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
 
     if not os.path.exists(templates_path):
-        print(f"Warning: {filename} not found at {templates_path}")
+        print(f"[WARN] Template file not found: {templates_path}")
         return {}
 
     with open(templates_path, "r", encoding="utf-8") as f:
         templates = json.load(f)
 
-    print(f"Loaded templates for: {trick_type} -> {len(templates)} entries.")
+    print(f"[INFO] Loaded {len(templates)} templates for type: {trick_type}")
     return {key.lower(): val for key, val in templates.items()}
 
 def load_actors(letter=None):
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bollywood-actor.json")
 
     if not os.path.exists(file_path):
-        print(f"Warning: bollywood-actor.json not found at {file_path}")
+        print(f"[WARN] Actor file not found: {file_path}")
         return []
 
     with open(file_path, "r", encoding="utf-8") as f:
@@ -49,7 +49,7 @@ def load_actors(letter=None):
     if letter:
         actors = [actor for actor in actors if actor.get("name", "").upper().startswith(letter.upper())]
 
-    print(f"Loaded {len(actors)} actors for letter: {letter}")
+    print(f"[INFO] Loaded {len(actors)} actors for letter: {letter}")
     return actors
 
 def get_next_actors(letters):
@@ -60,10 +60,13 @@ def get_next_actors(letters):
             index = actor_index[letter] % len(actors)
             selected_actors.append(actors[index])
             actor_index[letter] += 1
+        else:
+            print(f"[DEBUG] No actors found for letter: {letter}")
     return selected_actors
 
 def generate_trick_sentence(actors, templates):
     if not actors:
+        print("[DEBUG] No actors found for the entered letters.")
         return "No actors found for the entered letters."
 
     sentences = []
@@ -72,8 +75,10 @@ def generate_trick_sentence(actors, templates):
         lower_name = name.lower()
 
         if lower_name in templates:
+            print(f"[INFO] Template found for actor: {name}")
             line = random.choice(templates[lower_name])
         else:
+            print(f"[INFO] No template found for actor: {name}. Using fallback line.")
             line = random.choice(default_lines)
 
         sentences.append(f"<b>{name}</b>: {line}")
@@ -85,18 +90,24 @@ def get_tricks(
     type: str = Query("actors", description="Type of trick (e.g., actors, cricketers)"),
     letters: str = Query(None, description="Comma-separated letters (e.g., A,B,C)")
 ):
-    print(f"Request received: type={type}, letters={letters}")
+    print("\n=== Incoming Request ===")
+    print(f"[REQ] Type: {type}")
+    print(f"[REQ] Letters: {letters}")
 
     templates = load_templates(type)
+    print(f"[DEBUG] Loaded template keys: {list(templates.keys())[:5]}...")
+
     letter_list = letters.upper().replace(" ", "").split(",") if letters else []
+    print(f"[DEBUG] Parsed letters: {letter_list}")
 
     if type == "actors":
         actors = get_next_actors(letter_list)
-        print(f"Selected actors: {[a['name'] for a in actors]}")
+        print(f"[DEBUG] Selected actors: {[a.get('name', 'Unknown') for a in actors]}")
 
         trick_sentence = generate_trick_sentence(actors, templates)
-        print(f"Generated trick: {trick_sentence}")
+        print(f"[RESULT] Trick Sentence: {trick_sentence}")
 
         return {"trick": trick_sentence}
 
+    print("[ERROR] Invalid trick type selected.")
     return {"message": "Invalid type selected."}
