@@ -68,8 +68,8 @@ def generate_trick_with_topic(topic, actors, templates):
 
     names = [actor.get("name", "") for actor in actors]
     joined_names = ", ".join(names)
-
     last_actor = names[-1].lower()
+
     if last_actor in templates:
         line = random.choice(templates[last_actor])
     else:
@@ -83,8 +83,8 @@ def generate_trick_sentence(actors, templates):
 
     names = [actor.get("name", "") for actor in actors]
     combined = ", ".join(names)
-
     last_actor = names[-1].lower()
+
     if last_actor in templates:
         line = random.choice(templates[last_actor])
     else:
@@ -102,19 +102,18 @@ def get_tricks(
 
     input_parts = letters.split(",") if letters else []
     input_parts = [w.strip() for w in input_parts if w.strip()]
+
     if not input_parts:
         return {"trick": "Invalid input."}
 
     if type == "actors":
-        if all(len(word.strip()) == 1 for word in input_parts):
-            # Letter-based
+        if all(len(word.strip()) == 1 for word in input_parts):  # Letter-based
             actors = get_next_actors(input_parts)
             print(f"Selected actors: {[a['name'] for a in actors]}")
             trick = generate_trick_sentence(actors, templates)
             print(f"Generated trick: {trick}")
             return {"trick": trick}
-        else:
-            # Word-based
+        else:  # Word-based
             topic = input_parts[0]
             rest_letters = [w.strip()[0].upper() for w in input_parts[1:]]
             actors = get_next_actors(rest_letters)
