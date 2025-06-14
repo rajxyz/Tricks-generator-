@@ -110,21 +110,27 @@ def get_tricks(
 ):
     print(f"Request received: type={type}, letters={letters}")
     templates = load_templates(type)
-    input_parts = letters.split(",") if letters else []
-    input_parts = [w.strip() for w in input_parts if w.strip()]
+
+    if not letters:
+        return {"trick": "Invalid input."}
+
+    # Handle both ltm, l,t,m and also names like 'Lalit,Tushar,Manoj'
+    if "," in letters:
+        input_parts = [w.strip() for w in letters.split(",") if w.strip()]
+    else:
+        input_parts = list(letters.strip()) if letters.isalpha() and letters.islower() else [letters.strip()]
 
     if not input_parts:
         return {"trick": "Invalid input."}
 
+    # If all parts are single characters, treat as initials
     if all(len(word) == 1 for word in input_parts):
-        # All are letters
         entities = get_next_entities(input_parts, type)
         trick = generate_trick_sentence(entities, templates)
         return {"trick": trick}
     else:
-        # Word-based input
         topic = input_parts[0]
-        rest_letters = [w[0].upper() for w in input_parts[1:]]
+        rest_letters = [w[0].upper() for w in input_parts[1:]] if len(input_parts) > 1 else []
         entities = get_next_entities(rest_letters, type)
         trick = generate_trick_with_topic(topic, entities, templates)
         return {"trick": trick}
