@@ -50,12 +50,24 @@ def load_entities(category="actors", letter=None):
 
 def get_next_entities(letters, category):
     selected = []
-    for letter in letters:
+    use_surname_for_last = category.lower() == "cricketers"
+
+    for idx, letter in enumerate(letters):
         entities = load_entities(category, letter[0])
-        if entities:
-            index = actor_index[letter] % len(entities)
-            selected.append(entities[index])
-            actor_index[letter] += 1
+        if not entities:
+            continue
+
+        index = actor_index[letter] % len(entities)
+        entity = entities[index]
+        actor_index[letter] += 1
+
+        is_last = idx == len(letters) - 1
+        if is_last and use_surname_for_last:
+            name = entity.get("surname") or entity.get("name")
+        else:
+            name = entity.get("name")
+
+        selected.append({"name": name})
     return selected
 
 def find_template_key(name, templates):
@@ -110,27 +122,20 @@ def get_tricks(
 ):
     print(f"Request received: type={type}, letters={letters}")
     templates = load_templates(type)
-
-    if not letters:
-        return {"trick": "Invalid input."}
-
-    # Handle both ltm, l,t,m and also names like 'Lalit,Tushar,Manoj'
-    if "," in letters:
-        input_parts = [w.strip() for w in letters.split(",") if w.strip()]
-    else:
-        input_parts = list(letters.strip()) if letters.isalpha() and letters.islower() else [letters.strip()]
+    input_parts = letters.split(",") if letters else []
+    input_parts = [w.strip() for w in input_parts if w.strip()]
 
     if not input_parts:
         return {"trick": "Invalid input."}
 
-    # If all parts are single characters, treat as initials
     if all(len(word) == 1 for word in input_parts):
         entities = get_next_entities(input_parts, type)
         trick = generate_trick_sentence(entities, templates)
         return {"trick": trick}
     else:
         topic = input_parts[0]
-        rest_letters = [w[0].upper() for w in input_parts[1:]] if len(input_parts) > 1 else []
+        rest_letters = [w[0].upper() for w in input_parts[1:]]
         entities = get_next_entities(rest_letters, type)
         trick = generate_trick_with_topic(topic, entities, templates)
         return {"trick": trick}
+    
