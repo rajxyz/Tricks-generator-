@@ -7,7 +7,6 @@ from collections import defaultdict
 router = APIRouter()
 actor_index = defaultdict(int)
 
-# Default lines in case templates aren't found
 default_lines = [
     "Iska trick abhi update nahi hua.",
     "Agle version me iski baari aayegi.",
@@ -15,14 +14,12 @@ default_lines = [
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
 
-# Template file mappings
 template_file_map = {
     "actors": "Actor-templates.json",
     "cricketers": "Cricketers-templates.json",
     "animals": "Animals-templates.json"
 }
 
-# Data file mappings
 data_file_map = {
     "actors": "bollywood-actor.json",
     "cricketers": "cricketers.json",
@@ -55,25 +52,26 @@ def get_next_entities(letters, category):
     selected = []
     for i, letter in enumerate(letters):
         entities = load_entities(category, letter[0])
-        if not entities:
-            continue
+        if entities:
+            index = actor_index[letter] % len(entities)
+            entity = entities[index]
 
-        index = actor_index[letter] % len(entities)
-        entity = entities[index]
-
-        if i == len(letters) - 1:
-            # Last letter logic
-            if category == "cricketers" and entity.get("surname"):
-                entity["_display"] = f"{entity.get('name', '')} {entity.get('surname', '')}".strip()
+            # Apply name/surname display rules
+            if i == len(letters) - 1:
+                # Last entity
+                if category == "cricketers":
+                    full_name = entity.get("name", "")
+                    if "surname" in entity and entity["surname"]:
+                        full_name += f" {entity['surname']}"
+                    entity["_display"] = full_name.strip()
+                else:  # actors, animals
+                    entity["_display"] = entity.get("name", "")
             else:
+                # First to third
                 entity["_display"] = entity.get("name", "")
-        else:
-            # First 1st–3rd letters: always name
-            entity["_display"] = entity.get("name", "")
 
-        selected.append(entity)
-        actor_index[letter] += 1
-
+            selected.append(entity)
+            actor_index[letter] += 1
     return selected
 
 def find_template_key(name, templates):
