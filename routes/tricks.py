@@ -50,24 +50,23 @@ def load_entities(category="actors", letter=None):
 
 def get_next_entities(letters, category):
     selected = []
-    use_surname_for_last = category.lower() == "cricketers"
-
-    for idx, letter in enumerate(letters):
+    for i, letter in enumerate(letters):
         entities = load_entities(category, letter[0])
-        if not entities:
-            continue
+        if entities:
+            index = actor_index[letter] % len(entities)
+            entity = entities[index]
 
-        index = actor_index[letter] % len(entities)
-        entity = entities[index]
-        actor_index[letter] += 1
+            if i == len(letters) - 1:
+                # Last letter
+                if category == "cricketers" and entity.get("surname"):
+                    entity["_display"] = entity["surname"]
+                else:
+                    entity["_display"] = entity.get("name", "")
+            else:
+                entity["_display"] = entity.get("name", "")
 
-        is_last = idx == len(letters) - 1
-        if is_last and use_surname_for_last:
-            name = entity.get("surname") or entity.get("name")
-        else:
-            name = entity.get("name")
-
-        selected.append({"name": name})
+            selected.append(entity)
+            actor_index[letter] += 1
     return selected
 
 def find_template_key(name, templates):
@@ -82,7 +81,8 @@ def find_template_key(name, templates):
 def generate_trick_with_topic(topic, entities, templates):
     if not entities:
         return f"{topic}: {random.choice(default_lines)}"
-    names = [e.get("name", "") for e in entities]
+
+    names = [e.get("_display", e.get("name", "")) for e in entities]
 
     if len(entities) > 4:
         sentence_templates = templates.get("_sentence", default_lines)
@@ -100,7 +100,8 @@ def generate_trick_with_topic(topic, entities, templates):
 def generate_trick_sentence(entities, templates):
     if not entities:
         return "No data found for the entered letters."
-    names = [e.get("name", "") for e in entities]
+
+    names = [e.get("_display", e.get("name", "")) for e in entities]
 
     if len(names) > 4:
         sentence_templates = templates.get("_sentence", default_lines)
@@ -138,4 +139,4 @@ def get_tricks(
         entities = get_next_entities(rest_letters, type)
         trick = generate_trick_with_topic(topic, entities, templates)
         return {"trick": trick}
-    
+        
