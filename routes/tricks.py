@@ -4,57 +4,28 @@ import logging
 import re
 from fastapi import APIRouter, Query
 from pathlib import Path
-from enum import Enum
-
-from .generate_template_sentence import (
-    generate_template_sentence,
-    load_templates as load_template_sentences,
-)
-
-from wiki_utils import fetch_abbreviation_details
-from cache import save_to_cache
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-class TrickType(str, Enum):
-    abbreviations = "abbreviations"
-    simple_sentence = "simple_sentence"
-
-default_lines = [
+DEFAULT_LINES = [
     "Iska trick abhi update nahi hua.",
     "Agle version me iski baari aayegi.",
     "Filhal kuch khaas nahi bola ja sakta.",
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
 
-DATA_FILE_MAP = {
-    "abbreviations": "data.json",
-    "simple_sentence": "wordbank.json"
+CATEGORY_TEMPLATES = {
+    "animals": "templates/animal_templates.json",
+    "actors": "templates/actor_templates.json",
+    "cricketers": "templates/cricketer_templates.json"
 }
 
-TEMPLATE_FILE_MAP = {
-    "simple_sentence": "English_templates.json"
-}
+WORDBANK_FILE = BASE_DIR / "data" / "wordbank.json"
 
-wordbank_cache = None
-
-def load_entities_abbr():
-    file_path = BASE_DIR / DATA_FILE_MAP["abbreviations"]
-    if not file_path.exists():
-        return []
-    with file_path.open("r", encoding="utf-8") as f:
-        return json.load(f)
-
-def load_wordbank():
-    file_path = BASE_DIR / DATA_FILE_MAP["simple_sentence"]
-    if not file_path.exists():
-        return {}
-    with file_path.open("r", encoding="utf-8") as f:
-        return json.load(f)
-
+# Helper to extract clean letters or names from input
 def extract_letters(input_str):
     if "," in input_str:
         parts = [p.strip() for p in input_str.split(",") if p.strip()]
@@ -62,80 +33,88 @@ def extract_letters(input_str):
         if re.match(r"^[a-zA-Z]+$", input_str.strip()):
             parts = list(input_str.strip())
         else:
-            parts = [w.strip() for w in re.findall(r'\\b\\w+\\b', input_str)]
+            parts = [w.strip() for w in re.findall(r'\b\w+\b', input_str)]
     return parts
 
+# Load templates from file
+def load_templates(file_path):
+    try:
+        with open(file_path, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        logger.warning(f"[TEMPLATE] Failed loading {file_path}: {e}")
+        return []
+
+# Load wordbank data
+wordbank_cache = None
+def load_wordbank():
+    global wordbank_cache
+    if wordbank_cache:
+        return wordbank_cache
+    try:
+        with open(WORDBANK_FILE, encoding="utf-8") as f:
+            wordbank_cache = json.load(f)
+        return wordbank_cache
+    except Exception as e:
+        logger.warning(f"[WORDBANK] Load failed: {e}")
+        return {}
+
+# Core sentence generator
+def generate_rhyming_sentence(category, letters):
+    templates = load_templates(CATEGORY_TEMPLATES.get(category, ""))
+    if not templates:
+        return random.choice(DEFAULT_LINES)
+
+    template = random.choice(templates)
+    wordbank = load_wordbank()
+
+    used_names = []
+    last_index = len(letters) - 1
+
+    for idx, l in enumerate(letters):
+        l = l.upper()
+        pick_name = None
+
+        if category == "animals":
+            pick_name = random.choice(wordbank.get("animals", {}).get(l, [l]))
+        else:
+            names = wordbank.get(category, {}).get(l, [])
+            if not names:
+                used_names.append(l)
+                continue
+
+            if idx < 3:  # Always pick first name only
+                pick_name = random.choice([n.split()[0] for n in names])
+            elif category == "actors":
+                pick_name = random.choice([n.split()[0] for n in names])
+            elif category == "cricketers":
+                pick_name = random.choice(names)  # full name (name + surname)
+
+        used_names.append(pick_name or l)
+
+    sentence = template.replace("{names}", ", ".join(used_names))
+    return sentence
+
 @router.get("/api/tricks")
-def get_tricks(
-    type: TrickType = Query(..., description="Type of trick"),
+def get_trick(
+    type: str = Query(..., description="Category of trick: animals, actors, cricketers"),
     letters: str = Query(..., description="Comma-separated letters or words")
 ):
-    global wordbank_cache
-    input_parts = extract_letters(letters)
+    type = type.lower()
+    logger.info(f"Request received: type={type}, letters={letters}")
 
-    if not input_parts:
-        return {"trick": "Invalid input."}
+    if type not in CATEGORY_TEMPLATES:
+        return {"trick": "Invalid type provided."}
 
-    if type == TrickType.abbreviations:
-        query = ''.join(input_parts).lower()
-        data = load_entities_abbr()
-        matched = [item for item in data if item.get("abbr", "").lower() == query]
+    parts = extract_letters(letters)
+    logger.debug(f"Cleaned parts: {parts}")
 
-        if matched:
-            item = matched[0]
-            return {
-                "trick": f"{item['abbr']} — {item['full_form']}: {item['description']}"
-            }
+    if not parts:
+        return {"trick": "No valid input found."}
 
-        wiki_data = fetch_abbreviation_details(query)
+    if len(parts) < 4:
+        return {"trick": random.choice(DEFAULT_LINES)}
 
-        if wordbank_cache is None:
-            wordbank_cache = load_wordbank()
-
-        built_words = []
-        for i, letter in enumerate(input_parts):
-            letter = letter.upper()
-            possible_words = []
-
-            for category in ['nouns', 'adjectives']:
-                if letter in wordbank_cache.get(category, {}):
-                    possible_words += wordbank_cache[category][letter]
-
-            built_word = random.choice(possible_words).capitalize() if possible_words else letter
-            built_words.append(built_word)
-
-        built_full_form = " ".join(built_words)
-
-        trick_output = f"{query.upper()} — {built_full_form}"
-        if wiki_data["full_form"] != "Not found":
-            trick_output += f": {wiki_data['description']}"
-        else:
-            trick_output += ": Description not available."
-
-        save_to_cache({
-            "abbr": query.upper(),
-            "full_form": built_full_form,
-            "description": wiki_data.get("description", "No description.")
-        })
-
-        return {"trick": trick_output}
-
-    elif type == TrickType.simple_sentence:
-        if wordbank_cache is None:
-            wordbank_cache = load_wordbank()
-
-        templates = load_template_sentences(TEMPLATE_FILE_MAP["simple_sentence"])
-        if not templates:
-            return {"trick": "No templates found."}
-
-        template = random.choice(templates)
-
-        sentence = generate_template_sentence(
-            template,
-            wordbank_cache,
-            [l.upper() for l in input_parts]
-        )
-
-        return {"trick": sentence}
-
-    return {"trick": "Invalid trick type selected."}
+    trick = generate_rhyming_sentence(type, parts[:4])
+    return {"trick": trick}
+        
