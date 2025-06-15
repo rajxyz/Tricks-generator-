@@ -1,120 +1,148 @@
 import json
+import os
 import random
-import logging
-import re
 from fastapi import APIRouter, Query
-from pathlib import Path
+from collections import defaultdict
 
 router = APIRouter()
-logger = logging.getLogger(__name__)
+actor_index = defaultdict(int)
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-DEFAULT_LINES = [
+# Default lines in case templates aren't found
+default_lines = [
     "Iska trick abhi update nahi hua.",
     "Agle version me iski baari aayegi.",
     "Filhal kuch khaas nahi bola ja sakta.",
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
 
-CATEGORY_TEMPLATES = {
-    "animals": "templates/animal_templates.json",
-    "actors": "templates/actor_templates.json",
-    "cricketers": "templates/cricketer_templates.json"
+# Template file mappings
+template_file_map = {
+    "actors": "Actor-templates.json",
+    "cricketers": "Cricketers-templates.json",
+    "animals": "Animals-templates.json"
 }
 
-WORDBANK_FILE = BASE_DIR / "data" / "wordbank.json"
+# Data file mappings
+data_file_map = {
+    "actors": "bollywood-actor.json",
+    "cricketers": "cricketers.json",
+    "animals": "animals.json"
+}
 
-# Helper to extract clean letters or names from input
-def extract_letters(input_str):
-    if "," in input_str:
-        parts = [p.strip() for p in input_str.split(",") if p.strip()]
-    else:
-        if re.match(r"^[a-zA-Z]+$", input_str.strip()):
-            parts = list(input_str.strip())
-        else:
-            parts = [w.strip() for w in re.findall(r'\b\w+\b', input_str)]
-    return parts
-
-# Load templates from file
-def load_templates(file_path):
-    try:
-        with open(file_path, encoding="utf-8") as f:
-            return json.load(f)
-    except Exception as e:
-        logger.warning(f"[TEMPLATE] Failed loading {file_path}: {e}")
-        return []
-
-# Load wordbank data
-wordbank_cache = None
-def load_wordbank():
-    global wordbank_cache
-    if wordbank_cache:
-        return wordbank_cache
-    try:
-        with open(WORDBANK_FILE, encoding="utf-8") as f:
-            wordbank_cache = json.load(f)
-        return wordbank_cache
-    except Exception as e:
-        logger.warning(f"[WORDBANK] Load failed: {e}")
+def load_templates(category="actors"):
+    filename = template_file_map.get(category.lower())
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
+    if not os.path.exists(path):
+        print(f"Warning: {filename} not found at {path}")
         return {}
+    with open(path, "r", encoding="utf-8") as f:
+        templates = json.load(f)
+    return {key.lower(): val for key, val in templates.items()}
 
-# Core sentence generator
-def generate_rhyming_sentence(category, letters):
-    templates = load_templates(CATEGORY_TEMPLATES.get(category, ""))
-    if not templates:
-        return random.choice(DEFAULT_LINES)
+def load_entities(category="actors", letter=None):
+    filename = data_file_map.get(category.lower())
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
+    if not os.path.exists(path):
+        print(f"Warning: {filename} not found at {path}")
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    if letter:
+        return [d for d in data if d.get("name", "").upper().startswith(letter.upper())]
+    return data
 
-    template = random.choice(templates)
-    wordbank = load_wordbank()
+def get_next_entities(letters, category):
+    selected = []
+    for i, letter in enumerate(letters):
+        entities = load_entities(category, letter[0])
+        if not entities:
+            continue
 
-    used_names = []
-    last_index = len(letters) - 1
+        index = actor_index[letter] % len(entities)
+        entity = entities[index]
 
-    for idx, l in enumerate(letters):
-        l = l.upper()
-        pick_name = None
-
-        if category == "animals":
-            pick_name = random.choice(wordbank.get("animals", {}).get(l, [l]))
+        if i == len(letters) - 1:
+            # Last letter logic
+            if category == "cricketers" and entity.get("surname"):
+                entity["_display"] = f"{entity.get('name', '')} {entity.get('surname', '')}".strip()
+            else:
+                entity["_display"] = entity.get("name", "")
         else:
-            names = wordbank.get(category, {}).get(l, [])
-            if not names:
-                used_names.append(l)
-                continue
+            # First 1st–3rd letters: always name
+            entity["_display"] = entity.get("name", "")
 
-            if idx < 3:  # Always pick first name only
-                pick_name = random.choice([n.split()[0] for n in names])
-            elif category == "actors":
-                pick_name = random.choice([n.split()[0] for n in names])
-            elif category == "cricketers":
-                pick_name = random.choice(names)  # full name (name + surname)
+        selected.append(entity)
+        actor_index[letter] += 1
 
-        used_names.append(pick_name or l)
+    return selected
 
-    sentence = template.replace("{names}", ", ".join(used_names))
-    return sentence
+def find_template_key(name, templates):
+    name_lower = name.lower()
+    for key in templates:
+        if key.lower() == name_lower:
+            return key
+        if key.lower() in name_lower or name_lower in key.lower():
+            return key
+    return None
+
+def generate_trick_with_topic(topic, entities, templates):
+    if not entities:
+        return f"{topic}: {random.choice(default_lines)}"
+
+    names = [e.get("_display", e.get("name", "")) for e in entities]
+
+    if len(entities) > 4:
+        sentence_templates = templates.get("_sentence", default_lines)
+        line = random.choice(sentence_templates)
+        return f"<b>{topic}</b>: {line.replace('{names}', ', '.join(names))}"
+
+    joined_names = ", ".join(names)
+    last_key = find_template_key(names[-1], templates)
+    if last_key:
+        line = random.choice(templates[last_key])
+    else:
+        line = random.choice(default_lines)
+    return f"<b>{topic}</b>, {joined_names}: {line}"
+
+def generate_trick_sentence(entities, templates):
+    if not entities:
+        return "No data found for the entered letters."
+
+    names = [e.get("_display", e.get("name", "")) for e in entities]
+
+    if len(names) > 4:
+        sentence_templates = templates.get("_sentence", default_lines)
+        line = random.choice(sentence_templates)
+        return line.replace("{names}", ", ".join(names))
+
+    combined = ", ".join(names)
+    last_key = find_template_key(names[-1], templates)
+    if last_key:
+        line = random.choice(templates[last_key])
+    else:
+        line = random.choice(default_lines)
+    return f"{combined}: {line}"
 
 @router.get("/api/tricks")
-def get_trick(
-    type: str = Query(..., description="Category of trick: animals, actors, cricketers"),
-    letters: str = Query(..., description="Comma-separated letters or words")
+def get_tricks(
+    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals)"),
+    letters: str = Query(None, description="Comma-separated letters or words")
 ):
-    type = type.lower()
-    logger.info(f"Request received: type={type}, letters={letters}")
+    print(f"Request received: type={type}, letters={letters}")
+    templates = load_templates(type)
+    input_parts = letters.split(",") if letters else []
+    input_parts = [w.strip() for w in input_parts if w.strip()]
 
-    if type not in CATEGORY_TEMPLATES:
-        return {"trick": "Invalid type provided."}
+    if not input_parts:
+        return {"trick": "Invalid input."}
 
-    parts = extract_letters(letters)
-    logger.debug(f"Cleaned parts: {parts}")
-
-    if not parts:
-        return {"trick": "No valid input found."}
-
-    if len(parts) < 4:
-        return {"trick": random.choice(DEFAULT_LINES)}
-
-    trick = generate_rhyming_sentence(type, parts[:4])
-    return {"trick": trick}
-        
+    if all(len(word) == 1 for word in input_parts):
+        entities = get_next_entities(input_parts, type)
+        trick = generate_trick_sentence(entities, templates)
+        return {"trick": trick}
+    else:
+        topic = input_parts[0]
+        rest_letters = [w[0].upper() for w in input_parts[1:]]
+        entities = get_next_entities(rest_letters, type)
+        trick = generate_trick_with_topic(topic, entities, templates)
+        return {"trick": trick}
