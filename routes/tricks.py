@@ -1,13 +1,18 @@
 import json
 import random
 import logging
+import re
 from fastapi import APIRouter, Query
 from pathlib import Path
 from enum import Enum
 
-from .generate_template_sentence import (
+from .generate_fixed_lines_sentence import (
+    generate_template_sentence,
     load_templates as load_template_sentences
 )
+
+from wiki_utils import fetch_abbreviation_details
+from cache import save_to_cache
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -22,106 +27,136 @@ default_lines = [
 ]
 
 class TrickType(str, Enum):
-    actors = "actors"
-    cricketers = "cricketers"
-    animals = "animals"
-
-TEMPLATE_FILE_MAP = {
-    "actors": "actors_templates.json",
-    "cricketers": "cricketers_templates.json",
-    "animals": "animals_templates.json"
-}
+    abbreviations = "abbreviations"
+    simple_sentence = "simple_sentence"
 
 DATA_FILE_MAP = {
-    "actors": "actors.json",
-    "cricketers": "cricketers.json",
-    "animals": "animals.json"
+    "abbreviations": "data.json",
+    "simple_sentence": "wordbank.json"
 }
 
-def load_entities(category):
-    path = BASE_DIR / DATA_FILE_MAP[category]
-    if not path.exists():
+TEMPLATE_FILE_MAP = {
+    "simple_sentence": "English_templates.json"
+}
+
+wordbank_cache = None
+
+def load_entities_abbr():
+    file_path = BASE_DIR / DATA_FILE_MAP["abbreviations"]
+    if not file_path.exists():
         return []
-    with open(path, "r", encoding="utf-8") as f:
+    with file_path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
-def load_templates(category):
-    path = BASE_DIR / TEMPLATE_FILE_MAP[category]
-    if not path.exists():
+def load_wordbank():
+    file_path = BASE_DIR / DATA_FILE_MAP["simple_sentence"]
+    if not file_path.exists():
         return {}
-    with open(path, "r", encoding="utf-8") as f:
+    with file_path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
+# 🆕 Normalize input
 def extract_letters(input_str):
     if "," in input_str:
-        return [w.strip() for w in input_str.split(",") if w.strip()]
-    return list(input_str.strip())
-
-def find_template_key(last_word, templates):
-    key = last_word.lower()
-    if key in templates:
-        return key
-    for k in templates:
-        if key in k.lower():
-            return k
-    return None
-
-def select_display_name(entity, is_last, category):
-    name = entity.get("name", "")
-    parts = name.strip().split()
-    if not parts:
-        return name
-
-    if category == "animals":
-        return name
-    if is_last:
-        if category == "actors":
-            return name
-        elif category == "cricketers":
-            return parts[-1]
-    return parts[0]
-
-def generate_trick_sentence(entities, templates, category):
-    if not entities:
-        return "No data found for the entered letters."
-
-    names = []
-    for i, e in enumerate(entities):
-        is_last = i == len(entities) - 1
-        names.append(select_display_name(e, is_last, category))
-
-    combined = ", ".join(names)
-    last_key = names[-1].lower()
-
-    match_key = find_template_key(last_key, templates)
-    if match_key:
-        line = random.choice(templates[match_key])
+        parts = [p.strip() for p in input_str.split(",") if p.strip()]
     else:
-        line = random.choice(default_lines)
-
-    return f"{combined}: {line}"
+        if re.match(r"^[a-zA-Z]+$", input_str.strip()):
+            parts = list(input_str.strip())
+        else:
+            parts = [w.strip() for w in re.findall(r'\b\w+\b', input_str)]
+    # Convert to letters (first char of each word if needed)
+    if all(len(p) > 1 for p in parts):
+        return [p[0] for p in parts]
+    return parts
 
 @router.get("/api/tricks")
 def get_tricks(
-    type: TrickType = Query(..., description="Trick category"),
-    letters: str = Query(..., description="Comma-separated words or letters")
+    type: str = Query(..., description="Type of trick"),
+    letters: str = Query(..., description="Comma-separated letters or words")
 ):
-    logger.info(f"Request received: type={type}, letters={letters}")
+    global wordbank_cache
+    logger.info(f"[API] Trick Type: {type}")
+    logger.info(f"[API] Input Letters Raw: {letters}")
+
     input_parts = extract_letters(letters)
-    logger.info(f"Extracted parts: {input_parts}")
+    logger.debug(f"[API] Normalized Input Letters/Words: {input_parts}")
 
     if not input_parts:
         return {"trick": "Invalid input."}
 
-    all_entities = load_entities(type)
-    templates = load_templates(type)
+    # ---- ABBREVIATION PATH ----
+    if type == TrickType.abbreviations:
+        query = ''.join(input_parts).lower()
+        data = load_entities_abbr()
+        matched = [item for item in data if item.get("abbr", "").lower() == query]
 
-    matched_entities = []
-    for letter in input_parts:
-        for entity in all_entities:
-            if entity.get("name", "").lower().startswith(letter.lower()):
-                matched_entities.append(entity)
-                break
+        if matched:
+            item = matched[0]
+            return {
+                "trick": f"{item['abbr']} — {item['full_form']}: {item['description']}"
+            }
 
-    trick = generate_trick_sentence(matched_entities, templates, type)
-    return {"trick": trick}
+        wiki_data = fetch_abbreviation_details(query)
+
+        if wordbank_cache is None:
+            wordbank_cache = load_wordbank()
+
+        built_words = []
+        for i, letter in enumerate(input_parts):
+            letter = letter.upper()
+            possible_words = []
+
+            for category in ['nouns', 'adjectives']:
+                if letter in wordbank_cache.get(category, {}):
+                    possible_words += wordbank_cache[category][letter]
+
+            built_word = random.choice(possible_words).capitalize() if possible_words else letter
+            built_words.append(built_word)
+
+        built_full_form = " ".join(built_words)
+
+        trick_output = f"{query.upper()} — {built_full_form}"
+        if wiki_data["full_form"] != "Not found":
+            trick_output += f": {wiki_data['description']}"
+        else:
+            trick_output += ": Description not available."
+
+        save_to_cache({
+            "abbr": query.upper(),
+            "full_form": built_full_form,
+            "description": wiki_data.get("description", "No description.")
+        })
+
+        return {"trick": trick_output}
+
+    # ---- SIMPLE SENTENCE PATH ----
+    elif type == TrickType.simple_sentence:
+        if wordbank_cache is None:
+            wordbank_cache = load_wordbank()
+
+        templates = load_template_sentences(TEMPLATE_FILE_MAP["simple_sentence"])
+
+        if not templates:
+            return {"trick": "No templates found."}
+
+        template = random.choice(templates)
+
+        processed_letters = []
+        last_index = len(input_parts) - 1
+
+        for idx, l in enumerate(input_parts):
+            category = "names"  # default
+
+            if idx == last_index:
+                if "actor" in template.lower():
+                    category = "names"
+                elif "cricketer" in template.lower():
+                    category = "surnames"
+            processed_letters.append((l.upper(), category))
+
+        # The generate_template_sentence() must now support letters with their categories
+        sentence = generate_template_sentence(template, wordbank_cache, processed_letters)
+
+        return {"trick": sentence}
+
+    return {"trick": "Invalid trick type selected."}
