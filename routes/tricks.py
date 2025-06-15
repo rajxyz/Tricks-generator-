@@ -6,9 +6,9 @@ from fastapi import APIRouter, Query
 from pathlib import Path
 from enum import Enum
 
-from .generate_fixed_lines_sentence import (
+from .generate_template_sentence import (
     generate_template_sentence,
-    load_templates as load_template_sentences
+    load_templates as load_template_sentences,
 )
 
 from wiki_utils import fetch_abbreviation_details
@@ -19,16 +19,16 @@ logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+class TrickType(str, Enum):
+    abbreviations = "abbreviations"
+    simple_sentence = "simple_sentence"
+
 default_lines = [
     "Iska trick abhi update nahi hua.",
     "Agle version me iski baari aayegi.",
     "Filhal kuch khaas nahi bola ja sakta.",
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
-
-class TrickType(str, Enum):
-    abbreviations = "abbreviations"
-    simple_sentence = "simple_sentence"
 
 DATA_FILE_MAP = {
     "abbreviations": "data.json",
@@ -55,7 +55,6 @@ def load_wordbank():
     with file_path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
-# 🆕 Normalize input
 def extract_letters(input_str):
     if "," in input_str:
         parts = [p.strip() for p in input_str.split(",") if p.strip()]
@@ -63,28 +62,20 @@ def extract_letters(input_str):
         if re.match(r"^[a-zA-Z]+$", input_str.strip()):
             parts = list(input_str.strip())
         else:
-            parts = [w.strip() for w in re.findall(r'\b\w+\b', input_str)]
-    # Convert to letters (first char of each word if needed)
-    if all(len(p) > 1 for p in parts):
-        return [p[0] for p in parts]
+            parts = [w.strip() for w in re.findall(r'\\b\\w+\\b', input_str)]
     return parts
 
 @router.get("/api/tricks")
 def get_tricks(
-    type: str = Query(..., description="Type of trick"),
+    type: TrickType = Query(..., description="Type of trick"),
     letters: str = Query(..., description="Comma-separated letters or words")
 ):
     global wordbank_cache
-    logger.info(f"[API] Trick Type: {type}")
-    logger.info(f"[API] Input Letters Raw: {letters}")
-
     input_parts = extract_letters(letters)
-    logger.debug(f"[API] Normalized Input Letters/Words: {input_parts}")
 
     if not input_parts:
         return {"trick": "Invalid input."}
 
-    # ---- ABBREVIATION PATH ----
     if type == TrickType.abbreviations:
         query = ''.join(input_parts).lower()
         data = load_entities_abbr()
@@ -129,33 +120,21 @@ def get_tricks(
 
         return {"trick": trick_output}
 
-    # ---- SIMPLE SENTENCE PATH ----
     elif type == TrickType.simple_sentence:
         if wordbank_cache is None:
             wordbank_cache = load_wordbank()
 
         templates = load_template_sentences(TEMPLATE_FILE_MAP["simple_sentence"])
-
         if not templates:
             return {"trick": "No templates found."}
 
         template = random.choice(templates)
 
-        processed_letters = []
-        last_index = len(input_parts) - 1
-
-        for idx, l in enumerate(input_parts):
-            category = "names"  # default
-
-            if idx == last_index:
-                if "actor" in template.lower():
-                    category = "names"
-                elif "cricketer" in template.lower():
-                    category = "surnames"
-            processed_letters.append((l.upper(), category))
-
-        # The generate_template_sentence() must now support letters with their categories
-        sentence = generate_template_sentence(template, wordbank_cache, processed_letters)
+        sentence = generate_template_sentence(
+            template,
+            wordbank_cache,
+            [l.upper() for l in input_parts]
+        )
 
         return {"trick": sentence}
 
