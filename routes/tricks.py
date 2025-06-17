@@ -67,15 +67,24 @@ def find_template_key(name, templates):
             return key
     return None
 
-def process_name(name, category):
-    if category.lower() in ["actors", "cricketers"]:
-        return name.split()[0]
-    return name
+def format_names(entities, category):
+    """Returns list of formatted names according to category rules."""
+    if category == "cricketers":
+        names = [e.get("name", "") for e in entities]
+        if len(names) > 1:
+            first_parts = [name.split()[0] for name in names[:-1]]
+            first_parts.append(names[-1])  # full name for last cricketer
+            return first_parts
+        return names
+    elif category == "actors":
+        return [e.get("name", "").split()[0] for e in entities]
+    else:  # animals or others
+        return [e.get("name", "") for e in entities]
 
 def generate_trick_with_topic(topic, entities, templates, category):
     if not entities:
         return f"{topic}: {random.choice(default_lines)}"
-    names = [process_name(e.get("name", ""), category) for e in entities]
+    names = format_names(entities, category)
     joined_names = ", ".join(names)
     last_key = find_template_key(names[-1], templates)
     if last_key:
@@ -87,7 +96,7 @@ def generate_trick_with_topic(topic, entities, templates, category):
 def generate_trick_sentence(entities, templates, category):
     if not entities:
         return "No data found for the entered letters."
-    names = [process_name(e.get("name", ""), category) for e in entities]
+    names = format_names(entities, category)
     combined = ", ".join(names)
     last_key = find_template_key(names[-1], templates)
     if last_key:
