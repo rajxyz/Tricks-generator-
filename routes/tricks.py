@@ -1,12 +1,16 @@
 import json
-import os
 import random
+import logging
+import re
 from fastapi import APIRouter, Query
-from collections import defaultdict
+from pathlib import Path
 
+# ---- Setup ----
 router = APIRouter()
-actor_index = defaultdict(int)
+logger = logging.getLogger(__name__)
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ---- Fallback lines ----
 default_lines = [
     "Iska trick abhi update nahi hua.",
     "Agle version me iski baari aayegi.",
@@ -14,118 +18,122 @@ default_lines = [
     "Yeh abhi training me hai, ruk ja thoda!"
 ]
 
-template_file_map = {
-    "actors": "Actor-templates.json",
-    "cricketers": "Cricketers-templates.json",
-    "animals": "Animals-templates.json"
+# ---- Template Mapping by Length and Category ----
+TEMPLATE_BY_LEN = {
+    5: {
+        "actor": "templates_actor_5.json",
+        "animal": "templates_animal_5.json",
+        "cricketer": "templates_cricketer_5.json"
+    },
+    6: {
+        "actor": "templates_actor_6.json",
+        "animal": "templates_animal_6.json",
+        "cricketer": "templates_cricketer_6.json"
+    },
+    7: {
+        "actor": "templates_actor_7.json",
+        "animal": "templates_animal_7.json",
+        "cricketer": "templates_cricketer_7.json"
+    },
+    8: {
+        "actor": "templates_actor_8.json",
+        "animal": "templates_animal_8.json",
+        "cricketer": "templates_cricketer_8.json"
+    },
+    9: {
+        "actor": "templates_actor_9.json",
+        "animal": "templates_animal_9.json",
+        "cricketer": "templates_cricketer_9.json"
+    },
+    10: {
+        "actor": "templates_actor_10.json",
+        "animal": "templates_animal_10.json",
+        "cricketer": "templates_cricketer_10.json"
+    }
 }
 
-data_file_map = {
-    "actors": "bollywood-actor.json",
-    "cricketers": "cricketers.json",
-    "animals": "animals.json"
-}
+# ---- Extract First Letters ----
+def extract_letters(input_str):
+    if "," in input_str:
+        return [p.strip().upper() for p in input_str.split(",") if p.strip()]
+    elif re.match(r"^[a-zA-Z]+$", input_str.strip()):
+        return list(input_str.strip().upper())
+    else:
+        return [w[0].upper() for w in re.findall(r'\b\w+', input_str)]
 
-def load_templates(category="actors"):
-    filename = template_file_map.get(category.lower())
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
-    if not os.path.exists(path):
-        print(f"Warning: {filename} not found at {path}")
+# ---- Load Wordbank ----
+def load_wordbank():
+    path = BASE_DIR / "wordbank.json"
+    if path.exists():
+        with path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    else:
+        logger.warning("[LOAD] wordbank.json not found!")
         return {}
-    with open(path, "r", encoding="utf-8") as f:
-        templates = json.load(f)
-    return {key.lower(): val for key, val in templates.items()}
 
-def load_entities(category="actors", letter=None):
-    filename = data_file_map.get(category.lower())
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
-    if not os.path.exists(path):
-        print(f"Warning: {filename} not found at {path}")
+# ---- Load Templates ----
+def load_templates(filename):
+    path = BASE_DIR / filename
+    if path.exists():
+        with path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    else:
+        logger.warning(f"[LOAD] Template file {filename} not found!")
         return []
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    if letter:
-        return [d for d in data if d.get("name", "").upper().startswith(letter.upper())]
-    return data
 
-def get_next_entities(letters, category):
-    selected = []
+# ---- Generate Sentence from Template ----
+def generate_template_sentence(template, wordbank, letters):
+    words = []
     for letter in letters:
-        entities = load_entities(category, letter[0])
-        if entities:
-            index = actor_index[letter] % len(entities)
-            selected.append(entities[index])
-            actor_index[letter] += 1
-    return selected
+        options = wordbank.get(letter.upper(), [])
+        if options:
+            word = random.choice(options)
+            words.append(word)
+        else:
+            logger.debug(f"[GEN] No word found for letter '{letter}'")
+            words.append(letter.upper())
 
-def find_template_key(name, templates):
-    name_lower = name.lower()
-    for key in templates:
-        if key.lower() == name_lower:
-            return key
-        if key.lower() in name_lower or name_lower in key.lower():
-            return key
-    return None
+    try:
+        return template.format(*words)
+    except Exception as e:
+        logger.error(f"[GEN] Template formatting failed: {e}")
+        return random.choice(default_lines)
 
-def format_names(entities, category):
-    """Returns list of formatted names according to category rules."""
-    if category == "cricketers":
-        names = [e.get("name", "") for e in entities]
-        if len(names) > 1:
-            first_parts = [name.split()[0] for name in names[:-1]]
-            first_parts.append(names[-1])  # full name for last cricketer
-            return first_parts
-        return names
-    elif category == "actors":
-        return [e.get("name", "").split()[0] for e in entities]
-    else:  # animals or others
-        return [e.get("name", "") for e in entities]
-
-def generate_trick_with_topic(topic, entities, templates, category):
-    if not entities:
-        return f"{topic}: {random.choice(default_lines)}"
-    names = format_names(entities, category)
-    joined_names = ", ".join(names)
-    last_key = find_template_key(names[-1], templates)
-    if last_key:
-        line = random.choice(templates[last_key])
-    else:
-        line = random.choice(default_lines)
-    return f"<b>{topic}</b>, {joined_names}: {line}"
-
-def generate_trick_sentence(entities, templates, category):
-    if not entities:
-        return "No data found for the entered letters."
-    names = format_names(entities, category)
-    combined = ", ".join(names)
-    last_key = find_template_key(names[-1], templates)
-    if last_key:
-        line = random.choice(templates[last_key])
-    else:
-        line = random.choice(default_lines)
-    return f"{combined}: {line}"
+# ---- FastAPI Route ----
+wordbank_cache = None
 
 @router.get("/api/tricks")
 def get_tricks(
-    type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals)"),
-    letters: str = Query(None, description="Comma-separated letters or words")
+    letters: str = Query(..., description="Comma-separated letters or words"),
+    category: str = Query("actor", pattern="^(actor|animal|cricketer)$")
 ):
-    print(f"Request received: type={type}, letters={letters}")
-    templates = load_templates(type)
-    input_parts = letters.split(",") if letters else []
-    input_parts = [w.strip() for w in input_parts if w.strip()]
+    global wordbank_cache
+
+    logger.info(f"[API] Letters received: {letters} | Category: {category}")
+    input_parts = extract_letters(letters)
+    input_length = len(input_parts)
+    logger.debug(f"[API] Normalized letters: {input_parts} | Length: {input_length}")
+
     if not input_parts:
         return {"trick": "Invalid input."}
 
-    if all(len(word) == 1 for word in input_parts):
-        entities = get_next_entities(input_parts, type)
-        print(f"Selected: {[e['name'] for e in entities]}")
-        trick = generate_trick_sentence(entities, templates, type)
-        return {"trick": trick}
+    if wordbank_cache is None:
+        wordbank_cache = load_wordbank()
+        logger.debug(f"[LOAD] Wordbank loaded with {len(wordbank_cache)} letters.")
+
+    # Load category-specific template for length >= 5
+    template_file = TEMPLATE_BY_LEN.get(input_length, {}).get(category)
+    if template_file:
+        templates = load_templates(template_file)
     else:
-        topic = input_parts[0]
-        rest_letters = [w[0].upper() for w in input_parts[1:]]
-        entities = get_next_entities(rest_letters, type)
-        print(f"Word-based: {topic}, Letters: {rest_letters}, Selected: {[e['name'] for e in entities]}")
-        trick = generate_trick_with_topic(topic, entities, templates, type)
-        return {"trick": trick}
+        templates = []
+
+    if not templates:
+        logger.warning("[API] No matching templates found. Using fallback message.")
+        return {"trick": random.choice(default_lines)}
+
+    selected_template = random.choice(templates)
+    sentence = generate_template_sentence(selected_template, wordbank_cache, input_parts)
+
+    logger.info(f"[API] Trick generated: {sentence}")
+    return {"trick": sentence}
