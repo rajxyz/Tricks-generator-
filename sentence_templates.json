@@ -1,0 +1,14 @@
+{
+  "actors": [
+    "{0} leads the pack, while {1}, {2}, {3}, and {4} light up the screen.",
+    "{0}, {1}, {2}, {3}, and {4} are Bollywood's top guns."
+  ],
+  "animals": [
+    "{0}, {1}, {2}, {3}, and {4} rule the jungle.",
+    "In the wild, {0}, {1}, {2}, {3}, and {4} roam free."
+  ],
+  "cricketers": [
+    "{0}, {1}, {2}, {3}, and {4} created cricketing history.",
+    "Legends like {0}, {1}, {2}, {3}, and {4} define world cricket."
+  ]
+}
