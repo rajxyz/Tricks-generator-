@@ -36,6 +36,14 @@ def load_templates(category="actors"):
         templates = json.load(f)
     return {key.lower(): val for key, val in templates.items()}
 
+def load_sentence_templates():
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "sentence_templates.json")
+    if not os.path.exists(path):
+        print("Warning: sentence_templates.json not found.")
+        return {}
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
 def load_entities(category="actors", letter=None):
     filename = data_file_map.get(category.lower())
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", filename)
@@ -112,12 +120,27 @@ def get_tricks(
 ):
     print(f"Request received: type={type}, letters={letters}")
     templates = load_templates(type)
+    sentence_templates = load_sentence_templates()
+
     input_parts = letters.split(",") if letters else []
     input_parts = [w.strip() for w in input_parts if w.strip()]
+
     if not input_parts:
         return {"trick": "Invalid input."}
 
     if all(len(word) == 1 for word in input_parts):
+        # ✅ Sentence format if more than 4 letters
+        if len(input_parts) > 4 and type in sentence_templates:
+            entities = get_next_entities(input_parts, type)
+            names = format_names(entities, type)
+            if len(names) >= 5:
+                template = random.choice(sentence_templates[type])
+                try:
+                    trick = template.format(*names[:5])
+                except IndexError:
+                    trick = "Not enough names to fill the template."
+                return {"trick": trick}
+        # Otherwise normal rhyme-based
         entities = get_next_entities(input_parts, type)
         print(f"Selected: {[e['name'] for e in entities]}")
         trick = generate_trick_sentence(entities, templates, type)
