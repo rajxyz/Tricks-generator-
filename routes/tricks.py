@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import re
 from fastapi import APIRouter, Query
 from collections import defaultdict
 
@@ -25,6 +26,23 @@ data_file_map = {
     "cricketers": "cricketers.json",
     "animals": "animals.json"
 }
+
+def extract_letters(input_str):
+    input_str = re.sub(r"[^a-zA-Z,\s]", "", input_str).strip()
+
+    if "," in input_str:
+        parts = [p.strip() for p in input_str.split(",") if p.strip()]
+        if all(len(p) > 1 for p in parts):
+            return [p[0].upper() for p in parts]
+        return [p.upper() for p in parts]
+
+    if re.fullmatch(r"[a-zA-Z]+", input_str):
+        if len(input_str) <= 5:
+            return list(input_str.upper())
+        return [ch[0].upper() for ch in re.findall(r'[A-Z][a-z]*', input_str) or input_str]
+
+    words = re.findall(r'\b\w+', input_str)
+    return [w[0].upper() for w in words if w]
 
 def load_templates(category="actors"):
     filename = template_file_map.get(category.lower())
@@ -76,17 +94,16 @@ def find_template_key(name, templates):
     return None
 
 def format_names(entities, category):
-    """Returns list of formatted names according to category rules."""
     if category == "cricketers":
         names = [e.get("name", "") for e in entities]
         if len(names) > 1:
             first_parts = [name.split()[0] for name in names[:-1]]
-            first_parts.append(names[-1])  # full name for last cricketer
+            first_parts.append(names[-1])
             return first_parts
         return names
     elif category == "actors":
         return [e.get("name", "").split()[0] for e in entities]
-    else:  # animals or others
+    else:
         return [e.get("name", "") for e in entities]
 
 def generate_trick_with_topic(topic, entities, templates, category):
@@ -122,14 +139,13 @@ def get_tricks(
     templates = load_templates(type)
     sentence_templates = load_sentence_templates()
 
-    input_parts = letters.split(",") if letters else []
-    input_parts = [w.strip() for w in input_parts if w.strip()]
+    input_parts = extract_letters(letters or "")
+    print(f"Parsed input letters: {input_parts}")
 
     if not input_parts:
         return {"trick": "Invalid input."}
 
-    if all(len(word) == 1 for word in input_parts):
-        # ✅ Sentence format if more than 4 letters
+    if all(len(ch) == 1 for ch in input_parts):
         if len(input_parts) > 4 and type in sentence_templates:
             entities = get_next_entities(input_parts, type)
             names = format_names(entities, type)
@@ -140,14 +156,13 @@ def get_tricks(
                 except IndexError:
                     trick = "Not enough names to fill the template."
                 return {"trick": trick}
-        # Otherwise normal rhyme-based
         entities = get_next_entities(input_parts, type)
         print(f"Selected: {[e['name'] for e in entities]}")
         trick = generate_trick_sentence(entities, templates, type)
         return {"trick": trick}
     else:
         topic = input_parts[0]
-        rest_letters = [w[0].upper() for w in input_parts[1:]]
+        rest_letters = input_parts[1:]
         entities = get_next_entities(rest_letters, type)
         print(f"Word-based: {topic}, Letters: {rest_letters}, Selected: {[e['name'] for e in entities]}")
         trick = generate_trick_with_topic(topic, entities, templates, type)
