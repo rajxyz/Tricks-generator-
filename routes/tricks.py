@@ -103,6 +103,30 @@ def format_names(entities, category):
     else:
         return [e.get("name", "") for e in entities]
 
+def generate_trick_with_topic(topic, entities, templates, category):
+    if not entities:
+        return f"{topic}: {random.choice(default_lines)}"
+    names = format_names(entities, category)
+    joined_names = ", ".join(names)
+    last_key = find_template_key(names[-1], templates)
+    if last_key:
+        line = random.choice(templates[last_key])
+    else:
+        line = random.choice(default_lines)
+    return f"<b>{topic}</b>, {joined_names}: {line}"
+
+def generate_trick_sentence(entities, templates, category):
+    if not entities:
+        return "No data found for the entered letters."
+    names = format_names(entities, category)
+    combined = ", ".join(names)
+    last_key = find_template_key(names[-1], templates)
+    if last_key:
+        line = random.choice(templates[last_key])
+    else:
+        line = random.choice(default_lines)
+    return f"{combined}: {line}"
+
 @router.get("/api/tricks")
 def get_tricks(
     type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals)"),
@@ -113,31 +137,29 @@ def get_tricks(
     sentence_templates = load_sentence_templates()
     input_parts = extract_letters(letters or "")
     print(f"Parsed input letters: {input_parts}")
-
     if not input_parts:
         return {"trick": "Invalid input."}
-
-    entities = get_next_entities(input_parts, type)
-    names = format_names(entities, type)
-    print(f"Selected: {[e['name'] for e in entities]}")
-
-    if len(input_parts) > 4 and type in sentence_templates:
-        templates_list = sentence_templates.get(type, [])
-        usable_templates = [t for t in templates_list if t.count("{") >= len(input_parts)]
-        if not usable_templates:
-            usable_templates = templates_list
-        template = random.choice(usable_templates)
-        try:
-            trick = template.format(*names)
-        except Exception:
-            trick = random.choice(default_lines)
+    if all(len(ch) == 1 for ch in input_parts):
+        entities = get_next_entities(input_parts, type)
+        names = format_names(entities, type)
+        length = len(names)
+        if length >= 5 and type in sentence_templates:
+            # Pick only templates that have placeholders matching count of names
+            available_templates = [t for t in sentence_templates[type] if t.count("{") == length]
+            if available_templates:
+                template = random.choice(available_templates)
+                try:
+                    trick = template.format(*names)
+                except IndexError:
+                    trick = "Not enough names to fill the template."
+                return {"trick": trick}
+        trick = generate_trick_sentence(entities, templates, type)
         return {"trick": trick}
-    
-    combined = ", ".join(names)
-    last_key = find_template_key(names[-1], templates)
-    if last_key:
-        line = random.choice(templates[last_key])
     else:
-        line = random.choice(default_lines)
-    return {"trick": f"{combined}: {line}"}
-    
+        topic = input_parts[0]
+        rest_letters = input_parts[1:]
+        entities = get_next_entities(rest_letters, type)
+        print(f"Word-based: {topic}, Letters: {rest_letters}, Selected: {[e['name'] for e in entities]}")
+        trick = generate_trick_with_topic(topic, entities, templates, type)
+        return {"trick": trick}
+            
