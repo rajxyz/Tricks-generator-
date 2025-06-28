@@ -79,19 +79,10 @@ def get_next_entities(letters, category):
     for letter in letters:
         entities = load_entities(category, letter[0])
         if entities:
-            index = actor_index[letter] % len(entities)
+            index = actor_index[(category, letter)] % len(entities)
             selected.append(entities[index])
-            actor_index[letter] += 1
+            actor_index[(category, letter)] += 1
     return selected
-
-def find_template_key(name, templates):
-    name_lower = name.lower()
-    for key in templates:
-        if key.lower() == name_lower:
-            return key
-        if key.lower() in name_lower or name_lower in key.lower():
-            return key
-    return None
 
 def format_names(entities, category):
     if category == "cricketers":
@@ -106,37 +97,12 @@ def format_names(entities, category):
     else:
         return [e.get("name", "") for e in entities]
 
-def generate_trick_with_topic(topic, entities, templates, category):
-    if not entities:
-        return f"{topic}: {random.choice(default_lines)}"
-    names = format_names(entities, category)
-    joined_names = ", ".join(names)
-    last_key = find_template_key(names[-1], templates)
-    if last_key:
-        line = random.choice(templates[last_key])
-    else:
-        line = random.choice(default_lines)
-    return f"<b>{topic}</b>, {joined_names}: {line}"
-
-def generate_trick_sentence(entities, templates, category):
-    if not entities:
-        return "No data found for the entered letters."
-    names = format_names(entities, category)
-    combined = ", ".join(names)
-    last_key = find_template_key(names[-1], templates)
-    if last_key:
-        line = random.choice(templates[last_key])
-    else:
-        line = random.choice(default_lines)
-    return f"{combined}: {line}"
-
 @router.get("/api/tricks")
 def get_tricks(
     type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals)"),
     letters: str = Query(None, description="Comma-separated letters or words")
 ):
     print(f"Request received: type={type}, letters={letters}")
-    templates = load_templates(type)
     sentence_templates = load_sentence_templates()
 
     input_parts = extract_letters(letters or "")
@@ -146,24 +112,21 @@ def get_tricks(
         return {"trick": "Invalid input."}
 
     if all(len(ch) == 1 for ch in input_parts):
-        if len(input_parts) > 4 and type in sentence_templates:
-            entities = get_next_entities(input_parts, type)
-            names = format_names(entities, type)
-            if len(names) >= 5:
-                template = random.choice(sentence_templates[type])
-                try:
-                    trick = template.format(*names[:5])
-                except IndexError:
-                    trick = "Not enough names to fill the template."
-                return {"trick": trick}
         entities = get_next_entities(input_parts, type)
-        print(f"Selected: {[e['name'] for e in entities]}")
-        trick = generate_trick_sentence(entities, templates, type)
-        return {"trick": trick}
+        names = format_names(entities, type)
+        available_templates = sentence_templates.get(type, [])
+
+        if available_templates and 4 <= len(names) <= 8:
+            idx = len(names) - 4
+            templates = available_templates[idx] if idx < len(available_templates) else available_templates[-1]
+            template = random.choice(templates)
+            try:
+                trick = template.format(*names)
+            except IndexError:
+                trick = "Not enough names to fill the template."
+            return {"trick": trick}
+
+        return {"trick": ", ".join(names)}
     else:
-        topic = input_parts[0]
-        rest_letters = input_parts[1:]
-        entities = get_next_entities(rest_letters, type)
-        print(f"Word-based: {topic}, Letters: {rest_letters}, Selected: {[e['name'] for e in entities]}")
-        trick = generate_trick_with_topic(topic, entities, templates, type)
-        return {"trick": trick}
+        return {"trick": "Word input not supported for sentence templates."}
+                        
