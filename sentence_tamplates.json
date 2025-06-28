@@ -1,14 +1,20 @@
 {
-  "actors": [
-    "{0} leads the pack, while {1}, {2}, {3}, and {4} light up the screen.",
-    "{0}, {1}, {2}, {3}, and {4} are Bollywood's top guns."
-  ],
-  "animals": [
-    "{0}, {1}, {2}, {3}, and {4} rule the jungle.",
-    "In the wild, {0}, {1}, {2}, {3}, and {4} roam free."
-  ],
-  "cricketers": [
-    "{0}, {1}, {2}, {3}, and {4} created cricketing history.",
-    "Legends like {0}, {1}, {2}, {3}, and {4} define world cricket."
-  ]
+  "actors": {
+    "5": "{0} starts the show, joined by {1} and {2}, while {3} and {4} steal the spotlight.",
+    "6": "{0}, {1}, and {2} set the stage, {3} adds drama, {4} and {5} bring the grand finale.",
+    "7": "From {0} to {1}, {2}, and {3}, then {4}, {5}, and {6}—each adds magic.",
+    "8": "{0}, {1}, {2}, and {3} rise first, followed by {4}, {5}, {6}, and {7} to complete the blockbuster."
+  },
+  "animals": {
+    "5": "{0} leads the herd, with {1}, {2}, {3}, and {4} close behind.",
+    "6": "In the forest, {0}, {1}, {2}, {3}, {4}, and {5} roam together.",
+    "7": "The wild echoes with {0}, {1}, {2}, {3}, {4}, {5}, and {6}.",
+    "8": "Nature’s chorus: {0}, {1}, {2}, {3}, {4}, {5}, {6}, and {7}."
+  },
+  "cricketers": {
+    "5": "{0}, {1}, and {2} built the innings, while {3} and {4} sealed the victory.",
+    "6": "{0} opened strong, {1} and {2} dominated, and {3}, {4}, {5} finished brilliantly.",
+    "7": "Legends {0}, {1}, {2}, {3}, {4}, {5}, and {6} made history.",
+    "8": "From {0} to {1}, {2}, {3}, {4}, {5}, {6}, and {7}—they ruled the pitch."
+  }
 }
