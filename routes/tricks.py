@@ -29,18 +29,15 @@ data_file_map = {
 
 def extract_letters(input_str):
     input_str = re.sub(r"[^a-zA-Z,\s]", "", input_str).strip()
-
     if "," in input_str:
         parts = [p.strip() for p in input_str.split(",") if p.strip()]
         if all(len(p) > 1 for p in parts):
             return [p[0].upper() for p in parts]
         return [p.upper() for p in parts]
-
     if re.fullmatch(r"[a-zA-Z]+", input_str):
         if len(input_str) <= 5:
             return list(input_str.upper())
         return [ch[0].upper() for ch in re.findall(r'[A-Z][a-z]*', input_str) or input_str]
-
     words = re.findall(r'\b\w+', input_str)
     return [w[0].upper() for w in words if w]
 
@@ -79,10 +76,19 @@ def get_next_entities(letters, category):
     for letter in letters:
         entities = load_entities(category, letter[0])
         if entities:
-            index = actor_index[(category, letter)] % len(entities)
+            index = actor_index[letter] % len(entities)
             selected.append(entities[index])
-            actor_index[(category, letter)] += 1
+            actor_index[letter] += 1
     return selected
+
+def find_template_key(name, templates):
+    name_lower = name.lower()
+    for key in templates:
+        if key.lower() == name_lower:
+            return key
+        if key.lower() in name_lower or name_lower in key.lower():
+            return key
+    return None
 
 def format_names(entities, category):
     if category == "cricketers":
@@ -97,12 +103,37 @@ def format_names(entities, category):
     else:
         return [e.get("name", "") for e in entities]
 
+def generate_trick_with_topic(topic, entities, templates, category):
+    if not entities:
+        return f"{topic}: {random.choice(default_lines)}"
+    names = format_names(entities, category)
+    joined_names = ", ".join(names)
+    last_key = find_template_key(names[-1], templates)
+    if last_key:
+        line = random.choice(templates[last_key])
+    else:
+        line = random.choice(default_lines)
+    return f"<b>{topic}</b>, {joined_names}: {line}"
+
+def generate_trick_sentence(entities, templates, category):
+    if not entities:
+        return "No data found for the entered letters."
+    names = format_names(entities, category)
+    combined = ", ".join(names)
+    last_key = find_template_key(names[-1], templates)
+    if last_key:
+        line = random.choice(templates[last_key])
+    else:
+        line = random.choice(default_lines)
+    return f"{combined}: {line}"
+
 @router.get("/api/tricks")
 def get_tricks(
     type: str = Query("actors", description="Type of trick (e.g., actors, cricketers, animals)"),
     letters: str = Query(None, description="Comma-separated letters or words")
 ):
     print(f"Request received: type={type}, letters={letters}")
+    templates = load_templates(type)
     sentence_templates = load_sentence_templates()
 
     input_parts = extract_letters(letters or "")
@@ -112,21 +143,33 @@ def get_tricks(
         return {"trick": "Invalid input."}
 
     if all(len(ch) == 1 for ch in input_parts):
+        if len(input_parts) > 4:
+            entities = get_next_entities(input_parts, type)
+            names = format_names(entities, type)
+            if len(names) >= 5:
+                if type == "animals" and type in sentence_templates:
+                    template = random.choice(sentence_templates[type])
+                    try:
+                        trick = template.format(*names[:5])
+                    except IndexError:
+                        trick = "Not enough names to fill the template."
+                    return {"trick": trick}
+                elif type in sentence_templates:
+                    template = random.choice(sentence_templates[type])
+                    try:
+                        trick = template.format(*names[:5])
+                    except IndexError:
+                        trick = "Not enough names to fill the template."
+                    return {"trick": trick}
         entities = get_next_entities(input_parts, type)
-        names = format_names(entities, type)
-        available_templates = sentence_templates.get(type, [])
-
-        if available_templates and 4 <= len(names) <= 8:
-            idx = len(names) - 4
-            templates = available_templates[idx] if idx < len(available_templates) else available_templates[-1]
-            template = random.choice(templates)
-            try:
-                trick = template.format(*names)
-            except IndexError:
-                trick = "Not enough names to fill the template."
-            return {"trick": trick}
-
-        return {"trick": ", ".join(names)}
+        print(f"Selected: {[e['name'] for e in entities]}")
+        trick = generate_trick_sentence(entities, templates, type)
+        return {"trick": trick}
     else:
-        return {"trick": "Word input not supported for sentence templates."}
-                        
+        topic = input_parts[0]
+        rest_letters = input_parts[1:]
+        entities = get_next_entities(rest_letters, type)
+        print(f"Word-based: {topic}, Letters: {rest_letters}, Selected: {[e['name'] for e in entities]}")
+        trick = generate_trick_with_topic(topic, entities, templates, type)
+        return {"trick": trick}
+    
